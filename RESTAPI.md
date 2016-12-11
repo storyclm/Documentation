@@ -1,29 +1,29 @@
-# REST API
+п»ї# REST API
 
-## Таблицы
+## РўР°Р±Р»РёС†С‹
 
 ### API requests
 
-Название                                                                     |      HTTP Verb               |             Описание
+РќР°Р·РІР°РЅРёРµ                                                                     |      HTTP Verb               |             РћРїРёСЃР°РЅРёРµ
 -----------------------------------------------------------------------------|------------------------------|----------------------------------------------------------------
-tables/{tableId:int}/count                                                   |        GET                   |    Получает колличество записей в таблице
-tables/{tableId:int}/countbyquery/{query:tablesquery}                        |        GET                   |    Получает колличество записей в таблице по запросу
-tables/{tableId:int}/logcount                                                |        GET                   |    Получает колличество записей в логе таблицы
-tables/{tableId:int}/logcountbydate/{date:unixdate}                          |        GET                   |    Получает колличество записей лога таблицы после указанной даты
-tables/{tableId:int}/log/{skip:int}/{take:int}                               |        GET                   |    Получает все записи лога таблицы
-tables/{tableId:int}/logbydate/{skip:int}/{take:int}/{date:unixdate}         |        GET                   |    Получает все записи лога таблицы после указанной даты
-tables/{tableId:int}/findall/{skip:int}/{take:int}                           |        GET                   |    Получает постранично все данные таблицы
-tables/{tableId:int}/find/{query:tablesquery}/{sort:int}/{sortfieldname:string}/{skip:int}/{take:int} | GET  |    Получает постранично данные по запросу
-tables/{tableId:int}/findbyid/{id:int}                                       |        GET                   |    Получает запись по идендификатору в таблице
-tables/{tableId:int}//findbyids                                              |        GET                   |    Получает коллекцию записей по списку идендификаторов в таблице
-tables/{tableId:int}/delete/{id:int}                                         |        DELETE                |    Удалить запись в таблице по идендификатору
-tables/{tableId:int}/deletemany                                              |        DELETE                |    Удаляет записи таблицы по списку идендификаторов
-tables/{tableId:int}/shema                                                   |        GET                   |    Получает схему таблицы
-tables/{tableId:int}/tables                                                  |        GET                   |    Получает список таблиц доаступных пользователю
-tables/{tableId:int}/insert                                                  |        POST                  |    Добавляет сущность в таблицу
-tables/{tableId:int}/insertmany                                              |        POST                  |    Добавляет коллекцию сущностей с таблицу
-tables/{tableId:int}/update                                                  |        PUT                   |    Перезаписывает запись целиком
-tables/{tableId:int}/updatemany                                              |        PUT                   |    Перезаписывает группу записей
+tables/{tableId:int}/count                                                   |        GET                   |    РџРѕР»СѓС‡Р°РµС‚ РєРѕР»Р»РёС‡РµСЃС‚РІРѕ Р·Р°РїРёСЃРµР№ РІ С‚Р°Р±Р»РёС†Рµ
+tables/{tableId:int}/countbyquery/{query:tablesquery}                        |        GET                   |    РџРѕР»СѓС‡Р°РµС‚ РєРѕР»Р»РёС‡РµСЃС‚РІРѕ Р·Р°РїРёСЃРµР№ РІ С‚Р°Р±Р»РёС†Рµ РїРѕ Р·Р°РїСЂРѕСЃСѓ
+tables/{tableId:int}/logcount                                                |        GET                   |    РџРѕР»СѓС‡Р°РµС‚ РєРѕР»Р»РёС‡РµСЃС‚РІРѕ Р·Р°РїРёСЃРµР№ РІ Р»РѕРіРµ С‚Р°Р±Р»РёС†С‹
+tables/{tableId:int}/logcountbydate/{date:unixdate}                          |        GET                   |    РџРѕР»СѓС‡Р°РµС‚ РєРѕР»Р»РёС‡РµСЃС‚РІРѕ Р·Р°РїРёСЃРµР№ Р»РѕРіР° С‚Р°Р±Р»РёС†С‹ РїРѕСЃР»Рµ СѓРєР°Р·Р°РЅРЅРѕР№ РґР°С‚С‹
+tables/{tableId:int}/log/{skip:int}/{take:int}                               |        GET                   |    РџРѕР»СѓС‡Р°РµС‚ РІСЃРµ Р·Р°РїРёСЃРё Р»РѕРіР° С‚Р°Р±Р»РёС†С‹
+tables/{tableId:int}/logbydate/{skip:int}/{take:int}/{date:unixdate}         |        GET                   |    РџРѕР»СѓС‡Р°РµС‚ РІСЃРµ Р·Р°РїРёСЃРё Р»РѕРіР° С‚Р°Р±Р»РёС†С‹ РїРѕСЃР»Рµ СѓРєР°Р·Р°РЅРЅРѕР№ РґР°С‚С‹
+tables/{tableId:int}/findall/{skip:int}/{take:int}                           |        GET                   |    РџРѕР»СѓС‡Р°РµС‚ РїРѕСЃС‚СЂР°РЅРёС‡РЅРѕ РІСЃРµ РґР°РЅРЅС‹Рµ С‚Р°Р±Р»РёС†С‹
+tables/{tableId:int}/find/{query:tablesquery}/{sort:int}/{sortfieldname:string}/{skip:int}/{take:int} | GET  |    РџРѕР»СѓС‡Р°РµС‚ РїРѕСЃС‚СЂР°РЅРёС‡РЅРѕ РґР°РЅРЅС‹Рµ РїРѕ Р·Р°РїСЂРѕСЃСѓ
+tables/{tableId:int}/findbyid/{id:int}                                       |        GET                   |    РџРѕР»СѓС‡Р°РµС‚ Р·Р°РїРёСЃСЊ РїРѕ РёРґРµРЅРґРёС„РёРєР°С‚РѕСЂСѓ РІ С‚Р°Р±Р»РёС†Рµ
+tables/{tableId:int}//findbyids                                              |        GET                   |    РџРѕР»СѓС‡Р°РµС‚ РєРѕР»Р»РµРєС†РёСЋ Р·Р°РїРёСЃРµР№ РїРѕ СЃРїРёСЃРєСѓ РёРґРµРЅРґРёС„РёРєР°С‚РѕСЂРѕРІ РІ С‚Р°Р±Р»РёС†Рµ
+tables/{tableId:int}/delete/{id:int}                                         |        DELETE                |    РЈРґР°Р»РёС‚СЊ Р·Р°РїРёСЃСЊ РІ С‚Р°Р±Р»РёС†Рµ РїРѕ РёРґРµРЅРґРёС„РёРєР°С‚РѕСЂСѓ
+tables/{tableId:int}/deletemany                                              |        DELETE                |    РЈРґР°Р»СЏРµС‚ Р·Р°РїРёСЃРё С‚Р°Р±Р»РёС†С‹ РїРѕ СЃРїРёСЃРєСѓ РёРґРµРЅРґРёС„РёРєР°С‚РѕСЂРѕРІ
+tables/{tableId:int}/shema                                                   |        GET                   |    РџРѕР»СѓС‡Р°РµС‚ СЃС…РµРјСѓ С‚Р°Р±Р»РёС†С‹
+tables/{tableId:int}/tables                                                  |        GET                   |    РџРѕР»СѓС‡Р°РµС‚ СЃРїРёСЃРѕРє С‚Р°Р±Р»РёС† РґРѕР°СЃС‚СѓРїРЅС‹С… РїРѕР»СЊР·РѕРІР°С‚РµР»СЋ
+tables/{tableId:int}/insert                                                  |        POST                  |    Р”РѕР±Р°РІР»СЏРµС‚ СЃСѓС‰РЅРѕСЃС‚СЊ РІ С‚Р°Р±Р»РёС†Сѓ
+tables/{tableId:int}/insertmany                                              |        POST                  |    Р”РѕР±Р°РІР»СЏРµС‚ РєРѕР»Р»РµРєС†РёСЋ СЃСѓС‰РЅРѕСЃС‚РµР№ СЃ С‚Р°Р±Р»РёС†Сѓ
+tables/{tableId:int}/update                                                  |        PUT                   |    РџРµСЂРµР·Р°РїРёСЃС‹РІР°РµС‚ Р·Р°РїРёСЃСЊ С†РµР»РёРєРѕРј
+tables/{tableId:int}/updatemany                                              |        PUT                   |    РџРµСЂРµР·Р°РїРёСЃС‹РІР°РµС‚ РіСЂСѓРїРїСѓ Р·Р°РїРёСЃРµР№
 
 
 
