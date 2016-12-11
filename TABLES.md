@@ -98,6 +98,12 @@ Name      |    Age    |   Gender     |   Rating    |    Created
 
 ![Table Image 8](./images/tables/8.png)
 
+## ƒопольнительные материалы
+
+* [StoryCLM.JS](https://github.com/storyclm/storyCLM.js) - JS библиотека, через которую можно получить доступ к API таблиц из презентаций;
+* [REST API](RESTAPI.md) - можно найти подробную информацию о работе с таблицами, использую REST API систеиы;
+* [.NET SDK](https://github.com/storyclm/.NET-SDK) - SDK, дл€ работы с системой на платформе .NET.
+
 
 
 
