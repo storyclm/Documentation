@@ -2,9 +2,9 @@
 
 ## Таблицы
 
-**[Таблицы](Tables.md)** - это релиационное хранилище данных.
+**[Таблицы](TABLES.md)** - это релиационное хранилище данных.
 
-[Таблицы](Tables.md) позволяют презентациям и внешним приложениям хранить структурированные данные на сервере, согласно схеме.
+[Таблицы](TABLES.md) позволяют презентациям и внешним приложениям хранить структурированные данные на сервере, согласно схеме.
 
 
 
@@ -366,7 +366,7 @@ tables/{tableid:int}/deletemany                                        |        
 #### CountByQuery
 
 Получает количество записей в таблице по запросу.
-Формат запроса - [TablesQuery](./TablesQuery.md).
+Формат запроса - [TablesQuery](./TABLESQUERY.md).
 
 **Запрос:**
 
@@ -375,7 +375,7 @@ tables/{tableid:int}/deletemany                                        |        
 * **URL**: https://api.storyclm.com/v1/tables/{tableid:int}/countbyquery/{query}
 * **URL параметры:**
   * **{ tableid:int }** - идентификатор таблицы
-  * **{ query:tablesquery }** - запрос в формате [TablesQuery](./TablesQuery.md)
+  * **{ query:tablesquery }** - запрос в формате [TablesQuery](./TABLESQUERY.md)
 
 **Пример:**https://api.storyclm.com/v1/tables/6/countbyquery/W2FnZV1bZ3RdWzMwXQ==
 
@@ -499,9 +499,9 @@ tables/{tableid:int}/deletemany                                        |        
 #### Find
 
 Получает постранично данные по запросу.
-Формат запроса - [TablesQuery](./TablesQuery.md).
+Формат запроса - [TablesQuery](./TABLESQUERY.md).
 
-[TablesQuery](./TablesQuery.md) - это язык запросов, разработанного специально для StoryCLM. 
+[TablesQuery](./TABLESQUERY.md) - это язык запросов, разработанного специально для StoryCLM. 
 Запрос в данном формате легко транслируется в любы другие языки запросов.
 
 Параметры из которых создается запрос могут быть двух типов: Comparison и Logical.
@@ -517,7 +517,7 @@ tables/{tableid:int}/deletemany                                        |        
   * **{ sort:int }** - тип сортировки
   * **{ skip:int }** - количество записей которые нужно пропустить 
   * **{ take:int }** - количество записей которые нужно выбрать
-  * **{ query:tablesquery }** - запрос в формате [TablesQuery](./TablesQuery.md)
+  * **{ query:tablesquery }** - запрос в формате [TablesQuery](./TABLESQUERY.md)
 
 **Пример:**https://api.storyclm.com/v1/tables/6/find/[age][gt][30]/age/1/0/100
 

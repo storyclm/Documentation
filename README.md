@@ -8,8 +8,8 @@
 
 ### Разделы документации
 
-* [Руководство пользователя по работе с порталом администрирования](Portal.md)
+* [Руководство пользователя по работе с порталом администрирования](PORTAL.md)
 * [Руководство пользователя по работе с клиентским приложением (PDF)](https://storyclm.com/app/StoryCLM_manual.pdf)
 * [StoryCLM.JS](https://github.com/storyclm/storyCLM.js)
-* [REST API](RESTApi.md)
+* [REST API](RESTAPI.md)
 * [.NET SDK](https://github.com/storyclm/.NET-SDK)

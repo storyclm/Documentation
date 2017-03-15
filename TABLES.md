@@ -101,7 +101,7 @@ Name      |    Age    |   Gender     |   Rating    |    Created
 ## Допольнительные материалы
 
 * [StoryCLM.JS](https://github.com/storyclm/storyCLM.js) - JS библиотека, через которую можно получить доступ к API таблиц из презентаций;
-* [REST API](RESTApi.md) - можно найти подробную информацию о работе с таблицами, использую REST API систеиы;
+* [REST API](RESTAPI.md) - можно найти подробную информацию о работе с таблицами, использую REST API систеиы;
 * [.NET SDK](https://github.com/storyclm/.NET-SDK) - SDK, для работы с системой на платформе .NET.
 
 
