@@ -377,7 +377,7 @@ tables/{tableid:int}/deletemany                                        |        
   * **{ tableid:int }** - идентификатор таблицы
   * **{ query:tablesquery }** - запрос в формате [TablesQuery](TABLES_QUERY.md)
 
-**Пример:**https://api.storyclm.com/v1/tables/6/countbyquery/W2FnZV1bZ3RdWzMwXQ==
+**Пример**: https://api.storyclm.com/v1/tables/6/countbyquery/W2FnZV1bZ3RdWzMwXQ==
 
 **Пример ответа:**
 
