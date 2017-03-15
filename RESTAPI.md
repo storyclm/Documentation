@@ -499,9 +499,9 @@ tables/{tableid:int}/deletemany                                        |        
 #### Find
 
 Получает постранично данные по запросу.
-Формат запроса - [TablesQuery](./TABLESQUERY.md).
+Формат запроса - [TablesQuery](TABLES_QUERY.md).
 
-[TablesQuery](./TABLESQUERY.md) - это язык запросов, разработанного специально для StoryCLM. 
+[TablesQuery](TABLES_QUERY.md) - это язык запросов, разработанного специально для StoryCLM. 
 Запрос в данном формате легко транслируется в любы другие языки запросов.
 
 Параметры из которых создается запрос могут быть двух типов: Comparison и Logical.
@@ -517,7 +517,7 @@ tables/{tableid:int}/deletemany                                        |        
   * **{ sort:int }** - тип сортировки
   * **{ skip:int }** - количество записей которые нужно пропустить 
   * **{ take:int }** - количество записей которые нужно выбрать
-  * **{ query:tablesquery }** - запрос в формате [TablesQuery](./TABLESQUERY.md)
+  * **{ query:tablesquery }** - запрос в формате [TablesQuery](TABLES_QUERY.md)
 
 **Пример:**https://api.storyclm.com/v1/tables/6/find/[age][gt][30]/age/1/0/100
 
