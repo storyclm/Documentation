@@ -2,6 +2,12 @@
 
 ## Таблицы
 
+**[Таблицы](Tables.md)** - это релиационное хранилище данных.
+
+[Таблицы](Tables.md) позволяют презентациям и внешним приложениям хранить структурированные данные на сервере, согласно схеме.
+
+
+
 ### API requests
 
 Название                                                               |      HTTP Verb     |             Описание
@@ -33,11 +39,11 @@ tables/{tableid:int}/deletemany                                        |        
 
 * **Method**: GET
 * **Accept**: application/json
-* **URL**:https://api.storyclm.com/v1/tables/{clientid:int}/tables
+* **URL**: https://api.storyclm.com/v1/tables/{clientid:int}/tables
 * **URL параметры**:
   * **{ clientid:int }** - идентификатор клиента;
 
-**Пример**:https://api.storyclm.com/v1/tables/1/tables
+**Пример**: https://api.storyclm.com/v1/tables/1/tables
 
 **Пример ответа:**
 
@@ -105,7 +111,7 @@ tables/{tableid:int}/deletemany                                        |        
 
 * **Method:** POST
 * **Accept:** application/json
-* **URL:**https://api.storyclm.com/v1/tables/{tableid:int}/insert
+* **URL**: https://api.storyclm.com/v1/tables/{tableid:int}/insert
 * **URL параметры:**
   * **{ tableid:int }** - идентификатор таблицы;
 
@@ -120,7 +126,7 @@ tables/{tableid:int}/deletemany                                        |        
 }
 ```
 
-**Пример:**https://api.storyclm.com/v1/tables/6/insert
+**Пример**: https://api.storyclm.com/v1/tables/6/insert
 
 **Ответ:**
 
@@ -147,7 +153,7 @@ tables/{tableid:int}/deletemany                                        |        
 
 * **Method:** POST
 * **Accept:** application/json
-* **URL:**https://api.storyclm.com/v1/tables/{tableid:int}/insertmany
+* **URL**: https://api.storyclm.com/v1/tables/{tableid:int}/insertmany
 * **URL параметры:**
   * **{ tableid:int }** - идентификатор таблицы;
 
@@ -181,7 +187,7 @@ tables/{tableid:int}/deletemany                                        |        
 ]
   ```
 
-**Пример:**https://api.storyclm.com/api/v1/tables/6/insertmany
+**Пример**: https://api.storyclm.com/api/v1/tables/6/insertmany
 
 **Пример ответа**
 
@@ -216,13 +222,13 @@ tables/{tableid:int}/deletemany                                        |        
 #### Update
 
 Перезаписывает запись целиком.
-идентификатор записи остается неизменным.
+Идентификатор записи остается неизменным.
 
 **Запрос:**
 
 * **Method:** PUT
 * **Accept:** application/json
-* **URL:**https://api.storyclm.com/v1/tables/{tableid:int}/update
+* **URL**: https://api.storyclm.com/v1/tables/{tableid:int}/update
 * **URL параметры:**
   * **{ tableid:int }** - идентификатор таблицы;
 
@@ -238,7 +244,7 @@ tables/{tableid:int}/deletemany                                        |        
 }
 ```
 
-**Пример:** https://localhost:44301/api/v1/tables/6/update
+**Пример:** https://api.storyclm.com/api/v1/tables/6/update
 
 **Пример ответа:**
 
@@ -264,7 +270,7 @@ tables/{tableid:int}/deletemany                                        |        
 
 * **Method:** PUT
 * **Accept:** application/json
-* **URL:**https://api.storyclm.com/v1/tables/{tableid:int}/updatemany
+* **URL**: https://api.storyclm.com/v1/tables/{tableid:int}/updatemany
 * **URL параметры:**
   * **{ tableid:int }** - идентификатор таблицы
 
@@ -298,7 +304,7 @@ tables/{tableid:int}/deletemany                                        |        
 ]
 ```
 
-**Пример:**https://api.storyclm.com/v1/tables/6/updatemany
+**Пример**: https://api.storyclm.com/v1/tables/6/updatemany
 
 **Пример ответа:**
 
@@ -341,11 +347,11 @@ tables/{tableid:int}/deletemany                                        |        
 
 * **Method:** GET
 * **Accept:** application/json
-* **URL:**https://api.storyclm.com/v1/tables/{tableid:int}/count
+* **URL**: https://api.storyclm.com/v1/tables/{tableid:int}/count
 * **URL параметры:**
   * **{ tableid:int }** - идентификатор таблицы
 
-**Пример:**https://api.storyclm.com/v1/tables/6/count
+**Пример:** https://api.storyclm.com/v1/tables/6/count
 
 **Пример ответа:**
 
@@ -360,16 +366,16 @@ tables/{tableid:int}/deletemany                                        |        
 #### CountByQuery
 
 Получает количество записей в таблице по запросу.
-Формат запроса - [TablesQuery](./tablesquery.md).
+Формат запроса - [TablesQuery](./TablesQuery.md).
 
 **Запрос:**
 
 * **Method:** GET
 * **Accept:** application/json
-* **URL:**https://api.storyclm.com/v1/tables/{tableid:int}/countbyquery/{query}
+* **URL**: https://api.storyclm.com/v1/tables/{tableid:int}/countbyquery/{query}
 * **URL параметры:**
   * **{ tableid:int }** - идентификатор таблицы
-  * **{ query:tablesquery }** - запрос в формате [TablesQuery](./tablesquery.md)
+  * **{ query:tablesquery }** - запрос в формате [TablesQuery](./TablesQuery.md)
 
 **Пример:**https://api.storyclm.com/v1/tables/6/countbyquery/W2FnZV1bZ3RdWzMwXQ==
 
@@ -391,11 +397,11 @@ tables/{tableid:int}/deletemany                                        |        
 
 * **Method:** GET
 * **Accept:** application/json
-* **URL:**https://api.storyclm.com/v1/tables/{tableid:int}/logcount
+* **URL:**: https://api.storyclm.com/v1/tables/{tableid:int}/logcount
 * **URL параметры:**
   * **{ tableid:int }** - идентификатор таблицы
 
-**Пример:**https://api.storyclm.com/v1/tables/6/logcount
+**Пример**: https://api.storyclm.com/v1/tables/6/logcount
 
 **Пример ответа:**
 
@@ -415,12 +421,12 @@ tables/{tableid:int}/deletemany                                        |        
 
 * **Method:** GET
 * **Accept:** application/json
-* **URL:**https://api.storyclm.com/v1/tables/{tableid:int}/logcountbydate/{date}
+* **URL**: https://api.storyclm.com/v1/tables/{tableid:int}/logcountbydate/{date}
 * **URL параметры:**
   * **{ tableid:int }** - идентификатор таблицы
   * **{ date:unixdate }** - дата в формате Unix Date
 
-**Пример:**https://api.storyclm.com/v1/tables/6/logcountbydate/1476486547
+**Пример**: https://api.storyclm.com/v1/tables/6/logcountbydate/1476486547
 
 **Пример ответа:**
 
@@ -441,13 +447,13 @@ tables/{tableid:int}/deletemany                                        |        
 
 * **Method:** GET
 * **Accept:** application/json
-* **URL:**https://api.storyclm.com/v1/tables/{tableid:int}/findall/{skip:int}/{take:int}
+* **URL**: https://api.storyclm.com/v1/tables/{tableid:int}/findall/{skip:int}/{take:int}
 * **URL параметры:**
   * **{ tableid:int }** - идентификатор таблицы
   * **{ skip:int }** - количество записей которые нужно пропустить 
   * **{ take:int }** - количество записей которые нужно выбрать
 
-**Пример:**https://api.storyclm.com/v1/tables/6/findall/0/100
+**Пример**: https://api.storyclm.com/v1/tables/6/findall/0/100
 
 **Пример ответа:**
 
@@ -493,9 +499,9 @@ tables/{tableid:int}/deletemany                                        |        
 #### Find
 
 Получает постранично данные по запросу.
-Формат запроса - [TablesQuery](./tablesquery.md).
+Формат запроса - [TablesQuery](./TablesQuery.md).
 
-[TablesQuery](./tablesquery.md) - это язык запросов, разработанного специально для StoryCLM. 
+[TablesQuery](./TablesQuery.md) - это язык запросов, разработанного специально для StoryCLM. 
 Запрос в данном формате легко транслируется в любы другие языки запросов.
 
 Параметры из которых создается запрос могут быть двух типов: Comparison и Logical.
@@ -504,14 +510,14 @@ tables/{tableid:int}/deletemany                                        |        
 
 * **Method:** GET
 * **Accept:** application/json
-* **URL:**https://api.storyclm.com/v1/tables/{tableid:int}/find/{query}/{sortfield}/{sort:int}/{skip:int}/{take:int}
+* **URL**: https://api.storyclm.com/v1/tables/{tableid:int}/find/{query}/{sortfield}/{sort:int}/{skip:int}/{take:int}
 * **URL параметры:**
   * **{ tableid:int }** - идентификатор таблицы
   * **{ sortfield:string }** - поле, по которому будет произведена сортировка
   * **{ sort:int }** - тип сортировки
   * **{ skip:int }** - количество записей которые нужно пропустить 
   * **{ take:int }** - количество записей которые нужно выбрать
-  * **{ query:tablesquery }** - запрос в формате [TablesQuery](./tablesquery.md)
+  * **{ query:tablesquery }** - запрос в формате [TablesQuery](./TablesQuery.md)
 
 **Пример:**https://api.storyclm.com/v1/tables/6/find/[age][gt][30]/age/1/0/100
 
@@ -564,12 +570,12 @@ tables/{tableid:int}/deletemany                                        |        
 
 * **Method:** GET
 * **Accept:** application/json
-* **URL:**https://api.storyclm.com/v1/tables/{tableid:int}/findbyid/{id}
+* **URL**: https://api.storyclm.com/v1/tables/{tableid:int}/findbyid/{id}
 * **URL параметры:**
   * **{ tableid:int }** - идентификатор таблицы
   * **{ id:string }** - идентификатор записи в таблице 
 
-**Пример:**https://api.storyclm.com/v1/tables/6/findbyid/582230dff3afce8b106ba438
+**Пример**: https://api.storyclm.com/v1/tables/6/findbyid/582230dff3afce8b106ba438
 
 **Пример ответа:**
 
@@ -594,7 +600,7 @@ tables/{tableid:int}/deletemany                                        |        
 
 * **Method:** GET
 * **Accept:** application/json
-* **URL:**https://api.storyclm.com/v1/tables/{tableid:int}/findbyids
+* **URL**: https://api.storyclm.com/v1/tables/{tableid:int}/findbyids
 * **URL параметры:**
   * **{ tableid:int }** - идентификатор таблицы
 
@@ -654,7 +660,7 @@ tables/{tableid:int}/deletemany                                        |        
 
 * **Method:** GET
 * **Accept:** application/json
-* **URL:** https://admin.storyclm.com/{tableid:int}/log/{skip:int}/{take:int}
+* **URL**: https://admin.storyclm.com/{tableid:int}/log/{skip:int}/{take:int}
 * **URL параметры:**
   * **{ tableid:int }** - идентификатор таблицы
   * **{ skip:int }** - количество записей которые нужно пропустить 
@@ -757,14 +763,14 @@ tables/{tableid:int}/deletemany                                        |        
 
 * **Method:** GET
 * **Accept:** application/json
-* **URL:**https://api.storyclm.com/v1/tables/{tableid:int}/logbydate/{date}/{skip:int}/{take:int}
+* **URL**: https://api.storyclm.com/v1/tables/{tableid:int}/logbydate/{date}/{skip:int}/{take:int}
 * **URL параметры:**
   * **{ tableid:int }** - идентификатор таблицы
   * **{ date:unixdate }** - дата в формате Unix Date
   * **{ skip:int }** - количество записей которые нужно пропустить 
   * **{ take:int }** - количество записей которые нужно выбрать
 
-**Пример:**https://api.storyclm.com/v1/tables/6/logbydate/1476486560/0/100
+**Пример**: https://api.storyclm.com/v1/tables/6/logbydate/1476486560/0/100
 
 **Пример ответа:**
 
@@ -861,12 +867,12 @@ tables/{tableid:int}/deletemany                                        |        
 
 * **Method:** DELETE
 * **Accept:** application/json
-* **URL:**https://api.storyclm.com/v1/tables/{tableid:int}/delete/{id}
+* **URL**: https://api.storyclm.com/v1/tables/{tableid:int}/delete/{id}
 * **URL параметры:**
   * **{ tableid:int }** - идентификатор таблицы
   * **{ id:string }** - идентификатор записи в таблице 
 
-**Пример:**https://api.storyclm.com/v1/tables/6/delete/582230dff3afce8b106ba438
+**Пример**: https://api.storyclm.com/v1/tables/6/delete/582230dff3afce8b106ba438
 
 **Ответ:**
 
@@ -889,7 +895,7 @@ tables/{tableid:int}/deletemany                                        |        
 
 * **Method:** DELETE
 * **Accept:** application/json
-* **URL:**https://api.storyclm.com/v1/tables/{tableid:int}/deletemany
+* **URL**: https://api.storyclm.com/v1/tables/{tableid:int}/deletemany
 * **URL параметры:**
   * **{ tableid:int }** - идентификатор таблицы
 
@@ -898,7 +904,7 @@ tables/{tableid:int}/deletemany                                        |        
  ids=582230dff3afce8b106ba438&ids=582230e0f3afce8b106ba43a&ids=582230e0f3afce8b106ba43b&ids=582230e0f3afce8b106ba43c
  ```
 
-**Пример:**https://api.storyclm.com/v1/tables/6/deletemany?ids=582230dff3afce8b106ba438&ids=582230e0f3afce8b106ba43a&ids=582230e0f3afce8b106ba43b&ids=582230e0f3afce8b106ba43c
+**Пример**: https://api.storyclm.com/v1/tables/6/deletemany?ids=582230dff3afce8b106ba438&ids=582230e0f3afce8b106ba43a&ids=582230e0f3afce8b106ba43b&ids=582230e0f3afce8b106ba43c
 
 **Пример ответа:**
 
