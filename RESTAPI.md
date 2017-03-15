@@ -366,7 +366,7 @@ tables/{tableid:int}/deletemany                                        |        
 #### CountByQuery
 
 Получает количество записей в таблице по запросу.
-Формат запроса - [TablesQuery](TABLESQUERY.md).
+Формат запроса - [TablesQuery](TABLES_QUERY.md).
 
 **Запрос:**
 
@@ -375,7 +375,7 @@ tables/{tableid:int}/deletemany                                        |        
 * **URL**: https://api.storyclm.com/v1/tables/{tableid:int}/countbyquery/{query}
 * **URL параметры:**
   * **{ tableid:int }** - идентификатор таблицы
-  * **{ query:tablesquery }** - запрос в формате [TablesQuery](./TABLESQUERY.md)
+  * **{ query:tablesquery }** - запрос в формате [TablesQuery](TABLES_QUERY.md)
 
 **Пример:**https://api.storyclm.com/v1/tables/6/countbyquery/W2FnZV1bZ3RdWzMwXQ==
 
