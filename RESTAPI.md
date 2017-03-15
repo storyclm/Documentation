@@ -1,4 +1,106 @@
-﻿# REST API
+﻿# [REST API](https://ru.wikipedia.org/wiki/REST)
+
+## Аутентифкация и Авторизация
+
+### Общая информация
+
+Аутентифкация и авторизация на портале осуществляется по средствам двух протоколов: [OAuth 2](https://ru.wikipedia.org/wiki/OAuth)
+и [OpenID Connect](https://ru.wikipedia.org/wiki/OpenID), работающих в тандеме.
+
+[OAuth 2](https://ru.wikipedia.org/wiki/OAuth) — открытый протокол авторизации, который позволяет предоставить третьей стороне ограниченный доступ к защищенным ресурсам пользователя без необходимости передавать ей (третьей стороне) логин и пароль.
+
+[OpenID Connect](https://ru.wikipedia.org/wiki/OpenID) - открытый стандарт децентрализованной системы аутентификации, предоставляющей пользователю возможность создать единую учётную запись для аутентификации на множестве не связанных друг с другом интернет-ресурсов, используя услуги третьих лиц.
+
+Доступ к API StoryCLM предоставляется по [JWT токенам](https://jwt.io/introduction/). Токены выдает сервер - [auth.storyclm.com](https://auth.storyclm.com/).
+На этом же сервере можно получить конфигурацию OpenID Connect. Для этого нужно выполнить запрос:
+
+**Запрос:**
+
+* **Method**: GET
+* **URL**: https://auth.storyclm.com/.well-known/openid-configuration
+
+**Ответ:**
+
+```JSON
+{
+   "issuer":"https://auth.storyclm.com",
+   "jwks_uri":"https://auth.storyclm.com/.well-known/openid-configuration/jwks",
+   "authorization_endpoint":"https://auth.storyclm.com/connect/authorize",
+   "token_endpoint":"https://auth.storyclm.com/connect/token",
+   "userinfo_endpoint":"https://auth.storyclm.com/connect/userinfo",
+   "end_session_endpoint":"https://auth.storyclm.com/connect/endsession",
+   "check_session_iframe":"https://auth.storyclm.com/connect/checksession",
+   "revocation_endpoint":"https://auth.storyclm.com/connect/revocation",
+   "introspection_endpoint":"https://auth.storyclm.com/connect/introspect",
+   "frontchannel_logout_supported":true,
+   "frontchannel_logout_session_supported":true,
+   "scopes_supported":[
+      "api",
+      "offline_access"
+   ],
+   "claims_supported":[
+
+   ],
+   "response_types_supported":[
+      "code",
+      "token",
+      "id_token",
+      "id_token token",
+      "code id_token",
+      "code token",
+      "code id_token token"
+   ],
+   "response_modes_supported":[
+      "form_post",
+      "query",
+      "fragment"
+   ],
+   "grant_types_supported":[
+      "authorization_code",
+      "client_credentials",
+      "refresh_token",
+      "implicit"
+   ],
+   "subject_types_supported":[
+      "public"
+   ],
+   "id_token_signing_alg_values_supported":[
+      "RS256"
+   ],
+   "token_endpoint_auth_methods_supported":[
+      "client_secret_basic",
+      "client_secret_post"
+   ],
+   "code_challenge_methods_supported":[
+      "plain",
+      "S256"
+   ]
+}
+
+  ```
+### Активация
+
+Для того что бы получить доступ к REST API своего клиента, нужно его активировать ("включить") на панели администрирования.
+Для этого в клиенте, к api которого нужно получить доступ, надо перейти в раздел "Интеграция".
+
+![rest Image 1](./images/rest/1.png)
+
+Панель доступа к API состоит из трех контролов:
+* API - доступ к API.
+* CLIENT ID - идентификатор клиента. Нужен для получения токена.
+* KEY - ключ доступа к API. Нужен для получения токена.
+
+![rest Image 1](./images/rest/3.png)
+
+Контролл "API" нужно перевести в положение "ON".
+
+![rest Image 1](./images/rest/2.png)
+
+В этом режиме сервер начнет выдавать токены. Стоит отметить, что в режиме "OFF", сервер аутентификации просто перестает выдавать новые токины. 
+Доступ к API по токенам, выданым раньше, будет предоставляться до истечения их срока действия. Так же при изменении режимов, поле "KEY" будет каждый раз меняться.
+Необходимо это учитывать так как старый ключ доступа уже не будет работать.
+
+
 
 ## Таблицы
 
