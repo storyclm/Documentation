@@ -366,7 +366,7 @@ tables/{tableid:int}/deletemany                                        |        
 #### CountByQuery
 
 Получает количество записей в таблице по запросу.
-Формат запроса - [TablesQuery](./TABLESQUERY.md).
+Формат запроса - [TablesQuery](TABLESQUERY.md).
 
 **Запрос:**
 
