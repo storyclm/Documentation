@@ -1,4 +1,4 @@
-﻿# [REST API](https://ru.wikipedia.org/wiki/REST)
+﻿## [REST API](https://ru.wikipedia.org/wiki/REST)
 
 ## Аутентифкация и Авторизация
 
@@ -12,7 +12,7 @@
 [OpenID Connect](https://ru.wikipedia.org/wiki/OpenID) - открытый стандарт децентрализованной системы аутентификации, предоставляющей пользователю возможность создать единую учётную запись для аутентификации на множестве не связанных друг с другом интернет-ресурсов, используя услуги третьих лиц.
 
 Доступ к API StoryCLM предоставляется по [JWT токенам](https://jwt.io/introduction/). Токены выдает сервер - [auth.storyclm.com](https://auth.storyclm.com/).
-На этом же сервере можно получить конфигурацию OpenID Connect. Для этого нужно выполнить запрос:
+На этом сервере можно получить конфигурацию OpenID Connect, выполнив запрос:
 
 **Запрос:**
 
@@ -76,17 +76,16 @@
       "S256"
    ]
 }
-
   ```
 ### Активация
 
-Для того что бы получить доступ к REST API своего клиента, нужно его активировать ("включить") на панели администрирования.
+Для того что бы получить доступ к REST API своего клиента нужно его активировать на панели администрирования.
 Для этого в клиенте, к api которого нужно получить доступ, надо перейти в раздел "Интеграция".
 
 ![rest Image 1](./images/rest/1.png)
 
 Панель доступа к API состоит из трех контролов:
-* API - доступ к API.
+* API - регулирует доступ к API.
 * CLIENT ID - идентификатор клиента. Нужен для получения токена.
 * KEY - ключ доступа к API. Нужен для получения токена.
 
@@ -100,6 +99,57 @@
 Доступ к API по токенам, выданым раньше, будет предоставляться до истечения их срока действия. Так же при изменении режимов, поле "KEY" будет каждый раз меняться.
 Необходимо это учитывать так как старый ключ доступа уже не будет работать.
 
+### Получение токена
+
+Что бы получить доступ к ресурсам API, нужно авторизоваться и получить токен.
+В противном случае, без токена сервер будет отвечать сообщением с кодом 401 (Unauthorized).
+Для того что бы получить токен нужно выполнить запрос:
+
+**Запрос:**
+
+* **Method:** POST
+* **Content-Type:** multipart/form-data
+* **URL**: https://auth.storyclm.com/connect/token
+
+**Форма:**
+``` 
+grant_type=client_credentials&
+client_id=client_20&
+client_secret=b9daff3eb63a4c929bcdb774f82b48a892c57bee53834ec3bb8e741cd396393c
+```
+
+Где client_id это CLIENT ID:
+
+![rest Image 4](./images/rest/4.png)
+
+А client_secret это KEY:
+
+![rest Image 5](./images/rest/5.png)
+
+В случае успеха должен быть получен ответ типа:
+
+**Ответ:**
+
+* **Тело ответа**:
+``` json
+{
+  "access_token": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImJlMjcxZjEwYmVlZWQ5OTEyMDQyYWZhYzY1MzQ0MGVkIiwidHlwIjoiSldUIn0.eyJuYmYiOjE0ODk2NjIwNDAsImV4cCI6MTQ4OTY2NTY0MCwiaXNzIjoiaHR0cHM6Ly9hdXRoLnN0b3J5Y2xtLmNvbSIsImF1ZCI6WyJodHRwczovL2F1dGguc3RvcnljbG0uY29tL3Jlc291cmNlcyIsImFwaSJdLCJjbGllbnRfaWQiOiJjbGllbnRfMjAiLCJtYXN0ZXIiOiJmYWxzZSIsInNjb3BlIjpbImFwaSJdfQ.pkY_lT89YU232DcMdr5cu_zboqFRwfgLWzGQu-ujSTKwaICvRvIFOsyucy76_17a0ly4BgPwOuVP7U_DTqMnyxgr16MTI5w7SXi2qnhapP1KyRy1WGfcR1RbVnDHH7ysiuUpHfwI4-xDYwmc4M2gbtBu2dY-tNYXsifCvcVaUEhXPQ99uuKL_1M6iKw6B6fnBNYyljQmVb84qSPGZZ678UoehL9RjnLHUzvd8tvr-yD-uDhc4TBT0u6KY_usPxImKyHo_Ela8pUSJ--wi6Vg6uh2KNLZJwm3DNCJ4M4PeeABu8eaZ9saIocxPvxZXNLlG9g0aMiJi4SJJySLkCuAIg",
+  "expires_in": 3600,
+  "token_type": "Bearer"
+}
+```
+
+Полученный объект содержит три поля:
+* access_token - сам токен.
+* expires_in - время жизни токена в секундах.
+* token_type - тип токена.
+
+Теперь в каждый запрос к сервису, в заголовок, нужно добавлять access_token в формате:
+``` 
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImJlMjcxZjEwYmVlZWQ5OTEyMDQ...
+```
+Следует отметить, что токен живет час. После чего от сервера будет приходить код 401 (Unauthorized).
+Что бы избежать этого нужно получать новый токен до истечения срока действия текущего.
 
 
 ## Таблицы
