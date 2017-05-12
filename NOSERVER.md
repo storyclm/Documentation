@@ -1,8 +1,8 @@
-﻿# Интеграция в обход сервера StoryCLM
+﻿# Интеграция "Тонкий клиент"
 
 ## Общие положения
 
-Приложение работающее на платформе StoryCLM может напрямую обмеиватся данными с внешними сервисами по протоколу HTTP в обход сервера StoryCLM. Это позволяет встраивать средсва интеграции непосредсвенно в презентацию. Тем самым презентация может выступать в роли тонкого клиента, сервиса, оставаясь при этом тесно связаной с StoryCLM через API. Это позволяет, оставаясь в рамка StoryCLM, используя API StoryCLM и внешниие сервисы, делать гибридные приложения-презентации с расшириным функционалом. [переделать]
+Самый простой способ интеграции. Приложение работающее на платформе StoryCLM может напрямую обмеиватся данными с внешними сервисами по протоколу HTTP в обход сервера StoryCLM. Это позволяет встраивать средсва интеграции непосредсвенно в презентацию. Тем самым, презентация может выступать в роли тонкого клиента стороннего сервиса, оставаясь при этом тесно связаной с StoryCLM через API. Это позволяет, оставаясь в рамка StoryCLM, используя API StoryCLM и внешниие сервисы, делать гибридные приложения-презентации с расшириным функционалом.
 
 Принципиальная схема:
 
@@ -10,47 +10,34 @@
 
 Подобный подход позволяет реализоваь два сценария интеграции:
 
-1. Без участия сервера.
-2. Посредник.
+1. Тонкий клиент.
+2. Концентратор.
 
-**Без участия сервера.** Презентация обменивается сообщениями с REST или SOAP сервисом, посылая запросы. На стороне презентации данные хранятся только в localstorage или не хранятся совсем. Презентация выступает в роли тонкого клиента. StoryCLM в данном случае только управлеят контентом, собирает базовую статистику и управляет пользователями и доступом.[переделать]
+**Тонкий клиент.** Презентация обменивается сообщениями с REST или SOAP сервисом, посылая запросы напрямую. На стороне презентации: графический интерфейс, простая бизнеслогика и логика обмена данными с сервисом. Данные на клиентской стороне хранятся только в localstorage или не хранятся совсем. Презентация выступает в роли тонкого клиента. StoryCLM в данном случае только управлеят контентом, собирает базовую статистику и управляет пользователями и доступом. Это самый простой и легкий способ интеграции. 
 
-Плюсы: 
-1. Самый простой и легкий способ интеграции.
-
-Минусы:
-1. Нужен постоянный и стабильный интернет.
-2. Не очень надежный способ хранения данных на стороне презентации.
-
-**Посредник.** Презентация обменивается данными как с со сторонними сервисами так и с серверной частью StoryCLM. При таком подходе данные хранятся в таблицах и происходит постоянная синхронизация с внешними сервисами. Это удобно елси презентация является агригатором данных из трех источников: стороннего червиса, StoryCLM и пользователей. Например есть презентация с формой, часть данных приходит от внешнего сервиса а часть пользователь воодит вручную, данные собираются и отправляются в StoryCLM и после обработки в сторонние сервисы интегрируемые со StoryCLM. [переделать]
-
-Плюсы: 
-1. Централизованное хранение данных. Данные хранятся в StoryCLM и доступны другим презентациям и интегрируемым сервисам.
-
-Минусы:
-1. Более сложная реализация.
-
-[полностью переделать весь абзац]
+**Концентратор.** Презентация обменивается данными как со сторонними сервисами так и с серверной частью StoryCLM. При таком подходе данные хранятся в таблицах и происходит постоянная синхронизация с внешними сервисами. Это удобно, елси презентация является агригатором данных из трех и больше источников: стороннего сервиса, StoryCLM и данных пользовательского ввода. Частично данные извлекаются из стороннего сервиса, например поля-списки формы. Часть данных вносит пользователь, выбирая элемент списка или заполняя поля формы. Данные из фомы собираются и отправляются в StoryCLM, где они обрабатываются и, если нужно, отправляются в CRM или другой сторонний сервис.
 
 ## Интеграция
 
-Интеграция происходит прямо в бизнес логике презентации, путем встраивания туда специального кода.
+Библиотека [StoryCLM.JS](https://github.com/storyclm/storyCLM.js) имеет раздел [Http](https://github.com/storyclm/storyCLM.js#http). Этот раздел содержит методы, которые позволяют презентации взаимодействовать с внешними сервисами по протоколу HTTP. Для того что бы получить доступ к этим методам нужно подключить библиотеку.
 
-Библиотека [StoryCLM.JS](https://github.com/storyclm/storyCLM.js) имеет раздел [Http](https://github.com/storyclm/storyCLM.js#http). Этот раздел содержит методы, которые позволяют презентации взаимодействовать с внешними сервисами по протоколу HTTP, отправляя запросы и полчая ответы:
+**Подключение**
+
+```sh
+<script src="js/storyclm-1.6.0.js"></script>
+```
+Раздел "Http"имеет четыре метода:
 
 1. Post - отправляет запрос с методом POST;
 2. Put - отправляет запрос с методом Put;
 3. Get - отправляет запрос с методом Get;
 4. Delete - отправляет запрос с методом Delete;
 
-
-### Запрос
-
-Запрос может состоять из трех частей:
+Каждый их этих методов посылает запрос к сервису. Запрос может состоять из трех частей:
 
 * Body - данные в формате Base64
 * Header - объект-коллекция заголовков.
-* URL - уникальный идендифкатор ресурса.
+* URL - уникальный идентифкатор ресурса.
 
 **Body**
 
@@ -71,11 +58,11 @@
 
     var body = utf8_to_b64(JSON.stringify(entry, null, 4));
 ```
-В данном примере, создается объект. Так как сервис принимает данные в виде JSON, то используется метод "stringify" класса "JSON" для перевода объекта в текстовый документ в формате JSON. Далее метод "utf8_to_b64" перводит текстовый объект в Base64 строку. Эта строка и будет телом запроса. Если нужно будет отправить обычную форму, то...
+В данном примере, создается объект. Так как сервис принимает данные в виде JSON, то используется метод "stringify" класса "JSON" для перевода объекта в текстовый документ в формате JSON. Далее метод "utf8_to_b64" перводит текстовый объект в Base64 строку. Эта строка и будет телом запроса.
 
 **Header**
 
-Если потребуется, можно задать список заголовков. Список заголовков доблжен быть в виде объекта:
+Необязательная часть. Если потребуется, можно задать список заголовков. Список заголовков доблжен быть в виде объекта:
 ```
     var headers = {
         "Accept": "application/json",
@@ -84,12 +71,528 @@
         "Content-Type": "application/json"
     };
 ```
-
 **URL**
 
-Уникальный идентификатор ресурса.
+Уникальный идентификатор ресурса. Конечная точка сервиса.
 
-Тело ответа и заголовки ответа приходят в аналогичных форматах. После получения, тело нужно декодировать из Base64.
+Тело ответа и заголовки ответа приходят в аналогичных форматах. После получения, тело нужно декодировать из Base64 в ожидаемый формат.
+
+## Методы
+
+
+#### Method: StoryCLM.Http.Post
+
+```sh
+ StoryCLM.Http.Post(url, body, headers, callback);
+```
+**Описание:**
+
+Отправляет запрос с методом POST.
+
+**Параметры:**
+
+* url - идентификатор (адрес) ресурса.
+* body - тело запроса. Строка в формате Base64.
+* headers - набор заголовков.
+* callback - функция, в которую будет передан результат выполнения операции.
+
+**Запрос:**
+```sh
+{
+    "Command": "httppost",
+    "Data": {
+        "url": "https://jsonplaceholder.typicode.com/posts",
+        "body": "JTI1N0IlMjUwQSUyNTIwJTI1MjAlMjUyMCUyNTIwJTI1MjJ1c2VySWQlMjUyMiUyNTNBJTI1MjA2NjYlMjUyQyUyNTBBJTI1MjAlMjUyMCUyNTIwJTI1MjAlMjUyMmlkJTI1MjIlMjUzQSUyNTIwNTU1JTI1MkMlMjUwQSUyNTIwJTI1MjAlMjUyMCUyNTIwJTI1MjJ0aXRsZSUyNTIyJTI1M0ElMjUyMCUyNTIydGVzdCUyNTIyJTI1MkMlMjUwQSUyNTIwJTI1MjAlMjUyMCUyNTIwJTI1MjJib2R5JTI1MjIlMjUzQSUyNTIwJTI1MjJ0ZXN0JTI1MjIlMjUwQSUyNTdE",
+        "headers": {
+            "Accept": "application/json",
+            "Accept-Language": "en-us,en;q=0.5",
+            "Accept-Charset": "utf-8",
+            "Content-Type": "application/json"
+        }
+    }
+}
+```
+**Ответ:**
+```sh
+{
+  "ErrorMessage" : "",
+  "Status" : "created",
+  "ErrorCode" : 201,
+  "Data" : {
+    "headers" : {
+      "Content-Type" : "application\/json; charset=utf-8",
+      "Pragma" : "no-cache",
+      "x-powered-by" : "Express",
+      "Via" : "1.1 vegur",
+      "Server" : "cloudflare-nginx",
+      "Expires" : "-1",
+      "Cache-Control" : "no-cache",
+      "Date" : "Thu, 20 Apr 2017 13:46:15 GMT",
+      "access-control-allow-credentials" : "true",
+      "Content-Length" : "69",
+      "x-content-type-options" : "nosniff",
+      "Etag" : "W\/\"45-t\/mYTZNeHjOxV+BVh0Fzsrtii50\"",
+      "Vary" : "Origin, X-HTTP-Method-Override, Accept-Encoding",
+      "cf-ray" : "35288c76ba8b4e0c-DME"
+    },
+    "body" : "ewogICJ1c2VySWQiOiA2NjYsCiAgImlkIjogNTU1LAogICJ0aXRsZSI6ICJ0ZXN0IiwKICAiYm9keSI6ICJ0ZXN0Igp9"
+  }
+}
+```
+**Тело ответа:**
+```sh
+{
+    "userId": 666,
+    "id": 555,
+    "title": "test",
+    "body": "test"
+}
+```
+--------------------------
+
+#### Method: StoryCLM.Http.Post
+
+```sh
+ StoryCLM.Http.Post(url, body, callback);
+```
+**Описание:**
+
+Отправляет запрос с методом POST.
+
+**Параметры:**
+
+* url - идентификатор (адрес) ресурса.
+* body - тело запроса. Строка в формате Base64.
+* callback - функция, в которую будет передан результат выполнения операции.
+
+**Запрос:**
+```sh
+{
+    "Command": "httppost",
+    "Data": {
+        "url": "https://jsonplaceholder.typicode.com/posts",
+        "body": "JTI1N0IlMjUwQSUyNTIwJTI1MjAlMjUyMCUyNTIwJTI1MjJ1c2VySWQlMjUyMiUyNTNBJTI1MjA2NjYlMjUyQyUyNTBBJTI1MjAlMjUyMCUyNTIwJTI1MjAlMjUyMmlkJTI1MjIlMjUzQSUyNTIwNTU1JTI1MkMlMjUwQSUyNTIwJTI1MjAlMjUyMCUyNTIwJTI1MjJ0aXRsZSUyNTIyJTI1M0ElMjUyMCUyNTIydGVzdCUyNTIyJTI1MkMlMjUwQSUyNTIwJTI1MjAlMjUyMCUyNTIwJTI1MjJib2R5JTI1MjIlMjUzQSUyNTIwJTI1MjJ0ZXN0JTI1MjIlMjUwQSUyNTdE",
+        "headers": {}
+    }
+}
+```
+**Ответ:**
+```sh
+{
+  "ErrorMessage" : "",
+  "Status" : "created",
+  "ErrorCode" : 201,
+  "Data" : {
+    "headers" : {
+      "Content-Type" : "application\/json; charset=utf-8",
+      "Pragma" : "no-cache",
+      "x-powered-by" : "Express",
+      "Via" : "1.1 vegur",
+      "Server" : "cloudflare-nginx",
+      "Expires" : "-1",
+      "Cache-Control" : "no-cache",
+      "Date" : "Thu, 20 Apr 2017 13:46:15 GMT",
+      "access-control-allow-credentials" : "true",
+      "Content-Length" : "69",
+      "x-content-type-options" : "nosniff",
+      "Etag" : "W\/\"45-t\/mYTZNeHjOxV+BVh0Fzsrtii50\"",
+      "Vary" : "Origin, X-HTTP-Method-Override, Accept-Encoding",
+      "cf-ray" : "35288c76ba8b4e0c-DME"
+    },
+    "body" : "ewogICJ1c2VySWQiOiA2NjYsCiAgImlkIjogNTU1LAogICJ0aXRsZSI6ICJ0ZXN0IiwKICAiYm9keSI6ICJ0ZXN0Igp9"
+  }
+}
+```
+**Тело ответа:**
+```sh
+{
+    "userId": 666,
+    "id": 555,
+    "title": "test",
+    "body": "test"
+}
+```
+--------------------------
+#### Method: StoryCLM.Http.Put
+
+```sh
+ StoryCLM.Http.Put(url, body, headers, callback);
+```
+**Описание:**
+
+Отправляет запрос с методом PUT.
+
+**Параметры:**
+
+* url - идентификатор (адрес) ресурса.
+* body - тело запроса. Строка в формате Base64.
+* headers - набор заголовков.
+* callback - функция, в которую будет передан результат выполнения операции.
+
+**Запрос:**
+```sh
+{
+    "Command": "httpput",
+    "Data": {
+        "url": "https://jsonplaceholder.typicode.com/posts/1",
+        "body": "JTI1N0IlMjUwQSUyNTIwJTI1MjAlMjUyMCUyNTIwJTI1MjJ1c2VySWQlMjUyMiUyNTNBJTI1MjA2NjYlMjUyQyUyNTBBJTI1MjAlMjUyMCUyNTIwJTI1MjAlMjUyMmlkJTI1MjIlMjUzQSUyNTIwNTU1JTI1MkMlMjUwQSUyNTIwJTI1MjAlMjUyMCUyNTIwJTI1MjJ0aXRsZSUyNTIyJTI1M0ElMjUyMCUyNTIydGVzdCUyNTIyJTI1MkMlMjUwQSUyNTIwJTI1MjAlMjUyMCUyNTIwJTI1MjJib2R5JTI1MjIlMjUzQSUyNTIwJTI1MjJ0ZXN0JTI1MjIlMjUwQSUyNTdE",
+        "headers": {
+            "Accept": "application/json",
+            "Accept-Language": "en-us,en;q=0.5",
+            "Accept-Charset": "utf-8",
+            "Content-Type": "application/json"
+        }
+    }
+}
+```
+**Ответ:**
+```sh
+{
+  "ErrorMessage" : "",
+  "Status" : "no error",
+  "ErrorCode" : 200,
+  "Data" : {
+    "headers" : {
+      "Content-Type" : "application\/json; charset=utf-8",
+      "Pragma" : "no-cache",
+      "x-powered-by" : "Express",
+      "Via" : "1.1 vegur",
+      "Server" : "cloudflare-nginx",
+      "Content-Encoding" : "gzip",
+      "Expires" : "-1",
+      "Cache-Control" : "no-cache",
+      "Date" : "Thu, 20 Apr 2017 13:48:38 GMT",
+      "access-control-allow-credentials" : "true",
+      "x-content-type-options" : "nosniff",
+      "Etag" : "W\/\"43-PsA+O8XAGFcGfXof\/Wtj7IAtJBA\"",
+      "Vary" : "Origin, Accept-Encoding",
+      "cf-ray" : "35288ff4e95e4e0c-DME"
+    },
+    "body" : "ewogICJ1c2VySWQiOiA2NjYsCiAgImlkIjogMSwKICAidGl0bGUiOiAidGVzdCIsCiAgImJvZHkiOiAidGVzdCIKfQ=="
+  }
+}
+```
+**Тело ответа:**
+```sh
+{
+    "userId": 666,
+    "id": 555,
+    "title": "test",
+    "body": "test"
+}
+```
+--------------------------
+#### Method: StoryCLM.Http.Put
+
+```sh
+ StoryCLM.Http.Put(url, body, callback);
+```
+**Описание:**
+
+Отправляет запрос с методом PUT.
+
+**Параметры:**
+
+* url - идентификатор (адрес) ресурса.
+* body - тело запроса. Строка в формате Base64.
+* callback - функция, в которую будет передан результат выполнения операции.
+
+**Запрос:**
+```sh
+{
+    "Command": "httpput",
+    "Data": {
+        "url": "https://jsonplaceholder.typicode.com/posts/1",
+        "body": "JTI1N0IlMjUwQSUyNTIwJTI1MjAlMjUyMCUyNTIwJTI1MjJ1c2VySWQlMjUyMiUyNTNBJTI1MjA2NjYlMjUyQyUyNTBBJTI1MjAlMjUyMCUyNTIwJTI1MjAlMjUyMmlkJTI1MjIlMjUzQSUyNTIwNTU1JTI1MkMlMjUwQSUyNTIwJTI1MjAlMjUyMCUyNTIwJTI1MjJ0aXRsZSUyNTIyJTI1M0ElMjUyMCUyNTIydGVzdCUyNTIyJTI1MkMlMjUwQSUyNTIwJTI1MjAlMjUyMCUyNTIwJTI1MjJib2R5JTI1MjIlMjUzQSUyNTIwJTI1MjJ0ZXN0JTI1MjIlMjUwQSUyNTdE",
+        "headers": {}
+    }
+}
+```
+**Ответ:**
+```sh
+{
+  "ErrorMessage" : "",
+  "Status" : "no error",
+  "ErrorCode" : 200,
+  "Data" : {
+    "headers" : {
+      "Content-Type" : "application\/json; charset=utf-8",
+      "Pragma" : "no-cache",
+      "x-powered-by" : "Express",
+      "Via" : "1.1 vegur",
+      "Server" : "cloudflare-nginx",
+      "Content-Encoding" : "gzip",
+      "Expires" : "-1",
+      "Cache-Control" : "no-cache",
+      "Date" : "Thu, 20 Apr 2017 13:48:38 GMT",
+      "access-control-allow-credentials" : "true",
+      "x-content-type-options" : "nosniff",
+      "Etag" : "W\/\"43-PsA+O8XAGFcGfXof\/Wtj7IAtJBA\"",
+      "Vary" : "Origin, Accept-Encoding",
+      "cf-ray" : "35288ff4e95e4e0c-DME"
+    },
+    "body" : "ewogICJ1c2VySWQiOiA2NjYsCiAgImlkIjogMSwKICAidGl0bGUiOiAidGVzdCIsCiAgImJvZHkiOiAidGVzdCIKfQ=="
+  }
+}
+```
+**Тело ответа:**
+```sh
+{
+    "userId": 666,
+    "id": 555,
+    "title": "test",
+    "body": "test"
+}
+```
+--------------------------
+#### Method: StoryCLM.Http.Get
+
+```sh
+ StoryCLM.Http.Get(url, headers, callback);
+```
+**Описание:**
+
+Отправляет запрос с методом Get.
+
+**Параметры:**
+
+* url - идентификатор (адрес) ресурса.
+* headers - набор заголовков.
+* callback - функция, в которую будет передан результат выполнения операции.
+
+**Запрос:**
+```sh
+{
+    "Command": "httpget",
+    "Data": {
+        "url": "https://jsonplaceholder.typicode.com/posts/1",
+        "headers": {
+            "Accept": "application/json",
+            "Accept-Language": "en-us,en;q=0.5",
+            "Accept-Charset": "utf-8",
+            "Content-Type": "application/json"
+        }
+    }
+}
+```
+**Ответ:**
+```sh
+ {
+  "ErrorMessage" : "",
+  "Status" : "no error",
+  "ErrorCode" : 200,
+  "Data" : {
+    "headers" : {
+      "Content-Type" : "application\/json; charset=utf-8",
+      "Pragma" : "no-cache",
+      "x-powered-by" : "Express",
+      "Via" : "1.1 vegur",
+      "Server" : "cloudflare-nginx",
+      "Content-Encoding" : "gzip",
+      "Expires" : "Thu, 20 Apr 2017 17:49:25 GMT",
+      "cf-cache-status" : "HIT",
+      "Cache-Control" : "public, max-age=14400",
+      "Date" : "Thu, 20 Apr 2017 13:49:25 GMT",
+      "access-control-allow-credentials" : "true",
+      "x-content-type-options" : "nosniff",
+      "Etag" : "W\/\"124-yiKdLzqO5gfBrJFrcdJ8Yq0LGnU\"",
+      "Vary" : "Accept-Encoding",
+      "cf-ray" : "3528911c8b8c4e0c-DME"
+    },
+    "body" : "ewogICJ1c2VySWQiOiAxLAogICJpZCI6IDEsCiAgInRpdGxlIjogInN1bnQgYXV0IGZhY2VyZSByZXBlbGxhdCBwcm92aWRlbnQgb2NjYWVjYXRpIGV4Y2VwdHVyaSBvcHRpbyByZXByZWhlbmRlcml0IiwKICAiYm9keSI6ICJxdWlhIGV0IHN1c2NpcGl0XG5zdXNjaXBpdCByZWN1c2FuZGFlIGNvbnNlcXV1bnR1ciBleHBlZGl0YSBldCBjdW1cbnJlcHJlaGVuZGVyaXQgbW9sZXN0aWFlIHV0IHV0IHF1YXMgdG90YW1cbm5vc3RydW0gcmVydW0gZXN0IGF1dGVtIHN1bnQgcmVtIGV2ZW5pZXQgYXJjaGl0ZWN0byIKfQ=="
+  }
+}
+```
+**Тело ответа:**
+```sh
+{
+	userId: 1,
+	id: 1,
+	title: "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+	body: "quia et suscipit suscipit recusandae consequuntur expedita et cum reprehenderit molestiae ut ut quas totam nostrum rerum est autem sunt rem eveniet architecto"
+}
+```
+--------------------------
+#### Method: StoryCLM.Http.Get
+
+```sh
+ StoryCLM.Http.Get(url, callback);
+```
+**Описание:**
+
+Отправляет запрос с методом Get.
+
+**Параметры:**
+
+* url - идентификатор (адрес) ресурса.
+* callback - функция, в которую будет передан результат выполнения операции.
+
+**Запрос:**
+```sh
+{
+    "Command": "httpget",
+    "Data": {
+        "url": "https://jsonplaceholder.typicode.com/posts/1"
+    }
+}
+```
+**Ответ:**
+```sh
+ {
+  "ErrorMessage" : "",
+  "Status" : "no error",
+  "ErrorCode" : 200,
+  "Data" : {
+    "headers" : {
+      "Content-Type" : "application\/json; charset=utf-8",
+      "Pragma" : "no-cache",
+      "x-powered-by" : "Express",
+      "Via" : "1.1 vegur",
+      "Server" : "cloudflare-nginx",
+      "Content-Encoding" : "gzip",
+      "Expires" : "Thu, 20 Apr 2017 17:49:25 GMT",
+      "cf-cache-status" : "HIT",
+      "Cache-Control" : "public, max-age=14400",
+      "Date" : "Thu, 20 Apr 2017 13:49:25 GMT",
+      "access-control-allow-credentials" : "true",
+      "x-content-type-options" : "nosniff",
+      "Etag" : "W\/\"124-yiKdLzqO5gfBrJFrcdJ8Yq0LGnU\"",
+      "Vary" : "Accept-Encoding",
+      "cf-ray" : "3528911c8b8c4e0c-DME"
+    },
+    "body" : "ewogICJ1c2VySWQiOiAxLAogICJpZCI6IDEsCiAgInRpdGxlIjogInN1bnQgYXV0IGZhY2VyZSByZXBlbGxhdCBwcm92aWRlbnQgb2NjYWVjYXRpIGV4Y2VwdHVyaSBvcHRpbyByZXByZWhlbmRlcml0IiwKICAiYm9keSI6ICJxdWlhIGV0IHN1c2NpcGl0XG5zdXNjaXBpdCByZWN1c2FuZGFlIGNvbnNlcXV1bnR1ciBleHBlZGl0YSBldCBjdW1cbnJlcHJlaGVuZGVyaXQgbW9sZXN0aWFlIHV0IHV0IHF1YXMgdG90YW1cbm5vc3RydW0gcmVydW0gZXN0IGF1dGVtIHN1bnQgcmVtIGV2ZW5pZXQgYXJjaGl0ZWN0byIKfQ=="
+  }
+}
+```
+**Тело ответа:**
+```sh
+{
+	userId: 1,
+	id: 1,
+	title: "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+	body: "quia et suscipit suscipit recusandae consequuntur expedita et cum reprehenderit molestiae ut ut quas totam nostrum rerum est autem sunt rem eveniet architecto"
+}
+```
+--------------------------
+#### Method: StoryCLM.Http.Delete
+
+```sh
+ StoryCLM.Http.Delete(url, headers, callback);
+```
+**Описание:**
+
+Отправляет запрос с методом Delete.
+
+**Параметры:**
+
+* url - идентификатор (адрес) ресурса.
+* headers - набор заголовков.
+* callback - функция, в которую будет передан результат выполнения операции.
+
+**Запрос:**
+```sh
+{
+    "Command": "httpdelete",
+    "Data": {
+        "url": "https://jsonplaceholder.typicode.com/posts/1",
+        "headers": {
+            "Accept": "application/json",
+            "Accept-Language": "en-us,en;q=0.5",
+            "Accept-Charset": "utf-8",
+            "Content-Type": "application/json"
+        }
+    }
+}
+```
+**Ответ:**
+```sh
+ {
+  "ErrorMessage" : "",
+  "Status" : "no error",
+  "ErrorCode" : 200,
+  "Data" : {
+    "headers" : {
+      "Content-Type" : "application\/json; charset=utf-8",
+      "Pragma" : "no-cache",
+      "x-powered-by" : "Express",
+      "Via" : "1.1 vegur",
+      "Server" : "cloudflare-nginx",
+      "Content-Encoding" : "gzip",
+      "Expires" : "Thu, 20 Apr 2017 17:49:25 GMT",
+      "cf-cache-status" : "HIT",
+      "Cache-Control" : "public, max-age=14400",
+      "Date" : "Thu, 20 Apr 2017 13:49:25 GMT",
+      "access-control-allow-credentials" : "true",
+      "x-content-type-options" : "nosniff",
+      "Etag" : "W\/\"124-yiKdLzqO5gfBrJFrcdJ8Yq0LGnU\"",
+      "Vary" : "Accept-Encoding",
+      "cf-ray" : "3528911c8b8c4e0c-DME"
+    },
+    "body" : "ewogICJ1c2VySWQiOiAxLAogICJpZCI6IDEsCiAgInRpdGxlIjogInN1bnQgYXV0IGZhY2VyZSByZXBlbGxhdCBwcm92aWRlbnQgb2NjYWVjYXRpIGV4Y2VwdHVyaSBvcHRpbyByZXByZWhlbmRlcml0IiwKICAiYm9keSI6ICJxdWlhIGV0IHN1c2NpcGl0XG5zdXNjaXBpdCByZWN1c2FuZGFlIGNvbnNlcXV1bnR1ciBleHBlZGl0YSBldCBjdW1cbnJlcHJlaGVuZGVyaXQgbW9sZXN0aWFlIHV0IHV0IHF1YXMgdG90YW1cbm5vc3RydW0gcmVydW0gZXN0IGF1dGVtIHN1bnQgcmVtIGV2ZW5pZXQgYXJjaGl0ZWN0byIKfQ=="
+  }
+}
+```
+**Тело ответа:**
+```sh
+{}
+```
+--------------------------
+#### Method: StoryCLM.Http.Delete
+
+```sh
+ StoryCLM.Http.Delete(url, headers, callback);
+```
+**Описание:**
+
+Отправляет запрос с методом Delete.
+
+**Параметры:**
+
+* url - идентификатор (адрес) ресурса.
+* callback - функция, в которую будет передан результат выполнения операции.
+
+**Запрос:**
+```sh
+{
+    "Command": "httpdelete",
+    "Data": {
+        "url": "https://jsonplaceholder.typicode.com/posts/1"
+    }
+}
+```
+**Ответ:**
+```sh
+ {
+  "ErrorMessage" : "",
+  "Status" : "no error",
+  "ErrorCode" : 200,
+  "Data" : {
+    "headers" : {
+      "Content-Type" : "application\/json; charset=utf-8",
+      "Pragma" : "no-cache",
+      "x-powered-by" : "Express",
+      "Via" : "1.1 vegur",
+      "Server" : "cloudflare-nginx",
+      "Content-Encoding" : "gzip",
+      "Expires" : "Thu, 20 Apr 2017 17:49:25 GMT",
+      "cf-cache-status" : "HIT",
+      "Cache-Control" : "public, max-age=14400",
+      "Date" : "Thu, 20 Apr 2017 13:49:25 GMT",
+      "access-control-allow-credentials" : "true",
+      "x-content-type-options" : "nosniff",
+      "Etag" : "W\/\"124-yiKdLzqO5gfBrJFrcdJ8Yq0LGnU\"",
+      "Vary" : "Accept-Encoding",
+      "cf-ray" : "3528911c8b8c4e0c-DME"
+    },
+    "body" : "ewogICJ1c2VySWQiOiAxLAogICJpZCI6IDEsCiAgInRpdGxlIjogInN1bnQgYXV0IGZhY2VyZSByZXBlbGxhdCBwcm92aWRlbnQgb2NjYWVjYXRpIGV4Y2VwdHVyaSBvcHRpbyByZXByZWhlbmRlcml0IiwKICAiYm9keSI6ICJxdWlhIGV0IHN1c2NpcGl0XG5zdXNjaXBpdCByZWN1c2FuZGFlIGNvbnNlcXV1bnR1ciBleHBlZGl0YSBldCBjdW1cbnJlcHJlaGVuZGVyaXQgbW9sZXN0aWFlIHV0IHV0IHF1YXMgdG90YW1cbm5vc3RydW0gcmVydW0gZXN0IGF1dGVtIHN1bnQgcmVtIGV2ZW5pZXQgYXJjaGl0ZWN0byIKfQ=="
+  }
+}
+```
+**Тело ответа:**
+```sh
+{}
+```
+--------------------------
 
 ## Дполнительные материалы
 
