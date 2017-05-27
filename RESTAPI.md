@@ -159,30 +159,6 @@ Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImJlMjcxZjEwYmVlZWQ5OTEyMDQ...
 
 [Таблицы](TABLES.md) позволяют презентациям и внешним приложениям хранить структурированные данные на сервере, согласно схеме.
 
-
-
-### API requests
-
-Название                                                               |      HTTP Verb     |             Описание
------------------------------------------------------------------------|--------------------|----------------------------------------------------------------
-tables/{tableid:int}/tables                                            |        GET         |    Получает список таблиц доаступных пользователю
-tables/{tableid:int}/insert                                            |        POST        |    Добавляет сущность в таблицу
-tables/{tableid:int}/insertmany                                        |        POST        |    Добавляет коллекцию сущностей с таблицу
-tables/{tableid:int}/update                                            |        PUT         |    Перезаписывает запись целиком
-tables/{tableid:int}/updatemany                                        |        PUT         |    Перезаписывает группу записей
-tables/{tableid:int}/count                                             |        GET         |    Получает количество записей в таблице
-tables/{tableid:int}/countbyquery/{query:tablesquery}                  |        GET         |    Получает количество записей в таблице по запросу
-tables/{tableid:int}/logcount                                          |        GET         |    Получает количество записей в логе таблицы
-tables/{tableid:int}/logcountbydate/{date:unixdate}                    |        GET         |    Получает количество записей лога таблицы после указанной даты
-tables/{tableid:int}/log/{skip:int}/{take:int}                         |        GET         |    Получает все записи лога таблицы
-tables/{tableid:int}/logbydate/{skip:int}/{take:int}/{date:unixdate}   |        GET         |    Получает все записи лога таблицы после указанной даты
-tables/{tableid:int}/findall/{skip:int}/{take:int}                     |        GET         |    Получает постранично все данные таблицы
-tables/{tableid:int}/find...                                           |        GET         |    Получает постранично данные по запросу
-tables/{tableid:int}/findbyid/{id:int}                                 |        GET         |    Получает запись по идентификатору в таблице
-tables/{tableid:int}/findbyids                                         |        GET         |    Получает коллекцию записей по списку идентификаторов в таблице
-tables/{tableid:int}/delete/{id:int}                                   |        DELETE      |    Удалить запись в таблице по идентификатору
-tables/{tableid:int}/deletemany                                        |        DELETE      |    Удаляет записи таблицы по списку идентификаторов
-
 #### Tables
 
 Получает список таблиц доступных пользователю по идентификатору клиента.
