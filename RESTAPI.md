@@ -161,7 +161,7 @@ Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImJlMjcxZjEwYmVlZWQ5OTEyMDQ...
 
 #### Tables
 
-Получает список таблиц доступных пользователю по идентификатору клиента.
+Получает список таблиц, доступных пользователю, по идентификатору клиента.
 Результат запроса - сущность таблица, которая содержит идентификатор таблицы, тип и схему.
 
 **Запрос:**
@@ -233,8 +233,8 @@ Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImJlMjcxZjEwYmVlZWQ5OTEyMDQ...
 
 #### Insert
 
-Добавляет сущность в таблицу.
-Сущность должна соответствовать схеме таблицы.
+Добавляет объект в таблицу.
+Объект должен соответствовать схеме таблицы.
 
 **Запрос:**
 
@@ -275,8 +275,8 @@ Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImJlMjcxZjEwYmVlZWQ5OTEyMDQ...
 
 #### Insertmany
 
-Добавляет коллекцию сущностей с таблицу.
-Каждая сущность должна соответствовать схеме таблицы.
+Добавляет коллекцию объектов с таблицу.
+Каждый объект должен соответствовать схеме таблицы.
 
 **Запрос:**
 
@@ -350,8 +350,8 @@ Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImJlMjcxZjEwYmVlZWQ5OTEyMDQ...
 
 #### Update
 
-Перезаписывает запись целиком.
-Идентификатор записи остается неизменным.
+Перезаписывает объект.
+Идентификатор объектом остается неизменным.
 
 **Запрос:**
 
@@ -392,8 +392,8 @@ Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImJlMjcxZjEwYmVlZWQ5OTEyMDQ...
 
 #### Updatemany
 
-Перезаписывает группу записей.
-Идентификатор записи остатеся неизменным.
+Перезаписывает группу объектов.
+Идентификатор объекта остатеся неизменным.
 
 **Запрос:**
 
@@ -470,7 +470,7 @@ Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImJlMjcxZjEwYmVlZWQ5OTEyMDQ...
 
 #### Count
 
-Получает количество объектов в таблице запросу. Формат запроса - [TablesQuery](TABLES_QUERY.md). 
+Получает количество объектов в таблице по запросу. Формат запроса - [TablesQuery](TABLES_QUERY.md). 
 Если запрос отсутсвует то будет получено общее колличесво объектов в таблице.
 
 **Запрос:**
@@ -591,7 +591,7 @@ Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImJlMjcxZjEwYmVlZWQ5OTEyMDQ...
 
 #### FindByid
 
-Получает запись по идентификатору в таблице.
+Получает объект по идентификатору в таблице.
 
 **Запрос:**
 
@@ -621,7 +621,7 @@ Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImJlMjcxZjEwYmVlZWQ5OTEyMDQ...
 
 #### FindByids
 
-Получает коллекцию записей по списку идентификаторов в таблице.
+Получает коллекцию объектов по списку идентификаторов в таблице.
 
 **Запрос:**
 
@@ -636,7 +636,7 @@ Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImJlMjcxZjEwYmVlZWQ5OTEyMDQ...
  ids=582230dff3afce8b106ba438&ids=582230e0f3afce8b106ba43a&ids=582230e0f3afce8b106ba43b&ids=582230e0f3afce8b106ba43c
 ```
 
-**Пример:**https://api.storyclm.com/v1/tables/6/findbyids?ids=582230dff3afce8b106ba438&ids=582230e0f3afce8b106ba43a&ids=582230e0f3afce8b106ba43b&ids=582230e0f3afce8b106ba43c
+**Пример:** https://api.storyclm.com/v1/tables/6/findbyids?ids=582230dff3afce8b106ba438&ids=582230e0f3afce8b106ba43a&ids=582230e0f3afce8b106ba43b&ids=582230e0f3afce8b106ba43c
 
 **Пример ответа:**
 
@@ -816,7 +816,7 @@ Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImJlMjcxZjEwYmVlZWQ5OTEyMDQ...
 
 #### DeleteMany
 
-Удаляет записи таблицы по списку идентификаторов.
+Удаляет объекты таблицы по списку идентификаторов.
 
 **Запрос:**
 
