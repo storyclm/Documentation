@@ -146,6 +146,7 @@ client_secret=ce200179f3dd4ca3896a15504996b82092c50eab976d0d495cafbd0a84b2fa3bc6
 
 * [Таблицы](RESTAPI_TABLES.md)
 * [Контент](RESTAPI_CONTENT.md)
+* [Пользователи](RESTAPI_USERS.md)
 
 
 
