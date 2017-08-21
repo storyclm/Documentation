@@ -118,26 +118,32 @@ API позволяет манипулировать пользователями
 [
   {
     "id": "a4be8f4a-96c5-49b8-87c9-51b0de7c869b",
+    "username": "eklesia@gmail.com",
     "role": 2
   },
   {
     "id": "1f6f7f74-3407-4521-a19d-42fd0b85a8b9",
+    "username": "wtselofan@yandex.ru",
     "role": 0
   },
   {
     "id": "abf8bc0e-3f65-4e06-8f98-43986ede5dd3",
+    "username": "tselkofan1@yandex.ru",
     "role": 1
   },
   {
     "id": "fe84233b-0f47-4a7e-9ad8-bec78f4b5857",
+    "username": "test@mail.com",
     "role": 0
   },
   {
     "id": "b1ae249b-22c4-4b0b-a9ec-66f0521a4715",
+    "username": "rst-k169@ya.ru",
     "role": 0
   },
   {
-    "id": "2f94a899-7059-4bac-beb1-a3708c8938f3",
+    "id": "8b23dfb9-cfd7-4521-95a8-c9649ecf2d27",
+    "username": "test@test.com",
     "role": 0
   }
 ]
@@ -180,12 +186,18 @@ API позволяет манипулировать пользователями
 
 * **Method:** PUT
 * **Accept:** application/json
-* **URL**: https://api.storyclm.com/v1/users/{userId:string}/password?password={password:string}
+* **URL**: https://api.storyclm.com/v1/users/{userId:string}/password
 * **URL параметры:**
   * **\{ userId:string }** - идентификатор пользователя;
-  * **\{ password:string }** - новый пароль;
 
-**Пример**: https://api.storyclm.com/v1/users/73f329f8-50b4-414b-9b71-8f760b6dab8a/password?password=test
+**Тело запроса:**
+``` json
+{
+  "password": "test",
+}
+```
+
+**Пример**: https://api.storyclm.com/v1/users/73f329f8-50b4-414b-9b71-8f760b6dab8a/password
 
 **Ответ:**
 
@@ -193,6 +205,38 @@ API позволяет манипулировать пользователями
 ``` json
 
 ```
+
+### Exists
+
+Проверяет существования пользователя в системе.
+Вернет профиль если пользователь зарегистрирован в системе и добавлен в клиент.
+
+**Запрос:**
+
+* **Method:** GET
+* **Accept:** application/json
+* **URL**: https://api.storyclm.com/v1/users/exists?username={username}
+* **URL параметры:**
+  * **\{ username:string }** - имя пользователя;
+
+**Пример**: https://api.storyclm.com/v1/users/exists?username=test@test.com
+
+**Ответ:**
+
+* **Тело ответа**:
+``` json
+{
+  "id": "8b23dfb9-cfd7-4521-95a8-c9649ecf2d27",
+  "username": "test@test.com",
+  "email": "test@test.com",
+  "phone": "79190001095",
+  "name": "Владимир Титов",
+  "location": "Ставрополь",
+  "birthDate": null,
+  "gender": true
+}
+```
+
 ### Add user to group
 
 Добавляет пользователя в группу текущего клиента.
