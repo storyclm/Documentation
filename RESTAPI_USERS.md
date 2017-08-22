@@ -326,7 +326,7 @@ API позволяет манипулировать пользователями
 
 **Запрос:**
 
-* **Method:** DELETE
+* **Method:** GET
 * **Accept:** application/json
 * **URL**: https://api.storyclm.com/v1/users/{userId:string}/presentations
 * **URL параметры:**
@@ -352,7 +352,7 @@ API позволяет манипулировать пользователями
 
 **Запрос:**
 
-* **Method:** DELETE
+* **Method:** GET
 * **Accept:** application/json
 * **URL**: https://api.storyclm.com/v1/users/{userId:string}/groups
 * **URL параметры:**
