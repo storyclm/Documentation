@@ -6,6 +6,7 @@
 * [Таблицы](RESTAPI_TABLES.md)
 * [Контент](RESTAPI_CONTENT.md)
 * [Пользователи](RESTAPI_USERS.md)
+* [CLM Аналитика](RESTAPI_CLMANALITYCS.md)
 
 ## Аутентификация и авторизация
 
