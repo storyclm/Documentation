@@ -1,32 +1,31 @@
-﻿## Таблицы
+﻿## Tables
 
-**[Таблицы](TABLES.md)** - это реляционное хранилище данных. [Таблицы](TABLES.md) позволяют презентациям и внешним приложениям хранить структурированные данные на сервере, согласно схеме.
+**[Tables](ru/TABLES.md)** are a relational database. They allow presentations and external applications to store structured data on the server, according to the scheme.
 
-* **Сервер** - api.storyclm.com
-* **Поддерживаемы клиенты** - работающие от имени пользователя, работающие от имени сервиса. 
+* **Server** - api.storyclm.com
+* **Supported clients** - those working on behalf of the user and on behalf of the service.
 
-*ВНИМАНИЕ! Независимо работает ли клиент от имени пользователя или от имени сервиса, клиент имеет доступ только к таблицам клиента StoryCLM в котором были созданы учетные данные.*
+*ATTENTION! Regardless of the fact if the client works on behalf of the user or on behalf of the service, the client has access only to those tables of the StoryCLM client where accounts were created.*
 
 #### Tables
 
-Получает список таблиц, доступных пользователю, по идентификатору клиента.
-Результат запроса - сущность таблица, которая содержит идентификатор таблицы, тип и схему.
+A list of tables available to the end user can be received with the client ID. 
+The result of the query is an entity table that contains the table ID, type, and scheme
 
-**Запрос:**
+**Query:**
 
 * **Method**: GET
 * **Accept**: application/json
 * **URL**: https://api.storyclm.com/v1/tables/{clientid:int}/tables
-* **URL параметры**:
-  * **{ clientid:int }** - идентификатор клиента;
+* **URL parameters**:
+  * **{ clientid:int }** - client ID;
 
-**Пример**: https://api.storyclm.com/v1/tables/1/tables
+**Example**: https://api.storyclm.com/v1/tables/1/tables
 
-**Пример ответа:**
+**Example of response:**
 
 * **Content Type**: application/json; charset=utf-8
-* **Тело ответа**:
-
+* **The body of response**:
 ```JSON
 [
     {
@@ -78,21 +77,20 @@
   ]
 
   ```
-
 #### Insert
 
-Добавляет объект в таблицу.
-Объект должен соответствовать схеме таблицы.
+Adds an object to the table. 
+The object has to conform with the table scheme.
 
-**Запрос:**
+**Query:**
 
 * **Method:** POST
 * **Accept:** application/json
 * **URL**: https://api.storyclm.com/v1/tables/{tableid:int}/insert
-* **URL параметры:**
-  * **{ tableid:int }** - идентификатор таблицы;
+* **URL parameters:**
+  * **{ tableid:int }** - table identifier;
 
-**Тело запроса:**
+**Body of the request:**
 ``` json
 {
     "name": "Vladimir",
@@ -102,13 +100,12 @@
     "created": "2016-11-08T20:09:03.293Z"
 }
 ```
+**Example**: https://api.storyclm.com/v1/tables/6/insert
 
-**Пример**: https://api.storyclm.com/v1/tables/6/insert
-
-**Ответ:**
+**Response:**
 
 * **Content Type**: application/json; charset=utf-8
-* **Тело ответа**:
+* **The body of response**:
 ``` json
 {
     "name": "Vladimir",
@@ -119,22 +116,20 @@
     "_id": "582230dff3afce8b106ba438"
 }
 ```
-
-
 #### Insertmany
 
-Добавляет коллекцию объектов с таблицу.
-Каждый объект должен соответствовать схеме таблицы.
+Adds a collection of objects to the table. 
+Each object has to conform with the table scheme.
 
-**Запрос:**
+**Query:**
 
 * **Method:** POST
 * **Accept:** application/json
 * **URL**: https://api.storyclm.com/v1/tables/{tableid:int}/insertmany
-* **URL параметры:**
-  * **{ tableid:int }** - идентификатор таблицы;
+* **URL parameters:**
+  * **{ tableid:int }** - table identifier;
 
-**Тело запроса:**
+**Body of the request:**
 ``` json
 [
     {
@@ -162,14 +157,13 @@
       "_id": "582230e0f3afce8b106ba43c"
     }
 ]
-  ```
+ ```
+**Example**: https://api.storyclm.com/api/v1/tables/6/insertmany
 
-**Пример**: https://api.storyclm.com/api/v1/tables/6/insertmany
-
-**Пример ответа**
+**Example of response**
 
 * **Content Type:** application/json; charset=utf-8
-* **Тело ответа:**
+* **The body of response:**
 ``` json
 [
     {
@@ -195,21 +189,20 @@
     }
 ]
 ```
-
 #### Update
 
-Перезаписывает объект.
-Идентификатор объектом остается неизменным.
+Rewrites the object. 
+The object id remains unchanged.
 
-**Запрос:**
+**Query:**
 
 * **Method:** PUT
 * **Accept:** application/json
 * **URL**: https://api.storyclm.com/v1/tables/{tableid:int}/update
-* **URL параметры:**
-  * **{ tableid:int }** - идентификатор таблицы;
+* **URL parameters:**
+  * ** {tableid:int} ** - table identifier;
 
-**Тело запроса:**
+**Body of the request:**
 ``` json
 {
     "name": "Anna",
@@ -220,13 +213,12 @@
     "_id": "582230dff3afce8b106ba438"
 }
 ```
+**Example:** https://api.storyclm.com/api/v1/tables/6/update
 
-**Пример:** https://api.storyclm.com/api/v1/tables/6/update
-
-**Пример ответа:**
+**Example of response:**
 
 * **Content Type:** application/json; charset=utf-8
-* **Тело ответа:**
+* **The body of response:**
 ``` json
 {
     "name": "Anna",
@@ -237,21 +229,20 @@
     "_id": "582230dff3afce8b106ba438"
 }
 ```
-
 #### Updatemany
 
-Перезаписывает группу объектов.
-Идентификатор объекта остатеся неизменным.
+Update a collection of objects to the table. 
+Each object has to conform with the table scheme.
 
-**Запрос:**
+**Query:**
 
 * **Method:** PUT
 * **Accept:** application/json
 * **URL**: https://api.storyclm.com/v1/tables/{tableid:int}/updatemany
-* **URL параметры:**
-  * **{ tableid:int }** - идентификатор таблицы
+* **URL parameters:**
+  * **{ tableid:int }** - table identifier;
 
-**Тело запроса:**
+**Body of the request:**
 ``` json
 [
     {
@@ -280,13 +271,12 @@
     }
 ]
 ```
+**Example**: https://api.storyclm.com/v1/tables/6/updatemany
 
-**Пример**: https://api.storyclm.com/v1/tables/6/updatemany
-
-**Пример ответа:**
+**Example of response:**
 
 * **Content Type:** application/json; charset=utf-8
-* **Тело ответа:**
+* **The body of response:**
 ``` json
 [
     {
@@ -315,56 +305,54 @@
     }
 ]
 ```
-
 #### Count
 
-Получает количество объектов в таблице по запросу. Формат запроса - [TablesQuery](TABLES_QUERY.md). 
-Если запрос отсутсвует то будет получено общее колличесво объектов в таблице.
+Queries the number of objects in the table. The request format is [TablesQuery](ru/TABLES_QUERY.md). 
+If there is no query, then the total number of objects in the table will be displayed.
 
-**Запрос:**
+**Query:**
 
 * **Method:** GET
 * **Accept:** application/json
 * **URL**: https://api.storyclm.com/v1/tables/{tableid:int}/count?query={query}
-* **URL параметры:**
-  * **{ tableid:int }** - идентификатор таблицы
-  * **{ query:tablesquery }** - запрос в формате [TablesQuery](TABLES_QUERY.md). Необязательный параметр.
+* **URL parameters:**
+  * **{ tableid:int }** - table ID.
+  * **{ query:tablesquery }** - request in [TablesQuery](ru/TABLES_QUERY.md) format. Optional parameter Query в формате.
 
-**Пример:** https://api.storyclm.com/v1/tables/6/count
+**Example:** https://api.storyclm.com/v1/tables/6/count
 
-**Пример:** https://api.storyclm.com/v1/tables/23/count?query=[Gender][eq][false]
+**Example:** https://api.storyclm.com/v1/tables/23/count?query=[Gender][eq][false]
 
-**Пример ответа:**
+**Example of response:**
 
 * **Content Type:** application/json; charset=utf-8
-* **Тело ответа:**
+* **The body of response:**
 ``` json
 {
   "count": 4
 }
 ```
-
 #### LogCount
 
 Получает количество записей в логе таблицы. Если указан параметр "date", то получает количество записей лога таблицы после указанной даты.
 
-**Запрос:**
+**Query:**
 
 * **Method:** GET
 * **Accept:** application/json
 * **URL:**: https://api.storyclm.com/v1/tables/{tableid:int}/logcount?date={date}
-* **URL параметры:**
-  * **{ tableid:int }** - идентификатор таблицы
-  * **{ date:unixdate }** - дата в формате Unix Date. Необязательный параметр.
+* **URL parameters:**
+  * **{ tableid:int }** - table ID.
+  * **{ date:unixdate }** - the date is given in the Unix Date format. Optional parameter.
 
-**Пример**: https://api.storyclm.com/v1/tables/6/logcount
+**Example**: https://api.storyclm.com/v1/tables/6/logcount
 
-**Пример**: https://api.storyclm.com/v1/tables/23/logcount?date=1495461379
+**Example**: https://api.storyclm.com/v1/tables/23/logcount?date=1495461379
 
-**Пример ответа:**
+**Example of response:**
 
 * **Content Type:** application/json; charset=utf-8
-* **Тело ответа:**
+* **The body of response:**
 ``` json
 {
   "count": 4
@@ -372,34 +360,34 @@
 ```
 #### Find
 
-Получает объекты таблицы по запросу.
-Формат запроса - [TablesQuery](TABLES_QUERY.md).
+Queries the objects in the table. 4
+The request format is [TablesQuery](ru/TABLES_QUERY.md).
 
-**Запрос**
+**Query**
 
 * **Method:** GET
 * **Accept:** application/json
 * **URL**: https://api.storyclm.com/v1/tables/23/find?skip={skip}&take={take}&sort={sort}&sortfield={sortfield}&query={query}
-* **URL параметры:**
-  * **{ tableid:int }** - идентификатор таблицы
-  * **{ sortfield:string }** - поле, по которому будет произведена сортировка. Необязательный параметр.
-  * **{ sort:int }** - тип сортировки. Необязательный параметр. Используется вместе с параметром "sortfield".
-  * **{ skip:int }** - количество записей, которые нужно пропустить. 
-  * **{ take:int }** - количество записей, которые нужно выбрать.
-  * **{ query:tablesquery }** - запрос в формате [TablesQuery](TABLES_QUERY.md). Необязательный параметр.
+* **URL parameters:**
+  * **{ tableid:int }** - table ID.
+  * **{ sortfield:string }** - sorting field. Optional parameter.
+  * **{ sort:int }** - the sorting type. Optional parameter. Used together with the "sortfield" parameter.
+  * **{ skip:int }** - the number of entries to skip.
+  * **{ take:int }** - the number of entries to be selected.
+  * **{ query:tablesquery }** - query in [TablesQuery](ru/TABLES_QUERY.md). format. Optional parameter.
 
-**Пример:** https://api.storyclm.com/v1/tables/23/find?skip=0&take=100&sort=1&sortfield=age&query=[Gender][eq][false]
+**Example:** https://api.storyclm.com/v1/tables/23/find?skip=0&take=100&sort=1&sortfield=age&query=[Gender][eq][false]
 
-**Пример:** https://api.storyclm.com/v1/tables/23/find?skip=0&take=100&sort=1&sortfield=age
+**Example:** https://api.storyclm.com/v1/tables/23/find?skip=0&take=100&sort=1&sortfield=age
 
-**Пример:** https://api.storyclm.com/v1/tables/23/find?skip=0&take=100&sortfield=age
+**Example:** https://api.storyclm.com/v1/tables/23/find?skip=0&take=100&sortfield=age
 
-**Пример:** https://api.storyclm.com/v1/tables/23/find?skip=0&take=100
+**Example:** https://api.storyclm.com/v1/tables/23/find?skip=0&take=100
 
-**Пример ответа:**
+**Example of response:**
 
 * **Content Type:** application/json; charset=utf-8
-* **Тело ответа:**
+* **The body of response:**
 ``` json
 [
     {
@@ -436,26 +424,25 @@
     }
 ]
 ```
-
 #### FindByid
 
-Получает объект по идентификатору в таблице.
+Gets the object by the ID in the table.
 
-**Запрос:**
+**Query:**
 
 * **Method:** GET
 * **Accept:** application/json
 * **URL**: https://api.storyclm.com/v1/tables/{tableid:int}/findbyid/{id}
-* **URL параметры:**
-  * **{ tableid:int }** - идентификатор таблицы
-  * **{ id:string }** - идентификатор записи в таблице 
+* **URL parameters:**
+  * **{ tableid:int }** - table ID.
+  * **{ id:string }** - table entry identificator.
 
-**Пример**: https://api.storyclm.com/v1/tables/6/findbyid/582230dff3afce8b106ba438
+**Example**: https://api.storyclm.com/v1/tables/6/findbyid/582230dff3afce8b106ba438
 
-**Пример ответа:**
+**Example of response:**
 
 * **Content Type:** application/json; charset=utf-8
-* **Тело ответа:**
+* **The body of response:**
 ``` json
 {
     "name": "Anna",
@@ -466,30 +453,28 @@
     "_id": "582230dff3afce8b106ba438"
 }
 ```
-
 #### FindByids
 
-Получает коллекцию объектов по списку идентификаторов в таблице.
+Gets a collection of objects by the list of identifiers in the table.
 
-**Запрос:**
+**Query:**
 
 * **Method:** GET
 * **Accept:** application/json
 * **URL**: https://api.storyclm.com/v1/tables/{tableid:int}/findbyids
-* **URL параметры:**
-  * **{ tableid:int }** - идентификатор таблицы
+* **URL parameters:**
+  * **{ tableid:int }** - table ID.
 
-**Тело запроса:**
+**Body of the request:**
 ```
- ids=582230dff3afce8b106ba438&ids=582230e0f3afce8b106ba43a&ids=582230e0f3afce8b106ba43b&ids=582230e0f3afce8b106ba43c
+ids=582230dff3afce8b106ba438&ids=582230e0f3afce8b106ba43a&ids=582230e0f3afce8b106ba43b&ids=582230e0f3afce8b106ba43c
 ```
+**Example:** https://api.storyclm.com/v1/tables/6/findbyids?ids=582230dff3afce8b106ba438&ids=582230e0f3afce8b106ba43a&ids=582230e0f3afce8b106ba43b&ids=582230e0f3afce8b106ba43c
 
-**Пример:** https://api.storyclm.com/v1/tables/6/findbyids?ids=582230dff3afce8b106ba438&ids=582230e0f3afce8b106ba43a&ids=582230e0f3afce8b106ba43b&ids=582230e0f3afce8b106ba43c
-
-**Пример ответа:**
+**Example of response:**
 
 * **Content Type:** application/json; charset=utf-8
-* **Тело ответа:**
+* **The body of response:**
 ``` json
 [
     {
@@ -526,30 +511,29 @@
     }
 ]
 ```
-
 #### Log
 
-Получает все записи лога таблицы после указанной даты постранично.
+Gets all the entries of the table log after the date specified page by page.
 
-**Запрос:**
+**Query:**
 
 * **Method:** GET
 * **Accept:** application/json
 * **URL**: https://admin.storyclm.com/{tableid:int}/log?skip={skip}&take={take}date={date}
-* **URL параметры:**
-  * **{ tableid:int }** - идентификатор таблицы.
-  * **{ skip:int }** - количество записей, которые нужно пропустить. 
-  * **{ take:int }** - количество записей, которые нужно выбрать.
-  * **{ date:unixdate }** - дата в формате Unix Date. Необязательный параметр.
+* **URL parameters:**
+  * **{ tableid:int }** - table ID.
+  * **{ skip:int }** - the number of entries to skip.
+  * **{ take:int }** - the number of entries to be selected.
+  * **{ date:unixdate }** - date in the Unix Date format. Optional parameter.
 
-**Пример:** https://api.storyclm.com/v1/tables/23/log?skip=0&take=900&date=1495461402
+**Example:** https://api.storyclm.com/v1/tables/23/log?skip=0&take=900&date=1495461402
 
-**Пример:** https://api.storyclm.com/v1/tables/23/log?skip=0&take=100
+**Example:** https://api.storyclm.com/v1/tables/23/log?skip=0&take=100
 
-**Пример ответа:**
+**Example of response:**
 
 * **Content Type:** application/json; charset=utf-8
-* **Тело ответа:**
+* **The body of response:**
 ``` json
 [
     {
@@ -634,23 +618,23 @@
  ```
 #### DeleteByid
 
-Удалить запись в таблице по идентификатору.
+Delete the entry in the table by ID.
 
-**Запрос:**
+**Query:**
 
 * **Method:** DELETE
 * **Accept:** application/json
 * **URL**: https://api.storyclm.com/v1/tables/{tableid:int}/delete/{id}
-* **URL параметры:**
-  * **{ tableid:int }** - идентификатор таблицы
-  * **{ id:string }** - идентификатор записи в таблице 
+* **URL parameters:**
+  * **{ tableid:int }** - table ID.
+  * **{ id:string }** - the ID of a table entry.
 
-**Пример**: https://api.storyclm.com/v1/tables/6/delete/582230dff3afce8b106ba438
+**Example**: https://api.storyclm.com/v1/tables/6/delete/582230dff3afce8b106ba438
 
-**Ответ:**
+**Response:**
 
 * **Content Type:** application/json; charset=utf-8
-* **Тело ответа:**
+* **The body of response:**
 ``` json
 {
     "name": "Anna",
@@ -661,30 +645,28 @@
     "_id": "582230dff3afce8b106ba438"
 }
 ```
-
 #### DeleteMany
 
-Удаляет объекты таблицы по списку идентификаторов.
+Deletes table objects by the list of identifiers.
 
-**Запрос:**
+**Query:**
 
 * **Method:** DELETE
 * **Accept:** application/json
 * **URL**: https://api.storyclm.com/v1/tables/{tableid:int}/deletemany
-* **URL параметры:**
-  * **{ tableid:int }** - идентификатор таблицы
+* **URL parameters:**
+  * **{ tableid:int }** - table ID.
 
-**Тело запроса:**
+**Body of the request:**
 ```
- ids=582230dff3afce8b106ba438&ids=582230e0f3afce8b106ba43a&ids=582230e0f3afce8b106ba43b&ids=582230e0f3afce8b106ba43c
+ids=582230dff3afce8b106ba438&ids=582230e0f3afce8b106ba43a&ids=582230e0f3afce8b106ba43b&ids=582230e0f3afce8b106ba43c
  ```
+**Example**: https://api.storyclm.com/v1/tables/6/deletemany?ids=582230dff3afce8b106ba438&ids=582230e0f3afce8b106ba43a&ids=582230e0f3afce8b106ba43b&ids=582230e0f3afce8b106ba43c
 
-**Пример**: https://api.storyclm.com/v1/tables/6/deletemany?ids=582230dff3afce8b106ba438&ids=582230e0f3afce8b106ba43a&ids=582230e0f3afce8b106ba43b&ids=582230e0f3afce8b106ba43c
-
-**Пример ответа:**
+**Example of response:**
 
 * **Content Type:** application/json; charset=utf-8
-* **Тело ответа:**
+* **The body of response:**
 ``` json
 [
     {
@@ -723,26 +705,26 @@
 ```
 #### Max
 
-Возвращает максимальное значение для указанного поля.
+Returns the largest value for the specified field
 
-**Запрос:**
+**Query:**
 
 * **Method:** GET
 * **Accept:** application/json
 * **URL**: https://api.storyclm.com/v1/tables/23/max/{field}?query={query}
-* **URL параметры:**
-  * **{ tableid:int }** - идентификатор таблицы.
-  * **{ field:any }** - название поля, по которому будет выполнена операция. Параметр должент соответсвовать схеме таблицы.
-  * **{ query:tablesquery }** - запрос в формате [TablesQuery](TABLES_QUERY.md). Необязательный параметр.
+* **URL parameters:**
+  * **{ tableid:int }** - table ID.
+  * **{ field:any }** - the name of the field for which the operation will be carried out. The parameter must correspond to the table scheme.
+  * **{ query:tablesquery }** - query in the [TablesQuery](ru/TABLES_QUERY.md) format. Optional parameter.
 
-**Пример**: https://api.storyclm.com/v1/tables/23/max/Age?query=[Gender][eq][false]
+**Example**: https://api.storyclm.com/v1/tables/23/max/Age?query=[Gender][eq][false]
 
-**Пример**: https://api.storyclm.com/v1/tables/23/max/Age
+**Example**: https://api.storyclm.com/v1/tables/23/max/Age
 
-**Ответ:**
+**Response:**
 
 * **Content Type:** application/json; charset=utf-8
-* **Тело ответа:**
+* **The body of response:**
 ``` json
 {
   "result": 28
@@ -750,26 +732,26 @@
 ```
 #### Min
 
-Возвращает минимальное значение для указанного поля.
+Returns the minimum value for the specified field.
 
-**Запрос:**
+**Query:**
 
 * **Method:** GET
 * **Accept:** application/json
 * **URL**: https://api.storyclm.com/v1/tables/23/min/{field}?query={query}
-* **URL параметры:**
-  * **{ tableid:int }** - идентификатор таблицы.
-  * **{ field:any }** - название поля, по которому будет выполнена операция. Параметр должент соответсвовать схеме таблицы.
-  * **{ query:tablesquery }** - запрос в формате [TablesQuery](TABLES_QUERY.md). Необязательный параметр.
+* **URL parameters:**
+  * **{ tableid:int }** - table ID.
+  * **{ field:any }** - the name of the field for which the operation will be carried out. The parameter must correspond to the table scheme.
+  * **{ query:tablesquery }** - query in the [TablesQuery](ru/TABLES_QUERY.md) format. Optional parameter.
 
-**Пример**: https://api.storyclm.com/v1/tables/23/min/Age?query=[Gender][eq][true]
+**Example**: https://api.storyclm.com/v1/tables/23/min/Age?query=[Gender][eq][true]
 
-**Пример**: https://api.storyclm.com/v1/tables/23/min/Age
+**Example**: https://api.storyclm.com/v1/tables/23/min/Age
 
-**Ответ:**
+**Response:**
 
 * **Content Type:** application/json; charset=utf-8
-* **Тело ответа:**
+* **The body of response:**
 ``` json
 {
   "result": 1
@@ -777,27 +759,27 @@
 ```
 #### Sum
 
-Возвращает сумму всех значений для указанного поля. 
-Актуально для полей типа: integer, double и boolean.
+Returns the sum of all values ​​for the specified field. 
+Works for fields of like integer, double and boolean.
 
-**Запрос:**
+**Query:**
 
 * **Method:** GET
 * **Accept:** application/json
 * **URL**: https://api.storyclm.com/v1/tables/23/sum/{field}?query={query}
-* **URL параметры:**
-  * **{ tableid:int }** - идентификатор таблицы.
-  * **{ field:any }** - название поля, по которому будет выполнена операция. Параметр должент соответсвовать схеме таблицы.
-  * **{ query:tablesquery }** - запрос в формате [TablesQuery](TABLES_QUERY.md). Необязательный параметр.
+* **URL parameters:**
+  * **{ tableid:int }** - table ID.
+  * **{ field:any }** - the name of the field for which the operation will be carried out. The parameter must correspond to the table scheme.
+  * **{ query:tablesquery }** - query in the [TablesQuery](ru/TABLES_QUERY.md) format. Optional parameter.
 
-**Пример**: https://api.storyclm.com/v1/tables/23/sum/Age?query=[Gender][eq][true]
+**Example**: https://api.storyclm.com/v1/tables/23/sum/Age?query=[Gender][eq][true]
 
-**Пример**: https://api.storyclm.com/v1/tables/23/sum/Age
+**Example**: https://api.storyclm.com/v1/tables/23/sum/Age
 
-**Ответ:**
+**Response:**
 
 * **Content Type:** application/json; charset=utf-8
-* **Тело ответа:**
+* **The body of response:**
 ``` json
 {
   "result": 128
@@ -805,27 +787,27 @@
 ```
 #### Avg
 
-Возвращает среднее арифметическое группы значений для указанного поля. 
-Актуально для полей типа: integer и double.
+Returns the average of a value group for the specified field. 
+Works for fields like integer and double
 
-**Запрос:**
+**Query:**
 
 * **Method:** GET
 * **Accept:** application/json
 * **URL**: https://api.storyclm.com/v1/tables/23/avg/{field}?query={query}
-* **URL параметры:**
-  * **{ tableid:int }** - идентификатор таблицы.
-  * **{ field:any }** - название поля, по которому будет выполнена операция. Параметр должент соответсвовать схеме таблицы.
-  * **{ query:tablesquery }** - запрос в формате [TablesQuery](TABLES_QUERY.md). Необязательный параметр.
+* **URL parameters:**
+  * **{ tableid:int }** - table ID.
+  * **{ field:any }** - the name of the field for which the operation will be carried out. The parameter must correspond to the table scheme.
+  * **{ query:tablesquery }** -  query in the [TablesQuery](ru/TABLES_QUERY.md) format. Optional parameter.
 
-**Пример**: https://api.storyclm.com/v1/tables/23/avg/Age?query=[Gender][eq][true]
+**Example**: https://api.storyclm.com/v1/tables/23/avg/Age?query=[Gender][eq][true]
 
-**Пример**: https://api.storyclm.com/v1/tables/23/avg/Age
+**Example**: https://api.storyclm.com/v1/tables/23/avg/Age
 
-**Ответ:**
+**Response:**
 
 * **Content Type:** application/json; charset=utf-8
-* **Тело ответа:**
+* **The body of response:**
 ``` json
 {
   "result": 30
@@ -833,31 +815,32 @@
 ```
 #### First
 
-Получает первый объект из выборки. Если объект не найдет то сервер вернет статус код 204.
+Gets the first object from the selection. 
+If the object is not found, the server will return status code 204.
 
-**Запрос:**
+**Query:**
 
 * **Method:** GET
 * **Accept:** application/json
 * **URL**: https://api.storyclm.com/v1/tables/23/first?&sort={sort}&sortfield={sortfield}&query={query}
-* **URL параметры:**
-  * **{ tableid:int }** - идентификатор таблицы.
-  * **{ sortfield:string }** - поле, по которому будет произведена сортировка. Необязательный параметр.
-  * **{ sort:int }** - тип сортировки. Необязательный параметр. Используется вместе с параметром "sortfield".
-  * **{ query:tablesquery }** - запрос в формате [TablesQuery](TABLES_QUERY.md). Необязательный параметр.
+* **URL parameters:**
+  * **{ tableid:int }** - table ID.
+  * **{ sortfield:string }** - the field by which the sorting will be performed. Optional parameter.
+  * **{ sort:int }** - the sorting type. Optional parameter. Used with the "sortfield" parameter.
+  * **{ query:tablesquery }** - query in the [TablesQuery](ru/TABLES_QUERY.md) format. Optional parameter.
 
-**Пример**: https://api.storyclm.com/v1/tables/23/first?&sort=1&sortfield=age&query=[Age][eq][33]
+**Example**: https://api.storyclm.com/v1/tables/23/first?&sort=1&sortfield=age&query=[Age][eq][33]
 
-**Пример**: https://api.storyclm.com/v1/tables/23/first?&sort=1&sortfield=age
+**Example**: https://api.storyclm.com/v1/tables/23/first?&sort=1&sortfield=age
 
-**Пример**: https://api.storyclm.com/v1/tables/23/first?&sortfield=age
+**Example**: https://api.storyclm.com/v1/tables/23/first?&sortfield=age
 
-**Пример**: https://api.storyclm.com/v1/tables/23/first
+**Example**: https://api.storyclm.com/v1/tables/23/first
 
-**Ответ:**
+**Response:**
 
 * **Content Type:** application/json; charset=utf-8
-* **Тело ответа:**
+* **The body of response:**
 ``` json
 {
   "Name": "Vladimir",
@@ -870,31 +853,32 @@
 ```
 #### Last
 
-Получает последний объект из выборки. Если объект не найдет то сервер вернет статус код 204.
+Gets the last object from the selection. 
+If the object is not found, the server will return status code 204.
 
-**Запрос:**
+**Query:**
 
 * **Method:** GET
 * **Accept:** application/json
 * **URL**: https://api.storyclm.com/v1/tables/23/last?&sort={sort}&sortfield={sortfield}&query={query}
-* **URL параметры:**
-  * **{ tableid:int }** - идентификатор таблицы.
-  * **{ sortfield:string }** - поле, по которому будет произведена сортировка. Необязательный параметр.
-  * **{ sort:int }** - тип сортировки. Необязательный параметр. Используется вместе с параметром "sortfield".
-  * **{ query:tablesquery }** - запрос в формате [TablesQuery](TABLES_QUERY.md). Необязательный параметр.
+* **URL parameters:**
+  * **{ tableid:int }** - table ID.
+  * **{ sortfield:string }** - the field by which the sorting will be performed. Optional parameter.
+  * **{ sort:int }** - the sorting type. Optional parameter. Used with the "sortfield" parameter.
+  * **{ query:tablesquery }** - query in the [TablesQuery](ru/TABLES_QUERY.md) format. Optional parameter.
 
-**Пример**: https://api.storyclm.com/v1/tables/23/last?&sort=1&sortfield=age&query=[Age][eq][33]
+**Example**: https://api.storyclm.com/v1/tables/23/last?&sort=1&sortfield=age&query=[Age][eq][33]
 
-**Пример**: https://api.storyclm.com/v1/tables/23/last?&sort=1&sortfield=age
+**Example**: https://api.storyclm.com/v1/tables/23/last?&sort=1&sortfield=age
 
-**Пример**: https://api.storyclm.com/v1/tables/23/last?&sortfield=age
+**Example**: https://api.storyclm.com/v1/tables/23/last?&sortfield=age
 
-**Пример**: https://api.storyclm.com/v1/tables/23/last
+**Example**: https://api.storyclm.com/v1/tables/23/last
 
-**Ответ:**
+**Response:**
 
 * **Content Type:** application/json; charset=utf-8
-* **Тело ответа:**
+* **The body of response:**
 ``` json
 {
   "Name": "Vladimir",

@@ -1,26 +1,23 @@
-﻿# Пользователи
+﻿# Users
 
-Управление пользователями осуществляется в рамках клиента в котором созданы учетные данные. 
-Роли пользователей в клиенте: 0 - пользователь, 1 - менеджер, 2 - аккаунт менеджер.
-API позволяет манипулировать пользователями в роли "пользователь".
+User management is carried out within the client in which user accounts were created. Roles of users in the client: 0 - user, 1 - manager, 2 - account manager. The API allows to manipulate users in the role of a "user". Server - api.storyclm.com.
 
-* **Сервер** - api.storyclm.com
-* **Поддерживаемы клиенты** - работающие от имени пользователя, работающие от имени сервиса. 
-
+* **Server** - api.storyclm.com.
+* **Supported clients** - working on behalf of the user, working on behalf of the service. 
 
 ### Create User
 
-Создает и добавляет нового пользователя в клиент.
-Пользователь создается в роли "User".
-Поля "username" и "password" обязательны.
+Creates and adds a new user to the client. 
+The user is assigned the role of "User". 
+The "username" and "password" fields are mandatory. 
 
-**Запрос:**
+**Request:**
 
 * **Method:** POST
 * **Accept:** application/json
 * **URL**: https://api.storyclm.com/v1/users
 
-**Тело запроса:**
+**Response body:**
 ``` json
 {
   "username": "test@test.com",
@@ -33,12 +30,13 @@ API позволяет манипулировать пользователями
   "password": "1234"
 }
 ```
-**Пример**: https://api.storyclm.com/v1/users
+**Example:** https://api.storyclm.com/v1/users
 
-**Ответ:**
+**Response:**
 
 * **Content Type**: application/json; charset=utf-8
-* **Тело ответа**:
+
+**Response body:**
 ``` json
 {
   "id": "2f94a899-7059-4bac-beb1-a3708c8938f3",
@@ -54,18 +52,17 @@ API позволяет манипулировать пользователями
 ```
 ### Update User
 
-Обновляет профиль пользователя.
-Обновляются все поля профиля кроме "Username".
-Объект обновляется целиком.
-Поле "id" обязательно.
+Updates all the user profile fields except "Username". 
+The object is updated entirely. 
+The "id" field is mandatory.
 
-**Запрос:**
+**Request:**
 
 * **Method:** PUT
 * **Accept:** application/json
 * **URL**: https://api.storyclm.com/v1/users
 
-**Тело запроса:**
+**Response body :**
 ``` json
 {
   "id": "2f94a899-7059-4bac-beb1-a3708c8938f3",
@@ -77,12 +74,13 @@ API позволяет манипулировать пользователями
   "gender": false
 }
 ```
-**Пример**: https://api.storyclm.com/v1/users
+**Example:** https://api.storyclm.com/v1/users
 
-**Ответ:**
+**Response:**
 
 * **Content Type**: application/json; charset=utf-8
-* **Тело ответа**:
+
+**Response body:**
 ``` json
 {
   "id": "2f94a899-7059-4bac-beb1-a3708c8938f3",
@@ -97,21 +95,22 @@ API позволяет манипулировать пользователями
 ```
 ### Get Users
 
-Получает список пользователей клиента.
-Каждый объект списка состоит из идентификатора пользователя, имени пользователя и идентификатора роли.
+Gets a list of client users. 
+Every object on the list consists of a user id, a username, and a role identifier.
 
-**Запрос:**
+**Request:**
 
 * **Method:** GET
 * **Accept:** application/json
 * **URL**: https://api.storyclm.com/v1/users
 
-**Пример**: https://api.storyclm.com/v1/users
+**Example:** https://api.storyclm.com/v1/users
 
-**Ответ:**
+**Response:**
 
 * **Content Type**: application/json; charset=utf-8
-* **Тело ответа**:
+
+**Response body:**
 ``` json
 [
   {
@@ -148,22 +147,23 @@ API позволяет манипулировать пользователями
 ```
 ### Get User
 
-Получает профиль пользователя по идентификатору.
+Gets the user profile via ID.
 
-**Запрос:**
+**Request:**
 
 * **Method:** GET
 * **Accept:** application/json
 * **URL**: https://api.storyclm.com/v1/users/{userId:string}
-* **URL параметры:**
-  * **\{ userId:string }** - идентификатор пользователя;
+* **URL parameters:**
+  * **\{ userId:string }** - user ID;
 
-**Пример**: https://api.storyclm.com/v1/users/2f94a899-7059-4bac-beb1-a3708c8938f3
+**Example:** https://api.storyclm.com/v1/users/2f94a899-7059-4bac-beb1-a3708c8938f3
 
-**Ответ:**
+**Response:**
 
 * **Content Type**: application/json; charset=utf-8
-* **Тело ответа**:
+
+**Response body:**
 ``` json
 {
   "id": "2f94a899-7059-4bac-beb1-a3708c8938f3",
@@ -178,50 +178,48 @@ API позволяет манипулировать пользователями
 ```
 ### Password
 
-Обновляет текущий пароль. Пароль должен быть не менее четырех символов.
+Updates the current password. The password must contain at least four characters.
 
-**Запрос:**
+**Request:**
 
 * **Method:** PUT
 * **Accept:** application/json
 * **URL**: https://api.storyclm.com/v1/users/{userId:string}/password
-* **URL параметры:**
-  * **\{ userId:string }** - идентификатор пользователя;
+* **URL parameters:**
+  * **\{ userId:string }** - user ID;
 
-**Тело запроса:**
+**Response body :**
 ``` json
 {
   "password": "test",
 }
 ```
+**Example:** https://api.storyclm.com/v1/users/73f329f8-50b4-414b-9b71-8f760b6dab8a/password
 
-**Пример**: https://api.storyclm.com/v1/users/73f329f8-50b4-414b-9b71-8f760b6dab8a/password
+**Response:**
 
-**Ответ:**
-
-* **Тело ответа**:
+**Response body:**
 ``` json
 
 ```
-
 ### Exists
 
-Проверяет существования пользователя в системе.
-Вернет профиль если пользователь зарегистрирован и добавлен в клиент.
+Checks if the user exists in the system. 
+Returns the profile if the user is registered and added to the client.
 
-**Запрос:**
+**Request:**
 
 * **Method:** GET
 * **Accept:** application/json
 * **URL**: https://api.storyclm.com/v1/users/exists?username={username}
-* **URL параметры:**
-  * **\{ username:string }** - имя пользователя;
+* **URL parameters:**
+  * **\{ username:string }** - username;
 
-**Пример**: https://api.storyclm.com/v1/users/exists?username=test@test.com
+**Example:** https://api.storyclm.com/v1/users/exists?username=test@test.com
 
-**Ответ:**
+**Response:**
 
-* **Тело ответа**:
+**Response body:**
 ``` json
 {
   "id": "8b23dfb9-cfd7-4521-95a8-c9649ecf2d27",
@@ -234,84 +232,82 @@ API позволяет манипулировать пользователями
   "gender": true
 }
 ```
-
 ### Add user to group
 
 Добавляет пользователя в группу.
 
-**Запрос:**
+**Request:**
 
 * **Method:** PUT
 * **Accept:** application/json
 * **URL**: https://api.storyclm.com/v1/users/{userId:string}/group/{groupId:int}
-* **URL параметры:**
-  * **\{ userId:string }** - идентификатор пользователя;
+* **URL parameters:**
+  * **\{ userId:string }** - user ID;
   * **\{ groupId:int }** - идентификатор группы;
 
-**Пример**: https://api.storyclm.com/v1/users/2f94a899-7059-4bac-beb1-a3708c8938f3/group/57
+**Example:** https://api.storyclm.com/v1/users/2f94a899-7059-4bac-beb1-a3708c8938f3/group/57
 
-**Ответ:**
+**Response:**
 
-* **Тело ответа**:
+**Response body:**
 ``` json
 
 ```
 ### Remove user from group
 
-Удаляет пользователя из группы.
+Adds the user to the group.
 
-**Запрос:**
+**Request:**
 
 * **Method:** DELETE
 * **Accept:** application/json
 * **URL**: https://api.storyclm.com/v1/users/{userId:string}/group/{groupId:int}
-* **URL параметры:**
-  * **\{ userId:string }** - идентификатор пользователя;
-  * **\{ groupId:int }** - идентификатор группы;
+* **URL parameters:**
+  * **\{ userId:string }** - user ID;
+  * **\{ groupId:int }** - group ID;
 
-**Пример**: https://api.storyclm.com/v1/users/2f94a899-7059-4bac-beb1-a3708c8938f3/group/57
+**Example:** https://api.storyclm.com/v1/users/2f94a899-7059-4bac-beb1-a3708c8938f3/group/57
 
-**Ответ:**
+**Response:**
 
-* **Тело ответа**:
+**Response body:**
 ``` json
 
 ```
 ### Add user to presentation
 
-Предоставляет пользователю доступ к презентации.
+Gives the user access to the presentation. 
 
-**Запрос:**
+**Request:**
 
 * **Method:** PUT
 * **Accept:** application/json
 * **URL**: https://api.storyclm.com/v1/users/{userId:string}/presentation/{presentationId:int}
-* **URL параметры:**
-  * **\{ userId:string }** - идентификатор пользователя;
-  * **\{ presentationId:int }** - идентификатор презентации;
+* **URL parameters:**
+  * **\{ userId:string }** - user ID;
+  * **\{ presentationId:int }** - presentation ID;
 
-**Пример**: https://api.storyclm.com/v1/users/2f94a899-7059-4bac-beb1-a3708c8938f3/presentation/57
+**Example:** https://api.storyclm.com/v1/users/2f94a899-7059-4bac-beb1-a3708c8938f3/presentation/57
 
-**Ответ:**
+**Response:**
 
-* **Тело ответа**:
+**Response body:**
 ``` json
 
 ```
-
 ### Add User To Presentations
 
-Открывает пользователю доступ к группе презентаций. Группа презентаций должна представлять из себя коллекцию идентификаторов презентаций. Презентации должны пренадлежать текущему клиенту и быть активны. Пользователь не должен принадлежать ролям "Аккунт менеджер" и "Проджект менеджер". Открывая доступ пользователю к группе презентаций, доступ будет открыт только к тем презентациям, которые удовлетворяют выше перечисленным условиям. В результате будет возвращен список всех презентаций, к которым имеет доступ пользователь. Используя этот список, можно проверить к каким презентациям был открыт доступ пользователю.
+Gives the user access to a group of presentations. The group of presentation has to be a collection of presentation identifiers. Presentations must belong to the current client and be active. The user can not be "Accent Manager" and "Project Manager". Giving the user access to the group of presentations means that only the presentations which meet the said conditions will be accessible. As a result, a list of all presentations to which the user has access will be displayed. The list allows to check which presentations the user has been granted access to
 
-**Запрос:**
+**Request:**
 
 * **Method**: POST
 * **Accept**: application/json
 * **URL**: https://api.storyclm.com/v1/users/{userId}/presentations
 * **URL параметры**:
-  * **\{ userId:int }** - идентификатор пользователя;
+  * **\{ userId:int }** - user ID;
 
-**Тело запроса:**
+**Response body :**
 ``` json
 [
 	33,
@@ -319,12 +315,12 @@ API позволяет манипулировать пользователями
 	24
 ]
 ```
-**Пример**: https://api.storyclm.com/v1/users/b1ae249b-22c4-4b0b-a9ec-66f0521a4715/presentations
+**Example:** https://api.storyclm.com/v1/users/b1ae249b-22c4-4b0b-a9ec-66f0521a4715/presentations
 
 **Пример ответа:**
 
 * **Content Type**: application/json; charset=utf-8
-* **Тело ответа**:
+**Response body:**
 
 ```JSON
 [
@@ -335,74 +331,71 @@ API позволяет манипулировать пользователями
 ```
 ### Remove user from presentation
 
-Лишает пользователя доступа к презентации.
+Denies the user access to the presentation.
 
-**Запрос:**
+**Request:**
 
 * **Method:** DELETE
 * **Accept:** application/json
 * **URL**: https://api.storyclm.com/v1/users/{userId:string}/presentation/{presentationId:int}
-* **URL параметры:**
-  * **\{ userId:string }** - идентификатор пользователя;
-  * **\{ presentationId:int }** - идентификатор презентации;
+* **URL parameters:**
+  * **\{ userId:string }** - user ID;
+  * **\{ presentationId:int }** - presentation ID;
 
-**Пример**: https://api.storyclm.com/v1/users/2f94a899-7059-4bac-beb1-a3708c8938f3/presentation/57
+**Example:** https://api.storyclm.com/v1/users/2f94a899-7059-4bac-beb1-a3708c8938f3/presentation/57
 
-**Ответ:**
+**Response:**
 
-* **Тело ответа**:
+**Response body:**
 ``` json
 
 ```
 ### Remove User From Presentations
 
-Лишает пользователя доступа к группе презентаций. Группа презентаций должна представлять из себя коллекцию идентификаторов презентаций. Презентации должны пренадлежать текущему клиенту и быть активны. Пользователь не должен принадлежать ролям "Аккунт менеджер" и "Проджект менеджер". В результате будет возвращен список всех презентаций, к которым имеет доступ пользователь.
+Denies the user access to the group of presentations. The group of presentation has to be a collection of presentation identifiers. Presentations must belong to the current client and be active. The user can not be "Accent Manager" and "Project Manager". As a result, a list of all presentations to which the user has access will be returned.
 
-**Запрос:**
+**Request:**
 
 * **Method**: DELETE
 * **Accept**: application/json
 * **URL**: https://api.storyclm.com/v1/users/{userId}/presentations?ids={presentationId}&ids={presentationId}&ids={presentationId}
 * **URL параметры**:
-  * **\{ presentationId:int }** - идентификатор презентации;
-  * **\{ userId:string }** - идентификатор пользователя;
+  * **\{ presentationId:int }** - presentation ID;
+  * **\{ userId:string }** - user ID;
 
-**Пример**: https://api.storyclm.com/v1/users/b1ae249b-22c4-4b0b-a9ec-66f0521a4715/presentations?ids=24&ids=26&ids=33
-
-**Пример ответа:**
+**Example:** https://api.storyclm.com/v1/users/b1ae249b-22c4-4b0b-a9ec-66f0521a4715/presentations?ids=24&ids=26&ids=33
 
 * **Content Type**: application/json; charset=utf-8
-* **Тело ответа**:
+
+**Response body:**
 
 ```JSON
 []
 ```
 ### Synchronize Presentations For User
 
-Предоставлет доступ пользователю к группе презентаций. Группа презентаций должна представлять из себя коллекцию идентификаторов презентаций. Независимо от того к ками презентациям имел доступ пользователь до синхронизации, после синхронизации он будет иметь доступ только к тем презентациям, которые есть в списке. Презентации должны пренадлежать текущему клиенту и быть активны. Пользователь не должен принадлежать ролям "Аккунт менеджер" и "Проджект менеджер". В результате будет возвращен список всех презентаций, к которым имеет доступ пользователь.
+Grants the user access to the presentation group. The presentation group should be a collection of presentation identifiers. Regardless of which presentations the user had before the synchronization, after synchronization he will have access only to those presentations that are in the list. Presentations should belong to the current client and be active. The user should not belong to the roles "Accent Manager" and "Project Manager". As a result, a list of all presentations to which the user has access will be returned.
 
-**Запрос:**
+**Request:**
 
 * **Method**: PUT
 * **Accept**: application/json
 * **URL**: https://api.storyclm.com/v1/users/{userId}/presentations
 * **URL параметры**:
-  * **\{ presentationId:int }** - идентификатор презентации;
+  * **\{ presentationId:int }** - presentation ID;
 
-**Тело запроса:**
+**Response body :**
 ``` json
 [
   24,
   33
 ]
 ```
-**Пример**: https://api.storyclm.com/v1/users/b1ae249b-22c4-4b0b-a9ec-66f0521a4715/presentations
-
-**Пример ответа:**
+**Example:** https://api.storyclm.com/v1/users/b1ae249b-22c4-4b0b-a9ec-66f0521a4715/presentations
 
 * **Content Type**: application/json; charset=utf-8
-* **Тело ответа**:
 
+**Response body:**
 ```JSON
 [
   24,
@@ -411,21 +404,21 @@ API позволяет манипулировать пользователями
 ```
 ### Presentations
 
-Возвращает список презентаций доступ к которым имеет пользователь.
+Returns the list of presentations the user has access to.
 
-**Запрос:**
+**Request:**
 
 * **Method:** GET
 * **Accept:** application/json
 * **URL**: https://api.storyclm.com/v1/users/{userId:string}/presentations
-* **URL параметры:**
-  * **\{ userId:string }** - идентификатор пользователя;
+* **URL parameters:**
+  * **\{ userId:string }** - user ID;
 
-**Пример**: https://api.storyclm.com/v1/users/2f94a899-7059-4bac-beb1-a3708c8938f3/presentations
+**Example:** https://api.storyclm.com/v1/users/2f94a899-7059-4bac-beb1-a3708c8938f3/presentations
 
-**Ответ:**
+**Response:**
 
-* **Тело ответа**:
+**Response body:**
 ``` json
 [
   {
@@ -437,21 +430,21 @@ API позволяет манипулировать пользователями
 
 ### Groups
 
-Возвращает список групп членом которых является пользователь.
+Returns the list of groups of which the user is a member.
 
-**Запрос:**
+**Request:**
 
 * **Method:** GET
 * **Accept:** application/json
 * **URL**: https://api.storyclm.com/v1/users/{userId:string}/groups
-* **URL параметры:**
-  * **\{ userId:string }** - идентификатор пользователя;
+* **URL parameters:**
+  * **\{ userId:string }** - user ID;
 
-**Пример**: https://api.storyclm.com/v1/users/2f94a899-7059-4bac-beb1-a3708c8938f3/groups
+**Example:** https://api.storyclm.com/v1/users/2f94a899-7059-4bac-beb1-a3708c8938f3/groups
 
-**Ответ:**
+**Response:**
 
-* **Тело ответа**:
+**Response body:**
 ``` json
 [
   {

@@ -1,62 +1,61 @@
 ﻿
-# [REST API](https://ru.wikipedia.org/wiki/REST)
+# [REST API](https://en.wikipedia.org/wiki/REST)
 
-## Ресурсы
+## Table of contents
 
-* [Таблицы](RESTAPI_TABLES.md)
-* [Контент](RESTAPI_CONTENT.md)
-* [Пользователи](RESTAPI_USERS.md)
-* [CLM Аналитика](RESTAPI_CLMANALITYCS.md)
+* [Tables](RESTAPI_TABLES.md)
+* [Content](RESTAPI_CONTENT.md)
+* [Users](RESTAPI_USERS.md)
+* [CLM Analytics](RESTAPI_CLMANALITYCS.md)
 
-## Аутентификация и авторизация
+## Authentication and Authorisation
 
-API StoryCLM представляет из себя совокупность ресурсов связанных между собой по средствам шины сообщений. Каждый ресурс - это отдельный, независимый от других сервис, который имеет свою логику, структуру данных и решает определенную бизнес задачу. В рамках своей бизнес задачи ресурс полностью самодостаточен. Ресурсы обмениваются данными между собой и воркерами по средствам шины сообщений.
+The StoryCLM API is a set of resources interconnected by message bus. Each resource serves a specific business task and represents a separate independent service with its own logic and data structure. While preforming its business task, the resource is completely self-sufficient. Resources exchange data with each other and web workers by the means of the service bus. 
 
-Потребителем ресурсов явлются клиенты. Клиент - это приложение, сайт или другая система которая взаимодействует со StoryCLM через API от своего имени или от имени пользователя StoryCLM. В зависимости от задач, клиент самостоятельно выбирает необходимые ему ресурсы обращаясь к ним, и, тем самым, решая свои задачи интеграции. Для того что бы клиент не авторизовывался на каждом ресурсе в StoryCLM используется Single Sign-On или "Технология единого входа". Эта технология позволяет клиенту обращаться к разным ресурсам без повторной аутентификации на каждом из них. 
+The resources are consumed by clients. A client is an application, website or another system which interacts with StoryCLM through the API on its own behalf or on behalf of a StoryCLM user. Depending on the task, the client chooses necessary resources to access thus solving its integration tasks. For the client not to sign in for every StoryCLM resource, Single Sign-On technology is used. This technology makes it possible for the client to access different resources without reauthentication on each of them.
 
-В StoryCLM SSO (Single Sign-On) реализуется средствами OpenID Connect. OpenID Connect - открытый стандарт децентрализованной системы аутентификации, предоставляющей пользователю возможность создать единую учётную запись для аутентификации на множестве не связанных друг с другом ресурсов, используя услуги сервера авторизации (более подробная информация). Доступ к ресурсам StoryCLM предоставляется по JWT токенам. При каждом обращении к ресурсу или установлении realtime соединения, токен нужно передавать в заголовке запроса. Токен выдает сервер аутентификации - auth.storyclm.com. Правила выдачи и обновления токена, а так же другие моменты касающиеся правил аутентификации в StoryCLM описаны в конфигурации OpenId Connect. Конфигурация OpenId Connect для StoryCLM находится по адресу https://auth.storyclm.com/.well-known/openid-configuration.  
+SSO (Single Sign-On) in StoryCLM is implemented by means of OpenID Connect. OpenID Connect is an open standard of a decentralized authentication protocol that gives the user a possibility to create a single account to sign in on a number of unrelated resources using the services of an authorization server (more detailed information). StoryCLM resources are accessible by JWT tokens. Each every time a resource is accessed or a realtime connection established, a token has to be sent in the request header. The token gives the authentication server - auth.storyclm.com. The rules for generating and refreshing tokens as well as other information concerning the authentication rules in StoryCLM is described in the OpenId Connect configuration. The OpenId Connect configuration for StoryCLM is located at https://auth.storyclm.com/.well-known/openid-configuration. 
 
-Принципиальная схема взаимодействия клиентов и ресурсов, а так же ресурсов между собой и вокерами через шину обмена сообщениями:
+The functional diagram of client-resource interaction as well as inter-resource interaction and interactions with web workers through a message bus: 
 
 ![s](images/rest/1.png)
 
-## Настройка 
+## Configuration 
 
-Для того что бы получить доступ к ресурсам StoryCLM, на панели администрирования нужно зарегистрировать приложение, настроить тип клиента и доступ у нужным ресурсам. Приложение - это совокупность учетных данных и набор ресурсов, к которым приложение может получить доступ.
+To gain access to StoryCLM resources, one needs to register the application on the control panel, select the client type and access to necessary resources. An application is a collection of user account details and a set of resources the application can access. 
 
-Консоль управления приложениями находится во вкладке "Приложения" раздела "Интеграция" клиента.
+The control panel for applications is located in the "Applications" tab of the "Integration" section of a client.
 
 ![s](images/rest/2.png)
 
-В таблице отображается список уже созданных приложений.
+The table contains a list of already created applications.
 
 ![s](images/rest/3.png)
 
-Для того что бы создать новое приложение, нужно нажать на кнопку "Новое приложение". Появится форма создания нового приложения.
+In order to create a new application, you need to click on the "New Application" button. It will bring up a form for creating a new application.
 
 ![s](images/rest/4.png)
 
-Форма состоит из следующих полей:
+The form consists of the following fields:
 
- 1. Название - обычно совпадает с названием приложения, которое будет использовать эти учетные данные.
- 2. Enabled - включает или отключает доступ. Это означает что по этим учетным данным сервер аутентификации перестанет выдавать новые токены доступа. Токены, которые уже были выданы продолжат функцианировать до истечения их срока действия.
- 3. Type - тип приложения, описывает способ аутентификации на сервере.
- 4. Scopes - ресурсы, которые будут доступны приложению по ключу доступа. Разные ресурсы работают с разными типами приложений по-разному. Одни могут давать возможность взаимодействовать с ним от имени пользователя, другие только от имени сервиса. Некоторые ресурсы позволяют взаимодействовать с ними всем типам приложений, но например, если клиент взаимодействует от имени пользователя, то он получит один набор данных а клиент работающий от имени сервиса получит другой. Узнать как именно ресурсы работают с разными типами клиентов можно узнать в документации к самому ресурсу.
+ 1. Name - usually is the same as the name of the application that will use the account.
+ 2. Enabled - enables or disables access, meaning that the authentication server will stop generating new access tokens for this account. Tokens that have already been given will remain valid until they expire.
+ 3. Type - the type of application. It refers to the authentication method on the server.
+ 4. Scopes - resources that will be available to the application by an access key. Different resources have a different way of working with various types of applications. Some of them allow to interact with it on behalf of the end user, others – only on behalf of the service. Some resources allow interaction with all types of applications, but if, for instance, the client interacts on behalf of the end user, it will be given one data array, while the client working on behalf of the service will receive a different one. Information on how resources work with different types of clients can be found in the documentation for the resource. 
 
-
-После создания приложения оно появится в списке. Приложение можно удалить или отредактировать, а так же, получить ключи доступа в виде пары client ID и secret.
+After an application has been created, it appears on the list. The application can be deleted or edited, as well as get access keys as in the form of client ID and secret.
 
 ![s](images/rest/5.png)
 
-Что бы получить доступ к ресурсам StoryCLM, нужно авторизоваться и получить токен доступа. В противном случае, без токена ресурс будет отвечать сообщением с кодом 401 (Unauthorized). Существуют разные типы аутентификации. Тип аутентификации зависит от типа приложения. 
+To gain access to StoryCLM resources, one needs to log in and receive an access token. In case there is no token, the resource responds with error 401 (Unauthorized). There are different types of authentication depending on the type of application.
 
-### Типы приложений и аутентификация
+### Types of applications and authentication
 
-В StoryCLM в роли клиента может быть веб приложение, сервис, мобильное или настольное приложение. В зависимости от этого клиент может совершать операции от своего имени или от имени пользователя StoryCLM. 
+In StoryCLM, the client can be represented by a web-based application, a service, a mobile or desktop application. Depending on this, the client can carry out operations on its own behalf or on behalf of the StoryCLM user.
 
-**Service**. В роли клиента выступает другой сервис. Используется для интеграции StoryCLM с другой системой. Клиент получает доступ к ресурсам только в рамках клиента StoryCLM. Для получения токена доступа потребуется только ClientId и Secret. Это самый простой и небезопасный способ из всех. Для того что бы получить токен нужно выполнить запрос:
+**Service**. The client is another service. It is used to integrate StoryCLM with another system. The client gets access to resources only within the StoryCLM client. Only ClientId and Secret are required to receive the access token,. This is the simplest and most insecure method of all. For a token to be generated, a request has to be sent: 
 
-Пример запроса:
+Example of a request:
 
 ```
 POST /connect/token HTTP/1.1
@@ -68,7 +67,7 @@ grant_type=client_credentials
 &client_secret=e3f8314c34073e4509b16f1125ed5d7b47fcb8fac2291b495eb01bad4a0fb5f9e543
 ```
 
-Пример ответа:
+Example of a response:
 
 ```
 {
@@ -78,10 +77,9 @@ grant_type=client_credentials
 }
 ```
 
-**Application**. В роли клиента выступает мобильное или настольное приложение. Клиент взаимодействует с ресурсами StoryCLM от имени пользователя StoryCLM. Для получения токена доступа потребуется ClientId, Secret, Username и Password. Для того что бы получить токен нужно выполнить запрос:
+**Application**. The client is a mobile or desktop application. The client interacts with StoryCLM resources on behalf of a StoryCLM end user. To obtain the access token ClientId, Secret, Username, and Password are required. In order to receive a token, you need to execute the query:
 
-Пример запроса:
-
+Example of a request:
 ```
 POST /connect/token HTTP/1.1
 Host: auth.storyclm.com/connect/token
@@ -94,8 +92,7 @@ grant_type=password
 &client_secret=ce200179f3dd344ca3896a144550996b82092c0e5ab976d0d495cafbd0a84b2fa3bc6
 ```
 
-Пример ответа:
-
+Example of a response:
 ```
 {
   "access_token": "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijc35YWVkYThmZWM4M2I1NDhmNzU4ZTBjYWM5NzMxZTQ1IiwidHlwIjoiSldUIn0.eyJuYmYiOjE1MDAzNzc2MjksImV4cCI6MTUwMDM4MTIyOSwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMzEiLCJhdWQiOlsiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMzEvcmVzb3VyY2VzIiwiY29udGVudCIsIm15byIsInRhYmxlcyJdLCJjbGllbnRfaWQiOiJjbGllbnRfMV80Iiwic3ViIjoiYjFhZTI0OWItMjJjNC00YjBiLWE53ZWMtNjZmMDUyMWE0NzE1IiwiYXV0aF90aW1lIjoxNTAwMzc3NjI5LCJpZHAiOiJsb2NhbCIsIm5hbWUiOiJyc2stazE2MUB5YS5ydSIsImZ1bGxuYW1lIjoi0J_RgNC-0YLQvtC9INCf0YDQvtGC0L7QvdC-0LIiLCJyb2xlIjoidXNlciIsInJvbGVfY2xpZW50XzEiOiJ1c2VyIiwicm9sZV9jbGllbnRfMiI6InVzZXIiLCJzY29wZSI6WyJjb250ZW50IiwibXlvIiwidGFibGVzIiwib2ZmbGluZV9hY2Nlc3MiXSwiYW1yIjpbIiJdfQ.KjLIYZ4Jd33e6uXw1zuNylvB5KJCNcQRvgltBV56GcEzaKmxE9MgImF0ainj7eVfZJU9REipLw1Ni2l4aG7C2buEORhNYXX79-ZC4liJFFOCUsWv0pBA0jSonKxtT4FQGdXXkBQb2obqVYyinzsx-EX8Avs-V56Sh4iV4-3Se-rePVQ_1ZzEpFnw66e0cvX6PUYvjU-0GwaVlayEZBNizzQ7X6suKBOvk17-SaDTx0rtdIFEkkh_J0L9yPpICHacE2zgtxI6UHHKpC2BIrOGCMcNDGrh20O2otjygvQ0MATOm7T1Cb5gH4CdfN7AyIHh288uvX2L9moy_UaUm_Xo3w",
@@ -105,27 +102,25 @@ grant_type=password
 }
 ```
 
-**Website**. В роли клиента выступает веб сайт или веб приложение. Клиент взаимодействует с ресурсами StoryCLM от имени пользователя StoryCLM. Grant Type - code. Это самый безопасный и надежный способ аутентификации, но так же и самый сложный. Для разных языков программирования и фреймворков созданы свои провайдеры аутентификации для OpenID Connect. Следует использовать их для того что бы авторизоваться через StoryCLM. 
+**Website**. The client is a web site or a web application. The client interacts with StoryCLM resources on behalf of the StoryCLM end user. Grant Type - code. This is the most secure and reliable authentication method, but at the same time the most complicated. For different programming languages ​​and frameworks there are different authentication providers for OpenID Connect. They are to be used for authorisation through StoryCLM.
 
+### Using the token
 
-### Использование токена
+The response from the server is in JSON format. The resulting object can contain the following fields:
 
-Ответ от сервера приходит в формате Json.  Полученный объект может содержать следующие поля:
+* access_token - access token
+* expires_in - lifetime of the token in seconds
+* token_type - token type
+* refresh_token - a token using which a new access token can be obtained. It is generated only for the Web site and Application application types
 
-* access_token - токен доступа.
-* expires_in - время жизни токена доступа в секундах.
-* token_type - тип токена.
-* refresh_token -  токен по которому можно получить новый токен доступа, выдается только в для типов приложения Web site и Application.
-
-Теперь в каждый запрос к ресурсу, в заголовок, нужно добавлять access_token в формате:
+Now the header for every request to the resource has to contain access_token in the following format:
 
 ```
 Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImJlMjcxZjEwYmVlZWQ5OTEyMDQ...
 ```
+It has to be said that an access token is valid for one hour. After that the resource will response with code 401 (Unauthorized). To avoid this a new token has to be obtained before the current one expires, in case of Service application type. In other cases to obtain an access token you need to use refresh_token. The thing is that the refresh token (refresh_token), unlike the access token, is valid for a year and if the access token expires, there is no need to make the user receive a new access token by entering a password. A new access token can be obtained in the background with the update token. To get a new access token by refresh_token, you need to execute the query:
 
-Следует отметить, что токен доступа живет час. После чего от ресурса будет приходить код 401 (Unauthorized). Что бы избежать этого нужно получать новый токен до истечения срока действия текущего, в случае если тип приложения Service. В остальных случаях для получения нового токена доступа нужно использовать refresh_token. Дело в том, что токен обновления (refresh_token), в отличии от токена доступа, живет год и если токен доступа стал просроченный то можно не заставлять пользователя получить новый токен доступа, вводя пароль. Можно в фоновом режиме по токену обновления получить новый токен доступа.  Для того что бы получить новый токен доступа по refresh_token нужно выполнить запрос:
-
-Пример запроса:
+Example of a request:
 
 ```
 POST /connect/token HTTP/1.1
@@ -137,9 +132,7 @@ grant_type=refresh_token
 &client_id=client_1_4&
 client_secret=ce200179f3dd4ca3896a15504996b82092c50eab976d0d495cafbd0a84b2fa3bc6
 ```
-
-Пример ответа:
-
+Example of a response:
 ```
 {
   "access_token": "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijc5YWVkYThmZWM4M2I1NDhmNzU4ZTBjYWM5NzMxZTQ1IiwidHlwIjoiSldUIn0.eyJuYmYiOjE1MDAzNzc2MzgsImV4cCI6MTUwMDM4MTIzOCwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMzEiLCJhdWQiOlsiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMzEvcmVzb3VyY2VzIi4wiY29udGVudCIsInRhYmxlcyIsIm15byJdLCJjbGllbnRfaWQiOiJjbGllbnRfMV80Iiwic3ViIjoiYjFhZTI0OWItMjJjNC00YjBiLWE5ZWMtNjZmMDUyMWE0NzE1IiwiYXV0aF90aW1lIjoxNTAwMzc3NjI5LCJpZHAiOiJsb2NhbCIsIm5hbWUiOiJyc2stazE2MUB5YS5ydSIsImZ1bGxuY3W1lIjoi0J_RgNC-0YLQvtC9INCf0YDQvtGC0L7QvdC-0LIiLCJyb2xlIjoidXNlciIsInJvbGVfY2xpZW50XzEiOiJ1c2VyIiwicm9sZV9jbGllbnRfMiI6InVzZXIiLCJzY29wZSI6WyJjb250ZW50IiwidGFibGVzIiwibXlvIiwib2ZmbGluZV9hY2Nlc3Mi4XSwiYW1yIjpbIiJdfQ.jGsZo2s16pQ-dVMq1krVZjUITIMoDdOMEHAb7cgy4XLzsc5lMYuJEYjAZlAUjQbnqChgT5QYBThcv-Mt8HRCFW3lxPZWgXxgVskZQDpRS8o75yISeq8kHpbDk1IugugmwLJLwvCh5NGMGT4hKLNtQA79NY-iJZwLXktACvt0Q7TbsvWPwK_C7dGcjAyXxgI_e1OhNu3e-iIjkb-Bfc_bX6OzTZfzGFDVBZwkPPyUr87i3k9m6ibhflKbdSYUlulOxM6-TMXvGs46oTJ5NraLo-gPsaZOEKeiYz_xuCERhpN9_tWyn-Hra-inSzo61g84G53einr7xOnbR1rszsOobg",

@@ -1,27 +1,27 @@
-﻿# Контент
+﻿# Content
 
-В основе понятия "контент" в StoryCLM лежит интерактивная презентация (приложение). Приложения для StoryCLM - это Web приложения создаваемые с использованием веб-технологий, таких как HTML, CSS, и JavaScript. Приложения состоят из слайдов, медиафайлов и пакета с ассетами. Каждое приложение находится в клиенте StoryCLM. Для того что бы получить доступ к контенту через API, нужно иметь необходимые права в клиенте к которому принадлежит приложение.  Помимо прав, клиент и приложение должно быть в активном состоянии.  
+The notion of "content" in StoryCLM is based on an interactive presentation (application). Applications for StoryCLM are web-applications created with the use of such web technologies as HTML, CSS and JavaScript. Applications consist of slides, media files and assets packages. Each application is located in the StoryCLM client. To gain access to the content via API ones has to have the necessary rights in the client to which the application belongs. Apart from having the rights, both the client and the application must be active
 
-* **Сервер** - api.storyclm.com
-* **Поддерживаемы клиенты** - работающие от имени пользователя, работающие от имени сервиса. 
+* **Server** - api.storyclm.com
+* **Supported clients** -  working on behalf of the user, working on behalf of the service. 
 
 
 ### Clients
 
-Список доступных клиентов.
+List of available clients.
 
-**Запрос:**
+**Request:**
 
 * **Method**: GET
 * **Accept**: application/json
 * **URL**: https://api.storyclm.com/v1/clients
 
-**Пример**: https://api.storyclm.com/v1/clients
+**Example**: https://api.storyclm.com/v1/clients
 
-**Пример ответа:**
+**Example of response:**
 
 * **Content Type**: application/json; charset=utf-8
-* **Тело ответа**:
+* **The body of response:**
 
 ```JSON
 [
@@ -97,59 +97,58 @@
   }
 ]
 ```
-**Результат** - коллесция объектов "Клиент". Каждый объект коллекции содержит следующие поля:
+The result is the "Client"collection of objects. Every object of the collection contains the following fields:
 
-* **id** - уникальный идентификатор клиента;
-* **name** - название клиент;
-* **lockoutEnabled** - блокировка;
-* **shortDescription** - краткое описание;
-* **longDescription** - описание;
-* **thumbImgId** - URL картинки-подложки;
-* **imgId** - URL логотипа;
-* **url** - сайт компании;
-* **email** - email контактного лица;
-* **created** - дата создания;
-* **updated** - дата последнего обновления;
-* **deviceLogTable** - идентификатор таблицы в которую записывается системный лог;
-* **baseStatisticsTable** - идентификатор таблицы в которую записывается статистика приложений;
-* **geolocationTable** - идентификатор таблицы в которую записываются геоданные;
-* **presentations** - список презентаций. Представляет из себя коллекцию упрощенных объектов описывающих презентацию;
-  * **debug** - презентация в режиме разработки;
-  * **skip** - не синхронизировать презентацию;
-  * **lockout** - презентация заблокирована;
-  * **id** - уникальный идентификатор;
-  * **revision** - ревизия. Используется для синхронизации. При каждом изменении объекта поле увелицивается на еденицу;
-* **users** - список пользователей. Представляет из себя коллекцию упрощенных объектов описывающих пользователя;
-  * **id** - идентификатор пользователя;
-  * **role** - роль пользователя в клиенте;
-* **groups** - список групп. Представляет из себя коллекцию упрощенных объектов описывающих группу пользователей;
-  * **users** - спискок идентификаторов пользователей состоящих в группе;
-  * **id** - идентификатор группы;
-  * **name** - название группы;
-* **tables** - список таблиц. Представляет из себя коллекцию упрощенных объектов описывающих таблицу;
-  * **id** - идентификатор таблицы;
-  * **name** - название таблицы;
-
+* **id** - the unique client ID;
+* **name** - the name of the client;
+* **lockoutEnabled** - blocking;
+* **shortDescription** - short description;
+* **longDescription** - description;
+* **thumbImgId** - URL of the background image; 
+* **imgId** - URL of the logo; 
+* **url** - the company's website;
+* **email** - email of the contact person;
+* **created** - date of creation;
+* **updated** - date of the last update;
+* **deviceLogTable** - the identifier of the table in which the system log is written;
+* **baseStatisticsTable** - the identifier of the table in which application statistics are written;
+* **geolocationTable** - the identifier of the table in which geodata are written;
+* **presentations** - the list of presentations. It is a collection of simplified objects describing the presentation;
+  * **debug** - presentation in the development mode;
+  * **skip** - do no sync the presentation;
+  * **lockout** - the presentation has been blocked; 
+  * **id** - unique identifier;
+  * **revision** - revision. Used for synchronization. With each change of object the field is increased by one;
+* **users** - the list of users. It is a collection of simplified objects describing the user;
+  * **id** - the identifier of the user;
+  * **role** - the role of the user in the client;
+* **groups** -  list of groups. It is a collection of simplified objects that describe a group of users;
+  * **users** - a list of user IDs in the group;
+  * **id** - the identifier of the group;
+  * **name** - the name of the group;
+* **tables** - list of tables. It is a collection of simplified objects that describe the table;
+  * **id** - the identifier of the table;
+  * **name** - the name of the table; 
 
 
 ### Client
 
-Получает клиент по идентификатору.
+Received by the client through ID. 
 
-**Запрос:**
+**Request:**
 
 * **Method**: GET
 * **Accept**: application/json
 * **URL**: https://api.storyclm.com/v1/clients/{clientid}
 * **URL параметры**:
-  * **\{ clientid:int }** - идентификатор клиента;
+  * **\{ clientid:int }** - client ID;
 
-**Пример**: https://api.storyclm.com/v1/clients/1
+**Example**: https://api.storyclm.com/v1/clients/1
 
-**Пример ответа:**
+**Example of response:**
 
 * **Content Type**: application/json; charset=utf-8
-* **Тело ответа**:
+* **The body of response:**
 
 ```JSON
   {
@@ -225,22 +224,22 @@
 ```
 ### Presentation
 
-Получает презентацию по идентификатору.
+Receives the presentation through ID. 
 
-**Запрос:**
+**Request:**
 
 * **Method**: GET
 * **Accept**: application/json
 * **URL**: https://api.storyclm.com/v1/presentations/{presentationId}
 * **URL параметры**:
-  * **\{ presentationId:int }** - идентификатор презентации;
+  * **\{ presentationId:int }** - presentation ID;
 
-**Пример**: https://api.storyclm.com/v1/presentations/17
+**Example**: https://api.storyclm.com/v1/presentations/17
 
-**Пример ответа:**
+**Example of response:**
 
 * **Content Type**: application/json; charset=utf-8
-* **Тело ответа**:
+* **The body of response:**
 
 ```JSON
 {
@@ -312,70 +311,69 @@
   ]
 }
 ```
-**Результат** - объект "Презентация". Объект содержит следующие поля:
+**The resulting** - object "Presentation" contains the following fields:
 
-* **id** - уникальный идентификатор презентации;
-* **name** - название презентации;
-* **shortDescription** - краткое описание;
-* **longDescription** - описание;
-* **thumbImgId** - иконка;
-* **imgId** - логотип;
-* **order** - "Вес", используется при выстраивании списка;
-* **revision** - ревизия. Используется для синхронизации. При каждом изменении объекта поле увеличивается на единицу;
-* **created** - дата создания;
-* **updated** - дата редактирования;
-* **clientId** - идентификатор клиента которому принадлежит презентация;
-* **debugModeEnabled** - режим разработки;
-* **skip** - режим пропуска синхронизации;
-* **mapEnabled** - карта включена. Это означает, что презентация использует в своей работе карту;
-* **mapType** - тип карты;
-* **needConfirmation** - запрашивать подтверждение при выходе из презентации;
-* **previewMode** - режим отображения;
-* **map** - карта;
-* **visibility** - отображать или скрывать презентацию;
-* **sourcesFolder** - пакет с ассетами;
-  * **id** - идентификация пакета;
-  * **blobId** - название пакета;
-  * **fileSize** - размер пакета в байтах;
-  * **mimeType** - тип пакета, обычно архив zip;
-  * **revision** - ревизия. Используется для синхронизации. При каждом изменении объекта поле увеличивается на единицу;
-  * **created** - дата создания пакета;
-  * **updated** - дата последней загрузки пакета;
-* **mediaFiles** - список медиафайлов. Представляет из себя коллекцию упрощенных объектов описывающих медиафайл;
-  * **fileSize** - размер файла в байтах;
-  * **id** - уникальный идентификатор медиафайла;
-  * **revision** - ревизия. Используется для синхронизации. При каждом изменении объекта поле увеличивается на единицу;
-* **slides** - список слайдов. Представляет из себя коллекцию упрощенных объектов описывающих слайд;
-  * **id** - идентификатор слайда;
-  * **revision** - ревизия. Используется для синхронизации. При каждом изменении объекта поле увеличивается на единицу;
-* **presentations** - список презентаций которые необходимы для корректной работы текущей презентации.
-* **users** - список пользователей презентации. Представляет из себя коллекцию упрощенных объектов описывающих пользователя;
-  * **revision** - ревизия. Используется для синхронизации. При каждом изменении объекта поле увеличивается на единицу;
-  * **id** - идентификатор пользователя;
-  * **role** - роль пользователя;
+* **id** - the unique ID of presentation;
+* **name** -  the name of the presentation;
+* **shortDescription** - short description;
+* **longDescription** - description;
+* **thumbImgId** - icon;
+* **imgId** - logo;
+* **order** -  "weight", used to organise the list;
+* **revision** -  revision. Used when synchronysing. With each change of object the field is increased by one;
+* **created** - date of creation;
+* **updated** -  date edited;
+* **clientId** - the ID of the client whose presentation it is;
+* **debugModeEnabled** - development mode;
+* **skip** - skip sync;
+* **mapEnabled** - map enabled. It means the presentation is using the map;
+* **mapType** - map type;
+* **needConfirmation** - ask for confirmation when exiting the presentation;
+* **previewMode** - preview mode;
+* **map** - map;
+* **visibility** - show or hide the presentation;
+* **sourcesFolder** - the assets package;
+  * **id** - the package ID;
+  * **blobId** - the name of the package;
+  * **fileSize** - the package size in bytes;
+  * **mimeType** - package tupe, usually a zip archive;
+  * **revision** - revision. Used when synchronysing. With each change of object the field is increased by one;
+  * **created** - the date package was created;
+  * **updated** - the date package was last uploaded;
+* **mediaFiles** -  the list of media files. It is a collection of simplified objects describing the media file; 
+  * **fileSize** - file size in bytes;
+  * **id** - the unique ID of the media file;
+  * **revision** - revision. Used when synchronysing. With each change of object the field is increased by one;
+* **slides** -  list of slides. It is a collection of simplified objects describing a slide;
+  * **id** - slide ID;
+  * **revision** - revision. Used when synchronysing. With each change of object the field is increased by one;
+* **presentations** - the list of presentations required for the correct work of the current presentation.
+* **users** - the list of presentation users. It is a collection of simplified objects describing the user;
+  * **id** - user ID;
+  * **role** - user's role;
 
 ### Get Presentation Users
 
-Получает список пользователей, которым открыт доступ к презентации. Презентация должна быть активна. 
+Gets the list of users who have access to the presentation. The presentation must be active.
 
-*Для доступа к ресурсу должен быть включен scope "users".*
+*To access the resource the scope "users" must be enabled.*
 
-*Презентация должны находится в клиенте, в котором созданы учетные данные.*
+*The presentation has to be in the same client in which the account was created.*
 
-**Запрос:**
+**Request:**
 
 * **Method**: GET
 * **Accept**: application/json
 * **URL**: https://api.storyclm.com/v1/presentations/{presentationId}/users
 * **URL параметры**:
-  * **\{ presentationId:int }** - идентификатор презентации;
+  * **\{ presentationId:int }** - presentation ID;
 
-**Пример**: https://api.storyclm.com/v1/presentations/17/users
+**Example**: https://api.storyclm.com/v1/presentations/17/users
 
-**Пример ответа:**
+**Example of response:**
 
 * **Content Type**: application/json; charset=utf-8
-* **Тело ответа**:
+* **The body of response:**
 
 ```JSON
 [
@@ -394,20 +392,19 @@
 
 ### Add Users To Presentation
 
-Открывает группе пользователей доступ к презентации. Презентация должны быть активна.
-Нельзя дать права пользователям в роли "Проект менеджер", "Аккаунт менеджер" или пользователям которые не принадлежат клиенту, которому принадлежит презентация. Так же нельзя дать доступ пользователям, которые уже имеют права доступа. При добавлении группой, будут добавлены только те пользователи, которые удовлетворяют выше перечисленным условиям. В результате будет возвращен список всех пользователей, имеющих доступ к презентации. Используя этот список, можно проверить какие пользователи были добавлены.
+It gives a group of users access to the presentation. The presentation must be active. Rights can not be given to users "Project Manager", "Account Manager" or users who do not belong to the client to which the presentation belongs. Also, access can not be given to users who already have access rights. When being added as a group, only the users meeting those criteria will be added. As a result, a list of all users who have access to the presentation will be displayed. The list allows to check which users have been added.
 
-*Для доступа к ресурсу должен быть включен scope "users".*
+*To access the resource the scope "users" must be enabled.*
 
-*Презентация должны находится в клиенте, в котором созданы учетные данные.*
+*The presentation has to be in the same client in which the account was created.*
 
-**Запрос:**
+**Request:**
 
 * **Method**: POST
 * **Accept**: application/json
 * **URL**: https://api.storyclm.com/v1/presentations/{presentationId}/users
 * **URL параметры**:
-  * **\{ presentationId:int }** - идентификатор презентации;
+  * **\{ presentationId:int }** - presentation ID;
 
 **Тело запроса:**
 ``` json
@@ -418,12 +415,12 @@
 ]
 ```
 
-**Пример**: https://api.storyclm.com/v1/presentations/17/users
+**Example**: https://api.storyclm.com/v1/presentations/17/users
 
-**Пример ответа:**
+**Example of response:**
 
 * **Content Type**: application/json; charset=utf-8
-* **Тело ответа**:
+* **The body of response:**
 
 ```JSON
 [
@@ -441,14 +438,13 @@
 ```
 ### Remove Users From Presentation
 
-Лишает группу пользователей прав доступа к презентации. Презентация должны быть активна.
-Ограничить доступ к презентации можно только тем пользователям, которые уже имеют доступ. В результате будет возвращен список всех пользователей, имеющих доступ к презентации. Используя этот список, можно проверить какие пользователи были удалены.
+Denies access to the presentation to a group of users. The presentation must be active. Only those users who already have access to the presentation can have the access limited. As a result, a list of all users who have access to the presentation will be displayed. The list allows to check which users have been denied access.
 
-*Для доступа к ресурсу должен быть включен scope "users".*
+*To access the resource the scope "users" must be enabled.*
 
-*Презентация должны находится в клиенте, в котором созданы учетные данные.*
+*The presentation has to be in the same client in which the account was created.*
 
-**Запрос:**
+**Request:**
 
 * **Method**: DELETE
 * **Accept**: application/json
@@ -457,12 +453,12 @@
   * **\{ presentationId:int }** - идентификатор презентации;
   * **\{ userId:string }** - идентификатор пользователя;
 
-**Пример**: https://api.storyclm.com/v1/presentations/17/users?users=3975f964-e93e-4df3-814b-ae8df9bf741f&users=3d320152-2b38-4b51-9939-0b2f96d23759
+**Example**: https://api.storyclm.com/v1/presentations/17/users?users=3975f964-e93e-4df3-814b-ae8df9bf741f&users=3d320152-2b38-4b51-9939-0b2f96d23759
 
-**Пример ответа:**
+**Example of response:**
 
 * **Content Type**: application/json; charset=utf-8
-* **Тело ответа**:
+* **The body of response:**
 
 ```JSON
 [
@@ -475,14 +471,15 @@
 ```
 ### Synchronize Presentation Users
 
-Открывает доступ группе пользователей к презентации согласно предоставленному списку. Доступ будут иметь только те пользователи, которые будут указаны в писке. Пользователи которых нет в списке но которые имели необходимые права будут лишены права доступа. Если в списке будут пользователи, которые не имеют прав доступа то им будут добавлены права. Над пользователями, которые есть в списке и уже имеют доступ манипуляции по изменению прав производится не будут. Презентация должны быть активна.
-Нельзя изменять права доступа пользователям в роли "Проект менеджер", "Аккаунт менеджер" или пользователям которые не принадлежат клиенту, которому принадлежит презентация. В результате будет возвращен список всех пользователей, имеющих доступ к презентации. Используя этот список, можно проверить какие пользователи были добавлены.
+It gives a group of users access to the presentation according to the given list. Only the listed users will be granted access. Users who are not on the list but who have the necessary rights will be denied the right to access. If there are users without access rights on the list, they will be given the rights. No change of rights will be applied to users who are on the list and who already have access. The presentation must be active. 
 
-*Для доступа к ресурсу должен быть включен scope "users".*
+Access rights can not be changed for users "Project Manager", "Account Manager" or users who do not belong to the client to which the presentation belongs. As a result a list of all users who have access to the presentation will be displayed. The list allows to check which users have been added.
 
-*Презентация должны находится в клиенте, в котором созданы учетные данные.*
+*To access the resource the scope "users" must be enabled.*
 
-**Запрос:**
+*The presentation has to be in the same client in which the account was created.*
+
+**Request:**
 
 * **Method**: PUT
 * **Accept**: application/json
@@ -497,12 +494,12 @@
 	"3d320152-2b38-4b51-9939-0b2f96d23759"
 ]
 ```
-**Пример**: https://api.storyclm.com/v1/presentations/17/users
+**Example**: https://api.storyclm.com/v1/presentations/17/users
 
-**Пример ответа:**
+**Example of response:**
 
 * **Content Type**: application/json; charset=utf-8
-* **Тело ответа**:
+* **The body of response:**
 
 ```JSON
 [
@@ -520,22 +517,22 @@
 ```
 ### Mediafile
 
-Получает медиафайл по идентификатору.
+Receives a media file through ID. 
 
-**Запрос:**
+**Request:**
 
 * **Method**: GET
 * **Accept**: application/json
 * **URL**: https://api.storyclm.com/v1/mediafiles/{mediafileId}
 * **URL параметры**:
-  * **\{ mediafileId:int }** - идентификатор медиафайла;
+  * **\{ mediafileId:int }** - medifile ID;
 
-**Пример**: https://api.storyclm.com/v1/mediafiles/118
+**Example**: https://api.storyclm.com/v1/mediafiles/118
 
-**Пример ответа:**
+**Example of response:**
 
 * **Content Type**: application/json; charset=utf-8
-* **Тело ответа**:
+* **The body of response:**
 
 ```JSON
 {
@@ -552,39 +549,38 @@
   "isAvailableForSharing": false,
 }
 ```
-**Результат** - объект "Медиафайл". Объект содержит следующие поля:
+**Result** - the resulting object "Mediafile" has the following fields:
 
-* **id** - уникальный идентификатор медиафайла в системе;
-* **revision** - ревизия. Используется для синхронизации. При каждом изменении объекта поле увеличивается на единицу;
-* **fileName** - имя файла в файловой системе;
-* **title** - название медиафайла;
-* **blobId** - идентификатор медиафайла в хранилище;
-* **fileSize** - размер медиафайла в байтах;
-* **mimeType** - тип файла;
-* **created** - дата создания;
-* **updated** - дата обновления;
-* **sas** - ссылка на скачивание. Ссылка активна один час.
-* **isAvailableForSharing** - дает возможность пользователю пересылать медифайл;
+* **id** - the unique ID of the media file in the system; 
+* **revision** - revision. Used when synchronysing. With each change of object the field is increased by one;
+* **fileName** - name of the file in the file system; 
+* **title** - the title of the media file;
+* **blobId** - the file identifier in storage; 
+* **fileSize** - the package size in bytes;
+* **mimeType** - type of the file;
+* **created** - date of creation;
+* **updated** - date updated;
+* **sas** - link to download. Remains active for one hour;
+* **isAvailableForSharing** - gives the user a possibility to send the media file on;
 
 ### Slide
 
-Получает слайд по идентификатору.
+Receives a slide through ID. 
 
-**Запрос:**
+**Request:**
 
 * **Method**: GET
 * **Accept**: application/json
 * **URL**: https://api.storyclm.com/v1/slides/{slideId}
 * **URL параметры**:
-  * **\{ slideId:int }** - идентификатор слайда;
+  * **\{ slideId:int }** - slide ID;
 
-**Пример**: https://api.storyclm.com/v1/slides/2140
+**Example**: https://api.storyclm.com/v1/slides/2140
 
-**Пример ответа:**
+**Example of response:**
 
 * **Content Type**: application/json; charset=utf-8
-* **Тело ответа**:
-
+* **The body of response:**
 ```JSON
 {
   "id": 2140,
@@ -598,36 +594,36 @@
   "updated": "2016-12-27T11:09:18.467",
 }
 ```
-**Результат** - объект "Слайд". Объект содержит следующие поля:
+**Result** - The resulting object is "Slide". The object contains the following fields:
 
-* **id** - уникальный идентификатор слайда в системе;
-* **revision** - ревизия. Используется для синхронизации. При каждом изменении объекта поле увеличивается на единицу;
-* **name** - название слайда в файловой системе;
-* **pageSource** - содержимое слайда в формате Base64;
-* **linkedSlides** - связные слайды. Используется для построения карты;
-* **swipeNext** - следующий салйд. Используется для построения карты;
-* **swipePrevious** - предыдущий слайд. Используется для построяния карты;
-* **created** - дата создания;
-* **updated** - дата обновления;
+* **id** - unique identifier of the slide in the system; 
+* **revision** - revision. Used for synchronization. With every change of the object the field is increased by one;
+* **name** - the name of the slide in the file system;
+* **pageSource** - the contents of the slide in the Base64 format;
+* **linkedSlides** - connected slides. Used to build a map;
+* **swipeNext** - the next slide. Used to build a map;
+* **swipePrevious** - the previous slide. Used to build a map;
+* **created** - date of creation;
+* **updated** - date updated;
 
 ### Сontentpackage
 
-Получает пакет с ассетами.
+Gets the assets package.
 
-**Запрос:**
+**Request:**
 
 * **Method**: GET
 * **Accept**: application/json
 * **URL**: https://api.storyclm.com/v1/contentpackages/{presentationId}
 * **URL параметры**:
-  * **\{ presentationId:int }** - идентификатор презентации;
+  * **\{ presentationId:int }** - presentation ID;
 
-**Пример**: https://api.storyclm.com/v1/contentpackages/17
+**Example**: https://api.storyclm.com/v1/contentpackages/17
 
-**Пример ответа:**
+**Example of response:**
 
 * **Content Type**: application/json; charset=utf-8
-* **Тело ответа**:
+* **The body of response:**
 
 ```JSON
 {
@@ -641,13 +637,13 @@
   "updated": "2016-12-27T11:09:25.12"
 }
 ```
-**Результат** - объект "Пакет". Объект содержит следующие поля:
+**Result** - the resulting object is "Package". The object contains the following fields:
 
-* **id** - уникальный идентификатор пакета в системе;
-* **revision** - ревизия. Используется для синхронизации. При каждом изменении объекта поле увеличивается на единицу;
-* **blobId** - идентификатор пакета в хранилище;
-* **fileSize** - размер пакета в байтах;
-* **mimeType** - тип файла;
-* **created** - дата создания;
-* **updated** - дата обновления;
-* **sas** - ссылка на скачивание. Ссылка активна один час;
+* **id** - unique identifier of the package in the system; 
+* **revision** - - revision. Used for synchronization. With every change of the object the field is increased by one;
+* **blobId** -  the identifier of the package in thestorage;
+* **fileSize** - the size of the packet in bytes;
+* **mimeType** - the type of the file;
+* **created** - creation date;
+* **updated** - update date;
+* **sas** - download link. The link remains active for one hour;

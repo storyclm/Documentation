@@ -1,12 +1,7 @@
 # StoryCLM
 
-[StoryCLM](http://breffi.ru/ru/storyclm) — разработанная [BREFFI](http://breffi.ru/) диджитал-платформа, позволяющая создавать интерактивные презентации (приложения) c возможностью получения моментальной обратной связи как об изменении восприятия бренда клиентом, так и о работе самого представителя.
+[StoryCLM](http://breffi.ru/en/storyclm) — a digital-platform developed by [BREFFI](http://breffi.ru/), allowing you to create interactive presentations with immediate feedback on the change in the customer perception of the brand and the representative’s activity.
 
-### Разделы документации
+### Table of contents
 
-* [Портал администрирования](PORTAL.md)
-* [Клиентское приложение (PDF)](https://storyclm.com/app/StoryCLM_manual.pdf)
 * [REST API](RESTAPI.md)
-* [StoryCLM.JS](https://github.com/storyclm/storyCLM.js)
-* [.NET SDK](https://github.com/storyclm/.NET-SDK)
-* [Примеры](https://github.com/storyclm/Samples)

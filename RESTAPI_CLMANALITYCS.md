@@ -1,62 +1,62 @@
-﻿# CLM Аналитика
+﻿# CLM Analytics
 
-Данный раздел аналитики относится к демонстрации презентаций и данным, которые собираются во время показа. Работа с аналитикой осуществляется в рамках клиента, в котором созданы учетные данные.
+This section of analytics relates to the demonstration of presentations and the data which are collected during the demonstration. Work with analytics is carried out within the same client in which user accounts were created.
 
-Выборка производится по локальному времени демонстрации презентаций, а не по дате поступления данных в хранилище. Если нужно производить выборки по дате добавления в хранилище, то нужно использовать "Feed" методы, которые позволяют делать обход хранилища по порядку от первых записей и до последних.
+The sample is made according to the local time of the presentation demonstration and not by the date the data arrived in the storage. If needed to sample by date of adding to the storage, then "Feed" methods are required that allow you to search the storage starting from the first entries to the last.
 
-Стоит отметить, что большую часть времени устройство работает офлайн и хранит данные о визитах локально. Это означает, что данные о визитах могут появляться значительно позже фактического показа после того, как у устройства появится доступ к интернет. Стоит учитывать это при выгрузке аналитики.
+It is worth noting that most of the time the device works offline and stores data about visits locally. This means that data on visits can appear much later than the actual demonstration -  after the device gets access to the Internet. One should keep this in mind when uploading analytics.
 
 
-* **Сервер** - api.storyclm.com
-* **Поддерживаемые клиенты** - работающие от имени пользователя, работающие от имени сервиса.
+* **Server** - api.storyclm.com
+* **Supported clients** -  working on behalf of the user, working on behalf of the service. 
 * **Scopes** - CLMAnalitycs-R.
 
 ### Sessions
 
-Получение статистики визитов для клиента по презентациям и пользователям за период.
+Getting visitor statistics on presentations and users for a period of time for the client.
 
-**Модель:**
-  * **SessionId** - Идентификатор сессии.
-  * **PresentationId** - Идентификатор презентации.
-  * **ClientId** - Идентификатор клиента.
-  * **Complete** - Завершенная демонстрация.
-  * **UserId** - Иднетификатор пользователя.
-  * **Latitude** - Широта места проведения демонстрации.
-  * **Longtitude** - Долгота места проведения демонстрации.
-  * **DateTime** - Дата демонстрации. Считается от начала демонстрации.
-  * **Duration** - Продолжительность демонстрации в секундах.
-  * **Address** - Адрес, где производилась демонстрация.
-  * **SlidesCount** - Количество слайдов которые были показаны во время демонстрации.
-  * **TimeZoneOffset** - Часой пояс.
+**Model:**
+  * **SessionId** - Session ID.
+  * **PresentationId** - Presentation ID.
+  * **ClientId** - Client ID.
+  * **Complete** - Completed demonstration.
+  * **UserId** - user ID.
+  * **Latitude** - the latitude of the demonstration venue.
+  * **Longtitude** - the longitude of the demonstration venue.
+  * **DateTime** - the date of the demonstration. Counting starts from the beginning of the demonstration.
+  * **Duration** - the duration of the demonstration in seconds.
+  * **Address** - the address where the demonstration was made.
+  * **SlidesCount** - the number of slides shown during the demonstration.
+  * **TimeZoneOffset** - time zone.
 
-**Запрос**
+**Request**
 
 * **Method:** GET
 * **Accept:** application/json
 * **URL**: https://api.storyclm.com/v1/analitycs/clm/sessions?start={start}&finish={finish}&pids={pIds}&pids={pIds}&uids={uIds}&completeOnly={completeOnly}&skip={skip}&take={take}
-* **URL параметры:**
-  * **{ pIds:int[] }** - Коллекция идентификаторов презентаций. Если презентации не указаны, то выборка будет произведенная по всем презентациям клиента. Необязательный параметр.
-  * **{ uIds:string[] }** - Коллекция идентификаторов пользователей клиента. Если пользователи не указаны, то выборка будет произведена по всем пользователям клиента. Необязательный параметр.
-  * **{ start:unixdate }** - Дата после которой будет произведена выборка. Если дата не указана то выборка будет произведена с начала коллекции. дата в формате Unix Date. Необязательный параметр.
-  * **{ finish:unixdate }** - Дата до которой будет произведена выборка. Если дата не указана то выборка будет произведена до конца коллекции. дата в формате Unix Date. Необязательный параметр.
-  * **{ completeOnly:bool }** - Учитывать только завершенные визиты. Необязательный параметр. По умолчанию будут выбраны все.
-  * **{ skip:int }** - количество записей, которые нужно пропустить. По умолчанию 0.
-  * **{ take:int }** - количество записей, которые нужно выбрать. По умолчанию 100. Максимум 1000.
+* **URL parameters:**
+  * **{ pIds:int[] }** - Collection of presentation identifiers. If no presentations are specified, then the sample will be made for all presentations of the client. Optional parameter.
+  * **{ uIds:string[] }** - Collection of client user IDs. If users are not specified, then the selection will be made for all users of the client. Optional parameter.
+  * **{ start:unixdate }** - The date after which the selection will be made. If the date is not specified, the selection will be made from the beginning of the collection. The date is given in the Unix Date format. Optional parameter.
+  * **{ finish:unixdate }** - The date to which the selection will be made. If the date is not specified, the selection will be made until the end of the collection. The date is given in the Unix Date format. Optional parameter.
+  * **{ completeOnly:bool }** - Only finished visits. Optional parameter. By default, all will be selected.
+  * **{ skip:int }** - the number of entries to skip. The default is 0.
+  * **{ take:int }** - the number of entries to be selected. The default is 100. The maximum is 1000.
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/sessions?skip=0&take=100
+**Example:** https://api.storyclm.com/v1/analitycs/clm/sessions?skip=0&take=100
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/sessions?start=1514764800&finish=1522540800&skip=0&take=100
+**Example:** https://api.storyclm.com/v1/analitycs/clm/sessions?start=1514764800&finish=1522540800&skip=0&take=100
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/sessions?start=1514764800skip=0&take=100
+**Example:** https://api.storyclm.com/v1/analitycs/clm/sessions?start=1514764800skip=0&take=100
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/sessions?uids=b1ae249b-22c4-4b0b-a9ec-66f0521a4715&uids=fe84233b-0f47-
+**Example:** https://api.storyclm.com/v1/analitycs/clm/sessions?uids=b1ae249b-22c4-4b0b-a9ec-66f0521a4715&uids=fe84233b-0f47-
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/sessions?pids=17&pids=4&uids=b1ae249b-22c4-4b0b-a9ec-66f0521a4715&uids=fe84233b-0f47-4a7e-9ad8-bec78f4b5857&skip=0&take=100
+**Example:** https://api.storyclm.com/v1/analitycs/clm/sessions?pids=17&pids=4&uids=b1ae249b-22c4-4b0b-a9ec-66f0521a4715&uids=fe84233b-0f47-4a7e-9ad8-bec78f4b5857&skip=0&take=100
 
-**Пример ответа:**
+**Request example:**
 
 * **Content Type:** application/json; charset=utf-8
-* **Тело ответа:**
+* **Response body:**
 ``` json
 [
     {
@@ -92,49 +92,49 @@
 
 ### Sessions Feed
 
-Получение статистики визитов для клиента по презентациям и пользователем после указанной даты. 
+Getting visitor statistics on presentations and users for a period of time for the client after the specified date.
 
-Данные выбираются не по фактическим дата проведения демонстрации, а по поступлению данных на сервер.
+Data are selected not by the actual date of the demonstration, but by the time data arrived on the server.
 
-**Модель:**
-  * **SessionId** - Идентификатор сессии.
-  * **PresentationId** - Идентификатор презентации.
-  * **ClientId** - Идентификатор клиента.
-  * **Complete** - Завершенная демонстрация.
-  * **UserId** - Иднетификатор пользователя.
-  * **Latitude** - Широта места проведения демонстрации.
-  * **Longtitude** - Долгота места проведения демонстрации.
-  * **DateTime** - Дата демонстрации. Считается от начала демонстрации.
-  * **Duration** - Продолжительность демонстрации в секундах.
-  * **Address** - Адрес, где производилась демонстрация.
-  * **SlidesCount** - Колличество слайдов которые были показаны во время демонстрации.
-  * **TimeZoneOffset** - Часовой пояс.
+**Model:**
+  * **SessionId** - Session ID.
+  * **PresentationId** - Presentation ID.
+  * **ClientId** - Client ID.
+  * **Complete** - Completed demonstration.
+  * **UserId** - user ID.
+  * **Latitude** - the latitude of the demonstration venue.
+  * **Longtitude** - the longitude of the demonstration venue.
+  * **DateTime** - the date of the demonstration. Counting starts from the beginning of the demonstration.
+  * **Duration** - the duration of the demonstration in seconds.
+  * **Address** - the address where the demonstration was made.
+  * **SlidesCount** - the number of slides shown during the demonstration.
+  * **TimeZoneOffset** - time zone.
 
-**Запрос**
+**Request**
 
 * **Method:** GET
 * **Accept:** application/json
 * **URL**: https://api.storyclm.com/v1/analitycs/clm/sessions/feed?date={date}&pids={pIds}&pids={pIds}&uids={uIds}&completeOnly={completeOnly}&skip={skip}&take={take}
-* **URL параметры:**
-  * **{ pIds:int[] }** - Коллекция идентификаторов презентаций. Если презентации не указаны, то выборка будет произведенная по всем презентациям клиента. Необязательный параметр.
-  * **{ uIds:string[] }** - Коллекция идентификаторов пользователей клиента. Если пользователи не указаны, то выборка будет произведена по всем пользователям клиента. Необязательный параметр.
-  * **{ date:unixdate }** - Дата после которой будет произведена выборка. Если дата не указана, то выборка будет произведена с начала коллекции. дата в формате Unix Date. Необязательный параметр.
-  * **{ completeOnly:bool }** - Учитывать только завершенные визиты. Необязательный параметр. По умолчанию будут выбраны все.
-  * **{ skip:int }** - количество записей, которые нужно пропустить. По умолчанию 0.
-  * **{ take:int }** - количество записей, которые нужно выбрать. По умолчанию 100. Максимум 1000.
+* **URL parameters:**
+  * **{ pIds:int[] }** - Collection of presentation identifiers. If no presentations are specified, then the sample will be made for all presentations of the client. Optional parameter.
+  * **{ uIds:string[] }** - Collection of client user IDs. If users are not specified, then the selection will be made for all users of the client. Optional parameter.
+  * **{ date:unixdate }** - The date after which the selection will be made. If the date is not specified, the selection will be made from the beginning of the collection. The date is given in the Unix Date format. Optional parameter.
+  * **{ completeOnly:bool }** - Only finished visits. Optional parameter. By default, all will be selected.
+  * **{ skip:int }** - the number of entries to skip. The default is 0.
+  * **{ take:int }** - the number of entries to be selected. The default is 100. The maximum is 1000.
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/sessions/feed?skip=0&take=100
+**Example:** https://api.storyclm.com/v1/analitycs/clm/sessions/feed?skip=0&take=100
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/sessions/feed?date=1514764800&skip=0&take=100
+**Example:** https://api.storyclm.com/v1/analitycs/clm/sessions/feed?date=1514764800&skip=0&take=100
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/sessions/feed?uids=b1ae249b-22c4-4b0b-a9ec-66f0521a4715&uids=fe84233b-0f47-
+**Example:** https://api.storyclm.com/v1/analitycs/clm/sessions/feed?uids=b1ae249b-22c4-4b0b-a9ec-66f0521a4715&uids=fe84233b-0f47-
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/sessions/feed?pids=17&pids=4&uids=b1ae249b-22c4-4b0b-a9ec-66f0521a4715&uids=fe84233b-0f47-4a7e-9ad8-bec78f4b5857&skip=0&take=100
+**Example:** https://api.storyclm.com/v1/analitycs/clm/sessions/feed?pids=17&pids=4&uids=b1ae249b-22c4-4b0b-a9ec-66f0521a4715&uids=fe84233b-0f47-4a7e-9ad8-bec78f4b5857&skip=0&take=100
 
-**Пример ответа:**
+**Request example:**
 
 * **Content Type:** application/json; charset=utf-8
-* **Тело ответа:**
+* **Response body:**
 ``` json
 [
     {
@@ -167,85 +167,83 @@
     }
 ]
 ```
-
 ### Sessions Count
 
-Получение количества визитов для клиента по презентациям и пользователям за период времени.
+Obtaining the number of visits for the client on presentations and users over a period of time.
 
-**Запрос**
+**Request**
 
 * **Method:** GET
 * **Accept:** application/json
 * **URL**: https://api.storyclm.com/v1/analitycs/clm/sessions/count?start={start}&finish={finish}&pids={pIds}&pids={pIds}&uids={uIds}&completeOnly={completeOnly}
-* **URL параметры:**
-  * **{ pIds:int[] }** - Коллекция идентификаторов презентаций. Если презентации не указаны, то выборка будет произведенная по всем презентациям клиента. Необязательный параметр.
-  * **{ uIds:string[] }** - Коллекция идентификаторов пользователей клиента. Если пользователи не указаны, то выборка будет произведена по всем пользователям клиента. Необязательный параметр.
-  * **{ start:unixdate }** - Дата после которой будет произведена выборка. Если дата не указана, то выборка будет произведена с начала коллекции. дата в формате Unix Date. Необязательный параметр.
-  * **{ finish:unixdate }** - Дата до которой будет произведена выборка. Если дата не указана, то выборка будет произведена до конца коллекции. дата в формате Unix Date. Необязательный параметр.
-  * **{ completeOnly:bool }** - Учитывать только завершенные визиты. Необязательный параметр. По умолчанию будут выбраны все.
+* **URL parameters:**
+  * **{ pIds:int[] }** - Collection of presentation identifiers. If no presentations are specified, then the sample will be made for all presentations of the client. Optional parameter.
+  * **{ uIds:string[] }** - Collection of client user IDs. If users are not specified, then the selection will be made for all users of the client. Optional parameter.
+  * **{ start:unixdate }** - The date after which the selection will be made. If the date is not specified, the selection will be made from the beginning of the collection. The date is given in the Unix Date format. Optional parameter.
+  * **{ finish:unixdate }** - The date to which the selection will be made. If the date is not specified, then the selection will be made until the end of the collection. The date is given in the Unix Date format. Optional parameter.
+  * **{ completeOnly:bool }** - Only finished visits. Optional parameter. By default, all will be selected.
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/sessions/count
+**Example:** https://api.storyclm.com/v1/analitycs/clm/sessions/count
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/sessions/count?start=1514764800&finish=1522540800
+**Example:** https://api.storyclm.com/v1/analitycs/clm/sessions/count?start=1514764800&finish=1522540800
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/sessions/count?start=1514764800
+**Example:** https://api.storyclm.com/v1/analitycs/clm/sessions/count?start=1514764800
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/sessions/count?uids=b1ae249b-22c4-4b0b-a9ec-66f0521a4715&uids=fe84233b-0f47
+**Example:** https://api.storyclm.com/v1/analitycs/clm/sessions/count?uids=b1ae249b-22c4-4b0b-a9ec-66f0521a4715&uids=fe84233b-0f47
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/sessions/count?pids=17&pids=4&uids=b1ae249b-22c4-4b0b-a9ec-66f0521a4715&uids=fe84233b-0f47-4a7e-9ad8-bec78f4b5857
+**Example:** https://api.storyclm.com/v1/analitycs/clm/sessions/count?pids=17&pids=4&uids=b1ae249b-22c4-4b0b-a9ec-66f0521a4715&uids=fe84233b-0f47-4a7e-9ad8-bec78f4b5857
 
-**Пример ответа:**
+**Request example:**
 
 * **Content Type:** application/json; charset=utf-8
-* **Тело ответа:**
+* **Response body:**
 ``` json
 {
     "count": 2822
 }
 ```
-
 ### Custom Events
 
-Получение кастомных событий презентаций по пользователям за период.
+Receiving custom presentations events for users for a period of time.
 
-**Модель:**
-  * **SessionId** - Идентификатор сессии.
-  * **PresentationId** - Идентификатор презентации.
-  * **ClientId** - Идентификатор клиента.
-  * **UserId** - Иднетификатор пользователя.
-  * **Key** - Ключ.
-  * **Value** - Значение.
-  * **Created** - Дата демонстрации. Считается от начала демонстрации.
-  * **TimeZoneOffset** - Часой пояс.
+**Model:**
+  * **SessionId** - Session ID.
+  * **PresentationId** - Presentation ID.
+  * **ClientId** - Client ID.
+  * **UserId** - user ID.
+  * **Key** - Key.
+  * **Value** - Value.
+  * **Created** - the date of the demonstration. Counting starts from the beginning of the demonstration.
+  * **TimeZoneOffset** - time zone.
 
-**Запрос**
+**Request**
 
 * **Method:** GET
 * **Accept:** application/json
 * **URL**: https://api.storyclm.com/v1/analitycs/clm/customevents?start={start}&finish={finish}&pids={pIds}&pids={pIds}&uids={uIds}&completeOnly={completeOnly}&skip={skip}&take={take}
-* **URL параметры:**
-  * **{ pIds:int[] }** - Коллекция идентификаторов презентаций. Если презентации не указаны, то выборка будет произведенная по всем презентациям клиента. Необязательный параметр.
-  * **{ uIds:string[] }** - Коллекция идентификаторов пользователей клиента. Если пользователи не указаны, то выборка будет произведена по всем пользователям клиента. Необязательный параметр.
-  * **{ start:unixdate }** - Дата после которой будет произведена выборка. Если дата не указана, то выборка будет произведена с начала коллекции. дата в формате Unix Date. Необязательный параметр.
-  * **{ finish:unixdate }** - Дата до которой будет произведена выборка. Если дата не указана, то выборка будет произведена до конца коллекции. дата в формате Unix Date. Необязательный параметр.
-  * **{ completeOnly:bool }** - Учитывать только завершенные визиты. Необязательный параметр. По умолчанию будут выбраны все.
-  * **{ skip:int }** - количество записей, которые нужно пропустить. По умолчанию 0.
-  * **{ take:int }** - количество записей, которые нужно выбрать. По умолчанию 100. Максимум 1000.
+* **URL parameters:**
+  * **{ pIds:int[] }** - Collection of presentation identifiers. If no presentations are specified, then the sample will be made for all presentations of the client. Optional parameter.
+  * **{ uIds:string[] }** - Collection of client user IDs. If users are not specified, then the selection will be made for all users of the client. Optional parameter.
+  * **{ start:unixdate }** - The date after which the selection will be made. If the date is not specified, the selection will be made from the beginning of the collection. The date is given in the Unix Date format. Optional parameter.
+  * **{ finish:unixdate }** - The date to which the selection will be made. If the date is not specified, then the selection will be made until the end of the collection. The date is given in the Unix Date format. Optional parameter.
+  * **{ completeOnly:bool }** - Only finished visits. Optional parameter. By default, all will be selected.
+  * **{ skip:int }** - the number of entries to skip. The default is 0.
+  * **{ take:int }** - the number of entries to be selected. The default is 100. The maximum is 1000.
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/customevents?skip=0&take=100
+**Example:** https://api.storyclm.com/v1/analitycs/clm/customevents?skip=0&take=100
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/customevents?start=1514764800&finish=1522540800&skip=0&take=100
+**Example:** https://api.storyclm.com/v1/analitycs/clm/customevents?start=1514764800&finish=1522540800&skip=0&take=100
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/customevents?start=1514764800skip=0&take=100
+**Example:** https://api.storyclm.com/v1/analitycs/clm/customevents?start=1514764800skip=0&take=100
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/customevents?uids=b1ae249b-22c4-4b0b-a9ec-66f0521a4715&uids=fe84233b-0f47-
+**Example:** https://api.storyclm.com/v1/analitycs/clm/customevents?uids=b1ae249b-22c4-4b0b-a9ec-66f0521a4715&uids=fe84233b-0f47-
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/customevents?pids=17&pids=4&uids=b1ae249b-22c4-4b0b-a9ec-66f0521a4715&uids=fe84233b-0f47-4a7e-9ad8-bec78f4b5857&skip=0&take=100
+**Example:** https://api.storyclm.com/v1/analitycs/clm/customevents?pids=17&pids=4&uids=b1ae249b-22c4-4b0b-a9ec-66f0521a4715&uids=fe84233b-0f47-4a7e-9ad8-bec78f4b5857&skip=0&take=100
 
-**Пример ответа:**
+**Request example:**
 
 * **Content Type:** application/json; charset=utf-8
-* **Тело ответа:**
+* **Response body:**
 ``` json
 [
     {
@@ -270,47 +268,46 @@
     }
 ]
 ```
-
 ### Custom Events Feed
 
-Получение кастомных событий презентаций по пользователям после указанной даты.
-Данные выбираются не по фактическим датам проведения демонстрации, а по поступлению данных на сервер.
+Receiving custom presentations events for users after the specified date. 
+The data are selected not by the actual dates of the demonstration, but by the time of data arrival on the server.
 
-**Модель:**
-  * **SessionId** - Идентификатор сессии.
-  * **PresentationId** - Идентификатор презентации.
-  * **ClientId** - Идентификатор клиента.
-  * **UserId** - Иднетификатор пользователя.
-  * **Key** - Ключ.
-  * **Value** - Значение.
-  * **Created** - Дата демонстрации. Считается от начала демонстрации.
-  * **TimeZoneOffset** - Часой пояс.
+**Model:**
+  * **SessionId** - Session ID.
+  * **PresentationId** - Presentation ID.
+  * **ClientId** - Client ID.
+  * **UserId** - user ID.
+  * **Key** - Key.
+  * **Value** - Value.
+  * **Created** - the date of the demonstration. Counting starts from the beginning of the demonstration.
+  * **TimeZoneOffset** - time zone.
 
-**Запрос**
+**Request**
 
 * **Method:** GET
 * **Accept:** application/json
 * **URL**: https://api.storyclm.com/v1/analitycs/clm/customevents/feed?date={date}&pids={pIds}&pids={pIds}&uids={uIds}&completeOnly={completeOnly}&skip={skip}&take={take}
-* **URL параметры:**
-  * **{ pIds:int[] }** - Коллекция идентификаторов презентаций. Если презентации не указаны, то выборка будет произведенная по всем презентациям клиента. Необязательный параметр.
-  * **{ uIds:string[] }** - Коллекция идентификаторов пользователей клиента. Если пользователи не указаны, то выборка будет произведена по всем пользователям клиента. Необязательный параметр.
-  * **{ date:unixdate }** - Дата после которой будет произведена выборка. Если дата не указана, то выборка будет произведена с начала коллекции. дата в формате Unix Date. Необязательный параметр.
-  * **{ completeOnly:bool }** - Учитывать только завершенные визиты. Необязательный параметр. По умолчанию будут выбраны все.
-  * **{ skip:int }** - количество записей, которые нужно пропустить. По умолчанию 0.
-  * **{ take:int }** - количество записей, которые нужно выбрать. По умолчанию 100. Максимум 1000.
+* **URL parameters:**
+  * **{ pIds:int[] }** - Collection of presentation identifiers. If no presentations are specified, then the sample will be made for all presentations of the client. Optional parameter.
+  * **{ uIds:string[] }** - Collection of client user IDs. If users are not specified, then the selection will be made for all users of the client. Optional parameter.
+  * **{ date:unixdate }** - The date after which the selection will be made. If the date is not specified, the selection will be made from the beginning of the collection. The date is given in the Unix Date format. Optional parameter.
+  * **{ completeOnly:bool }** - Only finished visits. Optional parameter. By default, all will be selected.
+  * **{ skip:int }** - the number of entries to skip. The default is 0.
+  * **{ take:int }** - the number of entries to be selected. The default is 100. The maximum is 1000.
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/customevents/feed?skip=0&take=100
+**Example:** https://api.storyclm.com/v1/analitycs/clm/customevents/feed?skip=0&take=100
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/customevents/feed?date=1514764800&skip=0&take=100
+**Example:** https://api.storyclm.com/v1/analitycs/clm/customevents/feed?date=1514764800&skip=0&take=100
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/customevents/feed?uids=b1ae249b-22c4-4b0b-a9ec-66f0521a4715&uids=fe84233b-0f47-
+**Example:** https://api.storyclm.com/v1/analitycs/clm/customevents/feed?uids=b1ae249b-22c4-4b0b-a9ec-66f0521a4715&uids=fe84233b-0f47-
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/customevents/feed?pids=17&pids=4&uids=b1ae249b-22c4-4b0b-a9ec-66f0521a4715&uids=fe84233b-0f47-4a7e-9ad8-bec78f4b5857&skip=0&take=100
+**Example:** https://api.storyclm.com/v1/analitycs/clm/customevents/feed?pids=17&pids=4&uids=b1ae249b-22c4-4b0b-a9ec-66f0521a4715&uids=fe84233b-0f47-4a7e-9ad8-bec78f4b5857&skip=0&take=100
 
-**Пример ответа:**
+**Request example:**
 
 * **Content Type:** application/json; charset=utf-8
-* **Тело ответа:**
+* **Response body:**
 ``` json
 [
     {
@@ -338,81 +335,80 @@
 
 ### Custom Events Count
 
-Получение количества визитов для клиента по презентациям и пользователям за период.
+Obtaining the number of visits for the client on presentations and users over a period of time.
 
-**Запрос**
+**Request**
 
 * **Method:** GET
 * **Accept:** application/json
 * **URL**: https://api.storyclm.com/v1/analitycs/clm/customevents/count?start={start}&finish={finish}&pids={pIds}&pids={pIds}&uids={uIds}&completeOnly={completeOnly}
-* **URL параметры:**
-  * **{ pIds:int[] }** - Коллекция идентификаторов презентаций. Если презентации не указаны, то выборка будет произведенная по всем презентациям клиента. Необязательный параметр.
-  * **{ uIds:string[] }** - Коллекция идентификаторов пользователей клиента. Если пользователи не указаны, то выборка будет произведена по всем пользователям клиента. Необязательный параметр.
-  * **{ start:unixdate }** - Дата после которой будет произведена выборка. Если дата не указана, то выборка будет произведена с начала коллекции. дата в формате Unix Date. Необязательный параметр.
-  * **{ finish:unixdate }** - Дата до которой будет произведена выборка. Если дата не указана, то выборка будет произведена до конца коллекции. дата в формате Unix Date. Необязательный параметр.
-  * **{ completeOnly:bool }** - Учитывать только завершенные визиты. Необязательный параметр. По умолчанию будут выбраны все.
+* **URL parameters:**
+  * **{ pIds:int[] }** - Collection of presentation identifiers. If no presentations are specified, then the sample will be made for all presentations of the client. Optional parameter.
+  * **{ uIds:string[] }** - Collection of client user IDs. If users are not specified, then the selection will be made for all users of the client. Optional parameter.
+  * **{ start:unixdate }** - The date after which the selection will be made. If the date is not specified, the selection will be made from the beginning of the collection. The date is given in the Unix Date format. Optional parameter.
+  * **{ finish:unixdate }** - The date to which the selection will be made. If the date is not specified, then the selection will be made until the end of the collection. The date is given in the Unix Date format. Optional parameter.
+  * **{ completeOnly:bool }** - Only finished visits. Optional parameter. By default, all will be selected.
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/customevents/count
+**Example:** https://api.storyclm.com/v1/analitycs/clm/customevents/count
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/customevents/count?start=1514764800&finish=1522540800
+**Example:** https://api.storyclm.com/v1/analitycs/clm/customevents/count?start=1514764800&finish=1522540800
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/customevents/count?start=1514764800
+**Example:** https://api.storyclm.com/v1/analitycs/clm/customevents/count?start=1514764800
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/customevents/count?uids=b1ae249b-22c4-4b0b-a9ec-66f0521a4715&uids=fe84233b-0f47
+**Example:** https://api.storyclm.com/v1/analitycs/clm/customevents/count?uids=b1ae249b-22c4-4b0b-a9ec-66f0521a4715&uids=fe84233b-0f47
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/customevents/count?pids=17&pids=4&uids=b1ae249b-22c4-4b0b-a9ec-66f0521a4715&uids=fe84233b-0f47-4a7e-9ad8-bec78f4b5857
+**Example:** https://api.storyclm.com/v1/analitycs/clm/customevents/count?pids=17&pids=4&uids=b1ae249b-22c4-4b0b-a9ec-66f0521a4715&uids=fe84233b-0f47-4a7e-9ad8-bec78f4b5857
 
-**Пример ответа:**
+**Request example:**
 
 * **Content Type:** application/json; charset=utf-8
-* **Тело ответа:**
+* **Response body:**
 ``` json
 {
     "count": 91
 }
 ```
-
 ### Slides Demonstrations
 
-Получение статистики демонстраций слайдов для клиента по презентациям и пользователям за период.
+Obtaining the statistics on slides demonstrations for the client on presentations and users over a period of time.
 
-**Модель:**
-  * **SessionId** - Идентификатор сессии.
-  * **PresentationId** - Идентификатор презентации.
-  * **ClientId** - Идентификатор клиента.
-  * **SlideName** - Название слайда.
-  * **UserId** - Идентификатор пользователя.
-  * **Duration** - Продолжительность в секундах.
-  * **Navigation** - Тип навигации.
-  * **DateTime** - Дата демонстрации. Считается от начала демонстрации.
+**Model:**
+  * **SessionId** - Session ID.
+  * **PresentationId** - Presentation ID.
+  * **ClientId** - Client ID.
+  * **SlideName** - Slide ID.
+  * **UserId** - User ID.
+  * **Duration** - Duration in seconds.
+  * **Navigation** - Navigation type.
+  * **DateTime** - the date of the demonstration. Counting starts from the beginning of the demonstration.
 
-**Запрос**
+**Request**
 
 * **Method:** GET
 * **Accept:** application/json
 * **URL**: https://api.storyclm.com/v1/analitycs/clm/slidesdemonstrations?start={start}&finish={finish}&pids={pIds}&pids={pIds}&uids={uIds}&skip={skip}&take={take}
-* **URL параметры:**
-  * **{ pIds:int[] }** - Коллекция идентификаторов презентаций. Если презентации не указаны, то выборка будет произведенная по всем презентациям клиента. Необязательный параметр.
-  * **{ uIds:string[] }** - Коллекция идентификаторов пользователей клиента. Если пользователи не указаны, то выборка будет произведена по всем пользователям клиента. Необязательный параметр.
-  * **{ start:unixdate }** - Дата после которой будет произведена выборка. Если дата не указана, то выборка будет произведена с начала коллекции. дата в формате Unix Date. Необязательный параметр.
-  * **{ finish:unixdate }** - Дата до которой будет произведена выборка. Если дата не указана, то выборка будет произведена до конца коллекции. дата в формате Unix Date. Необязательный параметр.
-  * **{ skip:int }** - количество записей, которые нужно пропустить. По умолчанию 0.
-  * **{ take:int }** - количество записей, которые нужно выбрать. По умолчанию 100. Максимум 1000.
+* **URL parameters:**
+  * **{ pIds:int[] }** - Collection of presentation identifiers. If no presentations are specified, then the sample will be made for all presentations of the client. Optional parameter.
+  * **{ uIds:string[] }** - Collection of client user IDs. If users are not specified, then the selection will be made for all users of the client. Optional parameter.
+  * **{ start:unixdate }** - The date after which the selection will be made. If the date is not specified, the selection will be made from the beginning of the collection. The date is given in the Unix Date format. Optional parameter.
+  * **{ finish:unixdate }** - The date to which the selection will be made. If the date is not specified, then the selection will be made until the end of the collection. The date is given in the Unix Date format. Optional parameter.
+  * **{ skip:int }** - the number of entries to skip. The default is 0.
+  * **{ take:int }** - the number of entries to be selected. The default is 100. The maximum is 1000.
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/slidesdemonstrations?skip=0&take=100
+**Example:** https://api.storyclm.com/v1/analitycs/clm/slidesdemonstrations?skip=0&take=100
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/slidesdemonstrations?start=1514764800&finish=1522540800&skip=0&take=100
+**Example:** https://api.storyclm.com/v1/analitycs/clm/slidesdemonstrations?start=1514764800&finish=1522540800&skip=0&take=100
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/slidesdemonstrations?start=1514764800skip=0&take=100
+**Example:** https://api.storyclm.com/v1/analitycs/clm/slidesdemonstrations?start=1514764800skip=0&take=100
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/slidesdemonstrations?uids=b1ae249b-22c4-4b0b-a9ec-66f0521a4715&uids=fe84233b-0f47-
+**Example:** https://api.storyclm.com/v1/analitycs/clm/slidesdemonstrations?uids=b1ae249b-22c4-4b0b-a9ec-66f0521a4715&uids=fe84233b-0f47-
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/slidesdemonstrations?pids=17&pids=4&uids=b1ae249b-22c4-4b0b-a9ec-66f0521a4715&uids=fe84233b-0f47-4a7e-9ad8-bec78f4b5857&skip=0&take=100
+**Example:** https://api.storyclm.com/v1/analitycs/clm/slidesdemonstrations?pids=17&pids=4&uids=b1ae249b-22c4-4b0b-a9ec-66f0521a4715&uids=fe84233b-0f47-4a7e-9ad8-bec78f4b5857&skip=0&take=100
 
-**Пример ответа:**
+**Request example:**
 
 * **Content Type:** application/json; charset=utf-8
-* **Тело ответа:**
+* **Response body:**
 ``` json
 [
     {
@@ -437,46 +433,46 @@
     }
 ]
 ```
-
 ### Slides Demonstrations Feed
 
-Получение статистики демонстраций слайдов для клиента по презентациям и пользователям после указанной даты.
-Данные выбираются не по фактическим дата проведения демонстрации, а по поступлению данных на сервер.
+Getting slides demonstration statistics on presentations and users for a period of time for the client after the specified date.
 
-**Модель:**
-  * **SessionId** - Идентификатор сессии.
-  * **PresentationId** - Идентификатор презентации.
-  * **ClientId** - Идентификатор клиента.
+Data are selected not by the actual date of the demonstration, but by the time data arrived on the server.
+
+**Model:**
+  * **SessionId** - Session ID.
+  * **PresentationId** - Presentation ID.
+  * **ClientId** - Client ID.
   * **SlideName** - Название слайда.
-  * **UserId** - Идентификатор пользователя.
-  * **Duration** - Продолжительность в секундах.
-  * **Navigation** - Тип навигации.
-  * **DateTime** - Дата демонстрации. Считается от начала демонстрации.
+  * **UserId** - User ID.
+  * **Duration** - Duration in seconds.
+  * **Navigation** - Navigation type.
+  * **DateTime** - the date of the demonstration. Counting starts from the beginning of the demonstration.
 
-**Запрос**
+**Request**
 
 * **Method:** GET
 * **Accept:** application/json
 * **URL**: https://api.storyclm.com/v1/analitycs/clm/slidesdemonstrations/feed?date={start}&pids={pIds}&pids={pIds}&uids={uIds}&completeOnly={completeOnly}&skip={skip}&take={take}
-* **URL параметры:**
-  * **{ pIds:int[] }** - Коллекция идентификаторов презентаций. Если презентации не указаны, то выборка будет произведенная по всем презентациям клиента. Необязательный параметр.
-  * **{ uIds:string[] }** - Коллекция идентификаторов пользователей клиента. Если пользователи не указаны, то выборка будет произведена по всем пользователям клиента. Необязательный параметр.
-  * **{ date:unixdate }** - Дата после которой будет произведена выборка. Если дата не указана, то выборка будет произведена с начала коллекции. дата в формате Unix Date. Необязательный параметр.
-  * **{ skip:int }** - количество записей, которые нужно пропустить. По умолчанию 0.
-  * **{ take:int }** - количество записей, которые нужно выбрать. По умолчанию 100. Максимум 1000.
+* **URL parameters:**
+  * **{ pIds:int[] }** - Collection of presentation identifiers. If no presentations are specified, then the sample will be made for all presentations of the client. Optional parameter.
+  * **{ uIds:string[] }** - Collection of client user IDs. If users are not specified, then the selection will be made for all users of the client. Optional parameter.
+  * **{ date:unixdate }** - The date after which the selection will be made. If the date is not specified, the selection will be made from the beginning of the collection. The date is given in the Unix Date format. Optional parameter.
+  * **{ skip:int }** - the number of entries to skip. The default is 0.
+  * **{ take:int }** - the number of entries to be selected. The default is 100. The maximum is 1000.
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/slidesdemonstrations/feed?skip=0&take=100
+**Example:** https://api.storyclm.com/v1/analitycs/clm/slidesdemonstrations/feed?skip=0&take=100
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/slidesdemonstrations/feed?date=1514764800&skip=0&take=100
+**Example:** https://api.storyclm.com/v1/analitycs/clm/slidesdemonstrations/feed?date=1514764800&skip=0&take=100
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/slidesdemonstrations/feed?uids=b1ae249b-22c4-4b0b-a9ec-66f0521a4715&uids=fe84233b-0f47-
+**Example:** https://api.storyclm.com/v1/analitycs/clm/slidesdemonstrations/feed?uids=b1ae249b-22c4-4b0b-a9ec-66f0521a4715&uids=fe84233b-0f47-
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/slidesdemonstrations/feed?pids=17&pids=4&uids=b1ae249b-22c4-4b0b-a9ec-66f0521a4715&uids=fe84233b-0f47-4a7e-9ad8-bec78f4b5857&skip=0&take=100
+**Example:** https://api.storyclm.com/v1/analitycs/clm/slidesdemonstrations/feed?pids=17&pids=4&uids=b1ae249b-22c4-4b0b-a9ec-66f0521a4715&uids=fe84233b-0f47-4a7e-9ad8-bec78f4b5857&skip=0&take=100
 
-**Пример ответа:**
+**Request example:**
 
 * **Content Type:** application/json; charset=utf-8
-* **Тело ответа:**
+* **Response body:**
 ``` json
 [
     {
@@ -504,33 +500,33 @@
 
 ### Slides Demonstrations Count
 
-Получение количества демонстраций слайдов для клиента по презентациям и пользователям за период.
+Obtaining the number of slides demonstrations for the client on presentations and users over a period of time.
 
-**Запрос**
+**Request**
 
 * **Method:** GET
 * **Accept:** application/json
 * **URL**: https://api.storyclm.com/v1/analitycs/clm/slidesdemonstrations/count?start={start}&finish={finish}&pids={pIds}&pids={pIds}&uids={uIds}
-* **URL параметры:**
-  * **{ pIds:int[] }** - Коллекция идентификаторов презентаций. Если презентации не указаны, то выборка будет произведенная по всем презентациям клиента. Необязательный параметр.
-  * **{ uIds:string[] }** - Коллекция идентификаторов пользователей клиента. Если пользователи не указаны, то выборка будет произведена по всем пользователям клиента. Необязательный параметр.
-  * **{ start:unixdate }** - Дата после которой будет произведена выборка. Если дата не указана, то выборка будет произведена с начала коллекции. дата в формате Unix Date. Необязательный параметр.
-  * **{ finish:unixdate }** - Дата до которой будет произведена выборка. Если дата не указана, то выборка будет произведена до конца коллекции. дата в формате Unix Date. Необязательный параметр.
+* **URL parameters:**
+  * **{ pIds:int[] }** - Collection of presentation identifiers. If no presentations are specified, then the sample will be made for all presentations of the client. Optional parameter.
+  * **{ uIds:string[] }** - Collection of client user IDs. If users are not specified, then the selection will be made for all users of the client. Optional parameter.
+  * **{ start:unixdate }** - The date after which the selection will be made. If the date is not specified, the selection will be made from the beginning of the collection. The date is given in the Unix Date format. Optional parameter.
+  * **{ finish:unixdate }** - The date to which the selection will be made. If the date is not specified, then the selection will be made until the end of the collection. The date is given in the Unix Date format. Optional parameter.
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/slidesdemonstrations/count
+**Example:** https://api.storyclm.com/v1/analitycs/clm/slidesdemonstrations/count
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/slidesdemonstrations/count?start=1514764800&finish=1522540800
+**Example:** https://api.storyclm.com/v1/analitycs/clm/slidesdemonstrations/count?start=1514764800&finish=1522540800
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/slidesdemonstrations/count?start=1514764800
+**Example:** https://api.storyclm.com/v1/analitycs/clm/slidesdemonstrations/count?start=1514764800
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/slidesdemonstrations/count?uids=b1ae249b-22c4-4b0b-a9ec-66f0521a4715&uids=fe84233b-0f47
+**Example:** https://api.storyclm.com/v1/analitycs/clm/slidesdemonstrations/count?uids=b1ae249b-22c4-4b0b-a9ec-66f0521a4715&uids=fe84233b-0f47
 
-**Пример:** https://api.storyclm.com/v1/analitycs/clm/slidesdemonstrations/count?pids=17&pids=4&uids=b1ae249b-22c4-4b0b-a9ec-66f0521a4715&uids=fe84233b-0f47-4a7e-9ad8-bec78f4b5857
+**Example:** https://api.storyclm.com/v1/analitycs/clm/slidesdemonstrations/count?pids=17&pids=4&uids=b1ae249b-22c4-4b0b-a9ec-66f0521a4715&uids=fe84233b-0f47-4a7e-9ad8-bec78f4b5857
 
-**Пример ответа:**
+**Request example:**
 
 * **Content Type:** application/json; charset=utf-8
-* **Тело ответа:**
+* **Response body:**
 ``` json
 {
     "count": 100
